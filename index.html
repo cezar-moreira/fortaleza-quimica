@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#06263B">
+<title>Fortaleza Química — Canal Digital (Protótipo)</title>
+<style>
+:root{
+  --navy:#06263B; --navy2:#0B3A56; --azul:#0E7FA8; --ciano:#12B5CE;
+  --agua:#E8F6FA; --agua2:#D2ECF4; --linha:#DCE6EC;
+  --verde:#15803D; --verde-bg:#DCFCE7; --amar:#B45309; --amar-bg:#FEF3C7;
+  --verm:#B91C1C; --verm-bg:#FEE2E2; --zap:#25D366;
+  --txt:#0F2430; --txt2:#4A6373; --branco:#fff; --fundo:#F4F8FA;
+  --r:14px; --sombra:0 1px 3px rgba(6,38,59,.09),0 6px 20px rgba(6,38,59,.06);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  background:var(--fundo); color:var(--txt); font-size:16px; line-height:1.55;
+  -webkit-font-smoothing:antialiased; padding-bottom:96px;
+}
+img{max-width:100%}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:none;background:none}
+a{color:var(--azul)}
+
+/* ---------- FAIXA PROTÓTIPO ---------- */
+.demo-bar{
+  background:#111827;color:#F9FAFB;font-size:12.5px;padding:7px 14px;text-align:center;
+  letter-spacing:.2px
+}
+.demo-bar b{color:var(--ciano)}
+
+/* ---------- TOPO STICKY ---------- */
+.topo{position:sticky;top:0;z-index:60;box-shadow:0 2px 14px rgba(6,38,59,.22)}
+
+/* ---------- HEADER ---------- */
+header{
+  background:linear-gradient(160deg,var(--navy) 0%,var(--navy2) 100%);
+  color:#fff
+}
+.head-top{display:flex;align-items:center;gap:12px;padding:11px 16px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800;font-size:17px;letter-spacing:-.3px;line-height:1.1}
+.logo .drop{
+  width:34px;height:34px;border-radius:10px;flex:0 0 34px;
+  background:linear-gradient(150deg,var(--ciano),#0A6E93);
+  display:grid;place-items:center;font-size:18px
+}
+.logo small{display:block;font-size:10.5px;font-weight:600;color:#9FD4E6;letter-spacing:.8px}
+.head-acoes{margin-left:auto;display:flex;align-items:center;gap:8px}
+.icone-btn{
+  width:42px;height:42px;border-radius:11px;background:rgba(255,255,255,.11);
+  display:grid;place-items:center;font-size:18px;position:relative;color:#fff
+}
+.icone-btn:active{background:rgba(255,255,255,.2)}
+.badge{
+  position:absolute;top:-4px;right:-4px;background:var(--ciano);color:var(--navy);
+  font-size:11px;font-weight:800;min-width:20px;height:20px;border-radius:10px;
+  display:grid;place-items:center;padding:0 5px;border:2px solid var(--navy)
+}
+.busca-wrap{padding:0 16px 11px}
+.busca{
+  display:flex;align-items:center;gap:9px;background:#fff;border-radius:12px;padding:11px 14px
+}
+.busca input{border:none;outline:none;flex:1;font-size:16px;background:none}
+.busca span{font-size:17px;color:var(--txt2)}
+
+/* perfil */
+.perfil-bar{background:rgba(0,0,0,.18);padding:8px 16px;display:flex;align-items:center;gap:8px;overflow-x:auto;scrollbar-width:none}
+.perfil-bar::-webkit-scrollbar{display:none}
+.perfil-bar em{font-style:normal;font-size:11.5px;color:#9FD4E6;font-weight:700;letter-spacing:.5px;white-space:nowrap}
+.chip{
+  background:rgba(255,255,255,.12);color:#DCEEF5;border-radius:999px;padding:6px 13px;
+  font-size:13px;font-weight:600;white-space:nowrap;border:1px solid transparent
+}
+.chip.on{background:var(--ciano);color:var(--navy);font-weight:800;border-color:#fff3}
+
+/* ---------- ABAS ---------- */
+nav.abas{
+  display:flex;background:#fff;border-bottom:1px solid var(--linha);
+  overflow-x:auto;scrollbar-width:none
+}
+nav.abas::-webkit-scrollbar{display:none}
+nav.abas button{
+  flex:1 0 auto;padding:13px 17px;font-size:13.5px;font-weight:700;color:var(--txt2);
+  border-bottom:3px solid transparent;white-space:nowrap;display:flex;align-items:center;gap:6px
+}
+nav.abas button.on{color:var(--azul);border-bottom-color:var(--ciano);background:var(--agua)}
+
+/* ---------- LAYOUT ---------- */
+.wrap{max-width:1180px;margin:0 auto;padding:18px 16px}
+.view{display:none;animation:sobe .28s ease}
+.view.on{display:block}
+@keyframes sobe{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+h2.tit{font-size:20px;font-weight:800;letter-spacing:-.4px;margin:26px 0 4px;display:flex;align-items:center;gap:9px}
+h2.tit:first-child{margin-top:4px}
+p.sub{color:var(--txt2);font-size:14px;margin-bottom:14px}
+
+/* ---------- HERO ---------- */
+.hero{
+  background:linear-gradient(150deg,var(--navy) 0%,#0C5478 60%,var(--azul) 100%);
+  color:#fff;border-radius:18px;padding:26px 22px;position:relative;overflow:hidden;margin-bottom:6px
+}
+.hero::after{
+  content:"";position:absolute;right:-70px;bottom:-90px;width:250px;height:250px;
+  border-radius:50%;background:radial-gradient(circle,rgba(18,181,206,.5),transparent 68%)
+}
+.hero h1{font-size:25px;line-height:1.22;letter-spacing:-.7px;font-weight:800;position:relative;z-index:1}
+.hero p{color:#BFE4F0;margin-top:9px;font-size:14.5px;position:relative;z-index:1;max-width:520px}
+.hero-tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:15px;position:relative;z-index:1}
+.hero-tags span{background:rgba(255,255,255,.15);border-radius:999px;padding:5px 12px;font-size:12.5px;font-weight:600}
+
+/* ---------- CATEGORIAS ---------- */
+.cats{display:flex;gap:9px;overflow-x:auto;padding:14px 0 4px;scrollbar-width:none}
+.cats::-webkit-scrollbar{display:none}
+.cat{
+  flex:0 0 auto;background:#fff;border:1px solid var(--linha);border-radius:12px;
+  padding:11px 15px;font-size:13.5px;font-weight:700;color:var(--txt2);display:flex;align-items:center;gap:7px
+}
+.cat.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+/* ---------- GRID DE PRODUTOS ---------- */
+.grade{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:12px;margin-top:6px}
+.card{
+  background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:var(--sombra);
+  display:flex;flex-direction:column;position:relative;border:1px solid #EAF1F5
+}
+.card .foto{
+  height:112px;display:grid;place-items:center;font-size:40px;position:relative;
+  background:linear-gradient(150deg,var(--agua),var(--agua2))
+}
+.selo{
+  position:absolute;top:8px;left:8px;font-size:10px;font-weight:800;letter-spacing:.4px;
+  padding:3px 8px;border-radius:6px;text-transform:uppercase
+}
+.selo.eco{background:var(--verde-bg);color:var(--verde)}
+.selo.pro{background:#E0E7FF;color:#3730A3}
+.card .corpo{padding:11px 12px 12px;display:flex;flex-direction:column;flex:1}
+.card .marca{font-size:10.5px;font-weight:800;color:var(--azul);letter-spacing:.6px;text-transform:uppercase}
+.card h3{font-size:13.5px;font-weight:700;line-height:1.32;margin:3px 0 2px}
+.card .emb{font-size:11.5px;color:var(--txt2)}
+.estoque{font-size:11.5px;font-weight:700;margin-top:7px;display:flex;align-items:center;gap:5px}
+.pt{width:7px;height:7px;border-radius:50%;display:inline-block}
+.ok{color:var(--verde)} .ok .pt{background:var(--verde)}
+.baixo{color:var(--amar)} .baixo .pt{background:var(--amar)}
+.sem{color:var(--verm)} .sem .pt{background:var(--verm)}
+.preco{margin-top:9px}
+.preco .de{font-size:11.5px;color:var(--txt2);text-decoration:line-through}
+.preco .por{font-size:18px;font-weight:800;letter-spacing:-.5px;color:var(--navy)}
+.preco .un{font-size:11.5px;color:var(--txt2);font-weight:600}
+.eco-tag{display:inline-block;background:var(--verde-bg);color:var(--verde);font-size:10.5px;font-weight:800;padding:2px 7px;border-radius:5px;margin-top:4px}
+.btn-add{
+  margin-top:11px;background:var(--navy);color:#fff;border-radius:10px;padding:11px;
+  font-size:13.5px;font-weight:700;width:100%;display:flex;align-items:center;justify-content:center;gap:6px
+}
+.btn-add:active{background:var(--azul)}
+.btn-add.no{background:#E5EDF2;color:#8FA5B2}
+
+/* ---------- BOTOES ---------- */
+.btn{
+  border-radius:11px;padding:13px 18px;font-size:14.5px;font-weight:700;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%
+}
+.btn.p{background:var(--navy);color:#fff}
+.btn.z{background:var(--zap);color:#04331A}
+.btn.o{background:#fff;color:var(--navy);border:1.5px solid var(--linha)}
+.btn.c{background:var(--ciano);color:var(--navy)}
+.btn:active{transform:scale(.985)}
+
+/* ---------- PAINEL / BOX ---------- */
+.box{background:#fff;border-radius:var(--r);box-shadow:var(--sombra);padding:16px;margin-bottom:13px;border:1px solid #EAF1F5}
+.box h3{font-size:15.5px;font-weight:800;margin-bottom:3px;display:flex;align-items:center;gap:8px}
+.box .desc{font-size:13px;color:var(--txt2);margin-bottom:12px}
+.linha{display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px solid #F0F5F8}
+.linha:last-child{border-bottom:none}
+.linha .ic{
+  width:40px;height:40px;flex:0 0 40px;border-radius:11px;background:var(--agua);
+  display:grid;place-items:center;font-size:19px
+}
+.linha .txt{flex:1;min-width:0}
+.linha .txt b{display:block;font-size:14px;font-weight:700}
+.linha .txt small{font-size:12.5px;color:var(--txt2)}
+.linha .vl{text-align:right;font-weight:800;font-size:14px;white-space:nowrap}
+
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:5px}
+.tag{font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;background:var(--agua);color:var(--azul)}
+.tag.v{background:var(--verde-bg);color:var(--verde)}
+.tag.a{background:var(--amar-bg);color:var(--amar)}
+.tag.r{background:var(--verm-bg);color:var(--verm)}
+
+/* KPIs */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:11px;margin-bottom:13px}
+.kpi{background:#fff;border-radius:var(--r);padding:14px;box-shadow:var(--sombra);border:1px solid #EAF1F5}
+.kpi small{font-size:11.5px;color:var(--txt2);font-weight:700;text-transform:uppercase;letter-spacing:.4px}
+.kpi b{display:block;font-size:23px;font-weight:800;letter-spacing:-.8px;margin-top:3px}
+.kpi .var{font-size:12px;font-weight:700;margin-top:2px}
+.kpi .var.up{color:var(--verde)} .kpi .var.dn{color:var(--verm)}
+
+/* barras */
+.barra{margin:11px 0}
+.barra .top{display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px}
+.barra .top b{font-weight:700}
+.barra .trilho{height:9px;background:#EDF3F6;border-radius:5px;overflow:hidden}
+.barra .fill{height:100%;border-radius:5px;background:linear-gradient(90deg,var(--azul),var(--ciano))}
+
+/* ---------- FORM ---------- */
+label.f{display:block;font-size:12.5px;font-weight:700;color:var(--txt2);margin:11px 0 5px;text-transform:uppercase;letter-spacing:.3px}
+input.f,select.f,textarea.f{
+  width:100%;border:1.5px solid var(--linha);border-radius:11px;padding:12px 13px;
+  font-size:16px;background:#fff;outline:none
+}
+input.f:focus,select.f:focus{border-color:var(--ciano)}
+.dupla{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* ---------- CARRINHO ---------- */
+.sheet{position:fixed;inset:0;z-index:200;display:none}
+.sheet.on{display:block}
+.sheet .fundo{position:absolute;inset:0;background:rgba(6,38,59,.55);backdrop-filter:blur(2px)}
+.sheet .painel{
+  position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:20px 20px 0 0;
+  max-height:88vh;display:flex;flex-direction:column;animation:sobeS .3s cubic-bezier(.2,.9,.3,1)
+}
+@keyframes sobeS{from{transform:translateY(100%)}to{transform:none}}
+.sheet .cab{padding:16px 18px;border-bottom:1px solid var(--linha);display:flex;align-items:center;gap:10px}
+.sheet .cab h3{font-size:17px;font-weight:800;flex:1}
+.sheet .corpo{padding:14px 18px;overflow-y:auto;flex:1}
+.sheet .pe{padding:14px 18px 22px;border-top:1px solid var(--linha);background:#fff}
+.fechar{width:34px;height:34px;border-radius:9px;background:#F0F5F8;display:grid;place-items:center;font-size:17px}
+
+.item{display:flex;gap:11px;padding:11px 0;border-bottom:1px solid #F0F5F8}
+.item .mini{width:50px;height:50px;flex:0 0 50px;border-radius:10px;background:var(--agua);display:grid;place-items:center;font-size:22px}
+.item .info{flex:1;min-width:0}
+.item .info b{font-size:13.5px;font-weight:700;display:block;line-height:1.3}
+.item .info small{font-size:12px;color:var(--txt2)}
+.qtd{display:flex;align-items:center;gap:9px;margin-top:6px}
+.qtd button{width:28px;height:28px;border-radius:8px;background:#F0F5F8;font-size:16px;font-weight:800;display:grid;place-items:center}
+.qtd span{font-weight:800;min-width:22px;text-align:center;font-size:14px}
+.total{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+.total b{font-size:24px;font-weight:800;letter-spacing:-.7px}
+
+/* ---------- CALCULADORA ---------- */
+.calc-res{background:var(--agua);border-radius:12px;padding:14px;margin-top:13px}
+.calc-res .l{display:flex;justify-content:space-between;padding:7px 0;font-size:14px;border-bottom:1px dashed #B9DCE8}
+.calc-res .l:last-child{border:none}
+.calc-res .l b{font-weight:800;color:var(--navy)}
+
+/* ---------- LOGIN ---------- */
+.login{max-width:400px;margin:26px auto;text-align:center}
+.login .ic{width:66px;height:66px;border-radius:19px;background:linear-gradient(150deg,var(--ciano),var(--azul));display:grid;place-items:center;font-size:31px;margin:0 auto 14px}
+.aviso{background:var(--amar-bg);color:var(--amar);border-radius:10px;padding:10px 13px;font-size:12.5px;font-weight:600;margin-top:13px;text-align:left}
+
+/* ---------- TABELA ---------- */
+.tab{width:100%;border-collapse:collapse;font-size:13px}
+.tab th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--txt2);padding:9px 8px;border-bottom:2px solid var(--linha);white-space:nowrap}
+.tab td{padding:11px 8px;border-bottom:1px solid #F0F5F8;vertical-align:middle}
+.tab tr:last-child td{border-bottom:none}
+.rolar{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+/* ---------- RODAPE ---------- */
+footer{background:var(--navy);color:#9FC5D6;padding:28px 16px 32px;margin-top:36px;font-size:13px}
+footer .fw{max-width:1180px;margin:0 auto}
+footer b{color:#fff;display:block;font-size:15px;margin-bottom:9px}
+footer a{color:#9FD4E6;text-decoration:none;display:inline-block;margin:3px 14px 3px 0}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:22px;margin-bottom:20px}
+.fbase{border-top:1px solid rgba(255,255,255,.14);padding-top:16px;font-size:11.5px;line-height:1.7}
+
+/* ---------- BARRA FIXA ---------- */
+.fixo{
+  position:fixed;left:0;right:0;bottom:0;z-index:90;background:#fff;
+  border-top:1px solid var(--linha);padding:10px 14px calc(10px + env(safe-area-inset-bottom));
+  display:none;align-items:center;gap:11px;box-shadow:0 -3px 18px rgba(6,38,59,.09)
+}
+.fixo.on{display:flex}
+.fixo .resumo{flex:1;min-width:0}
+.fixo .resumo small{font-size:11.5px;color:var(--txt2);display:block}
+.fixo .resumo b{font-size:18px;font-weight:800;letter-spacing:-.5px}
+.fixo .btn{width:auto;padding:13px 20px}
+
+/* ---------- COOKIES ---------- */
+.cookie{
+  position:fixed;left:12px;right:12px;bottom:12px;z-index:150;background:var(--navy);color:#E4F1F7;
+  border-radius:15px;padding:15px 17px;box-shadow:0 8px 34px rgba(0,0,0,.32);font-size:13px;display:none
+}
+.cookie.on{display:block}
+.cookie b{color:#fff;display:block;margin-bottom:5px;font-size:14.5px}
+.cookie .bts{display:flex;gap:9px;margin-top:12px}
+.cookie .bts button{flex:1;border-radius:10px;padding:11px;font-size:13.5px;font-weight:700}
+.cookie .ac{background:var(--ciano);color:var(--navy)}
+.cookie .re{background:rgba(255,255,255,.13);color:#fff}
+
+/* whatsapp flutuante */
+.zap-float{
+  position:fixed;right:16px;bottom:112px;z-index:95;width:56px;height:56px;border-radius:50%;
+  background:var(--zap);display:grid;place-items:center;font-size:27px;text-decoration:none;
+  box-shadow:0 5px 20px rgba(37,211,102,.45)
+}
+.zap-float:active{transform:scale(.94)}
+
+/* toast */
+.toast{
+  position:fixed;left:50%;transform:translateX(-50%) translateY(70px);bottom:104px;z-index:300;
+  background:var(--navy);color:#fff;padding:12px 20px;border-radius:12px;font-size:13.5px;font-weight:600;
+  opacity:0;transition:.3s;pointer-events:none;box-shadow:0 6px 24px rgba(0,0,0,.3);max-width:90vw;text-align:center
+}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(min-width:760px){
+  .grade{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+  .card .foto{height:140px;font-size:50px}
+  .hero{padding:40px 34px}
+  .hero h1{font-size:34px}
+  .sheet .painel{max-width:520px;left:auto;right:20px;bottom:20px;border-radius:20px;max-height:82vh}
+}
+</style>
+</head>
+<body>
+
+<div class="topo">
+<div class="demo-bar">🧪 <b>PROTÓTIPO DEMONSTRATIVO</b> — dados e preços fictícios · SoftwareHouse Fortaleza</div>
+
+<header>
+  <div class="head-top">
+    <div class="logo">
+      <div class="drop">💧</div>
+      <div>Fortaleza Química<small>TRATAMENTO DE ÁGUAS</small></div>
+    </div>
+    <div class="head-acoes">
+      <a class="icone-btn" href="https://www.instagram.com/fortalezaquimica/" target="_blank" rel="noopener" title="Instagram" style="text-decoration:none">📸</a>
+      <a class="icone-btn" id="zap-topo" href="#" target="_blank" rel="noopener" title="WhatsApp" style="text-decoration:none">💬</a>
+      <button class="icone-btn" onclick="abrirCalc()" title="Calculadora">🧮</button>
+      <button class="icone-btn" onclick="abrirCarrinho()" title="Carrinho">🛒<span class="badge" id="badge" style="display:none">0</span></button>
+    </div>
+  </div>
+  <div class="busca-wrap">
+    <div class="busca"><span>🔍</span><input id="busca" placeholder="Buscar cloro, barrilha, PAC…" oninput="render()"></div>
+  </div>
+  <div class="perfil-bar">
+    <em>VOCÊ É:</em>
+    <button class="chip on" data-p="consumidor" onclick="setPerfil('consumidor')">🏠 Consumidor</button>
+    <button class="chip" data-p="piscineiro" onclick="setPerfil('piscineiro')">🧑‍🔧 Piscineiro</button>
+    <button class="chip" data-p="condominio" onclick="setPerfil('condominio')">🏢 Condomínio / Escola</button>
+    <button class="chip" data-p="eta" onclick="setPerfil('eta')">🏭 SAAE / ETA</button>
+  </div>
+</header>
+
+<nav class="abas" id="abas">
+  <button class="on" onclick="ir('catalogo',this)">🛍️ Catálogo</button>
+  <button onclick="ir('piscineiro',this)">🧑‍🔧 App do Piscineiro</button>
+  <button onclick="ir('condominio',this)">🏢 Condomínio &amp; Escola</button>
+  <button onclick="ir('painel',this)">📊 Painel Fortaleza</button>
+  <button onclick="ir('sobre',this)">ℹ️ Como funciona</button>
+</nav>
+</div>
+
+<!-- ================= CATALOGO ================= -->
+<section class="view on" id="v-catalogo">
+<div class="wrap">
+  <div class="hero">
+    <h1>Todo produto químico da sua piscina, com preço na tela.</h1>
+    <p>Cloro, algicida, clarificante e corretores. Pedido direto no WhatsApp, entrega em toda a região metropolitana de Fortaleza.</p>
+    <div class="hero-tags">
+      <span>🚚 Entrega em Fortaleza e região</span>
+      <span>💳 30 e 60 dias sem juros</span>
+      <span>🧪 Orientação de especialista</span>
+    </div>
+  </div>
+
+  <div class="cats" id="cats"></div>
+
+  <div id="aviso-perfil"></div>
+
+  <h2 class="tit">Produtos <span id="cont-prod" class="tag"></span></h2>
+  <p class="sub" id="sub-preco">Preço de consumidor final. Troque o perfil no topo para ver a tabela profissional.</p>
+
+  <div class="grade" id="grade"></div>
+
+  <h2 class="tit">🧮 Calculadora da piscina</h2>
+  <p class="sub">O cliente informa o tamanho e o sistema já diz quanto usar de cada produto — e monta o carrinho.</p>
+  <div class="box">
+    <div class="dupla">
+      <div><label class="f">Comprimento (m)</label><input class="f" type="number" id="c_comp" value="8" oninput="calcular()"></div>
+      <div><label class="f">Largura (m)</label><input class="f" type="number" id="c_larg" value="4" oninput="calcular()"></div>
+    </div>
+    <div class="dupla">
+      <div><label class="f">Profundidade média (m)</label><input class="f" type="number" id="c_prof" value="1.4" step="0.1" oninput="calcular()"></div>
+      <div><label class="f">Situação da água</label>
+        <select class="f" id="c_sit" onchange="calcular()">
+          <option value="manutencao">Manutenção semanal</option>
+          <option value="verde">Água verde (choque)</option>
+          <option value="turva">Água turva</option>
+        </select>
+      </div>
+    </div>
+    <div class="calc-res" id="calc-res"></div>
+    <button class="btn c" style="margin-top:13px" onclick="addKitCalc()">➕ Adicionar o kit sugerido ao pedido</button>
+  </div>
+</div>
+</section>
+
+<!-- ================= PISCINEIRO ================= -->
+<section class="view" id="v-piscineiro">
+<div class="wrap">
+  <div id="login-pisc">
+    <div class="login">
+      <div class="ic">🧑‍🔧</div>
+      <h2 style="font-size:22px;font-weight:800;letter-spacing:-.5px">Área do Piscineiro</h2>
+      <p class="sub" style="margin-top:6px">Preço profissional, histórico de compras, recompra em um toque e agenda das piscinas que você atende.</p>
+      <label class="f">Usuário</label><input class="f" id="u_pisc" value="piscineiro">
+      <label class="f">Senha</label><input class="f" type="password" id="s_pisc" value="demo">
+      <button class="btn p" style="margin-top:16px" onclick="entrar('pisc')">Entrar</button>
+      <div class="aviso">🔐 Demonstração: usuário <b>piscineiro</b> · senha <b>demo</b>. Nenhum dado real é enviado.</div>
+    </div>
+  </div>
+
+  <div id="app-pisc" style="display:none">
+    <div class="hero" style="padding:20px">
+      <h1 style="font-size:20px">Bom dia, Marcos 👋</h1>
+      <p style="margin-top:5px">Você tem <b style="color:#fff">4 piscinas</b> para atender esta semana e 1 pedido a caminho.</p>
+    </div>
+
+    <div class="kpis" style="margin-top:14px">
+      <div class="kpi"><small>Economia no mês</small><b>R$ 486,20</b><div class="var up">▲ preço profissional</div></div>
+      <div class="kpi"><small>Pedidos no ano</small><b>37</b><div class="var up">▲ 8 vs. 2025</div></div>
+      <div class="kpi"><small>Piscinas ativas</small><b>12</b><div class="var">clientes seus</div></div>
+    </div>
+
+    <h2 class="tit">⚡ Recompra em um toque</h2>
+    <p class="sub">O que você mais compra, já com a quantidade do último pedido.</p>
+    <div class="box" id="recompra"></div>
+
+    <h2 class="tit">🏊 Minhas piscinas</h2>
+    <p class="sub">Cada cliente seu com volume, produto certo e próxima visita. O consumo previsto vira sugestão de pedido.</p>
+    <div class="box" id="piscinas"></div>
+
+    <h2 class="tit">📅 Agenda da semana</h2>
+    <div class="box" id="agenda"></div>
+
+    <h2 class="tit">🧾 Meu histórico</h2>
+    <div class="box">
+      <div class="rolar">
+        <table class="tab">
+          <thead><tr><th>Pedido</th><th>Data</th><th>Itens</th><th>Valor</th><th>Situação</th></tr></thead>
+          <tbody id="hist-pisc"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <h2 class="tit">🎓 Material de apoio</h2>
+    <div class="box">
+      <div class="linha"><div class="ic">📄</div><div class="txt"><b>Tabela de dosagem por volume</b><small>PDF · atualizado 08/2026</small></div><div class="vl">›</div></div>
+      <div class="linha"><div class="ic">🧪</div><div class="txt"><b>FISPQ dos produtos</b><small>Ficha de segurança · obrigatória por norma</small></div><div class="vl">›</div></div>
+      <div class="linha"><div class="ic">🎥</div><div class="txt"><b>Como tratar água verde em 48 h</b><small>Vídeo · 6 min</small></div><div class="vl">›</div></div>
+      <div class="linha"><div class="ic">🏅</div><div class="txt"><b>Selo Piscineiro Parceiro</b><small>Apareça na busca "piscineiro perto de mim"</small></div><div class="vl">›</div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ================= CONDOMINIO ================= -->
+<section class="view" id="v-condominio">
+<div class="wrap">
+  <div id="login-cond">
+    <div class="login">
+      <div class="ic">🏢</div>
+      <h2 style="font-size:22px;font-weight:800;letter-spacing:-.5px">Portal Condomínio &amp; Escola</h2>
+      <p class="sub" style="margin-top:6px">Para síndicos, administradoras e secretarias de educação: várias unidades, fornecimento programado, orçamento com aprovação e nota fiscal no portal.</p>
+      <label class="f">CNPJ ou e-mail</label><input class="f" id="u_cond" value="administradora">
+      <label class="f">Senha</label><input class="f" type="password" id="s_cond" value="demo">
+      <button class="btn p" style="margin-top:16px" onclick="entrar('cond')">Entrar</button>
+      <div class="aviso">🔐 Demonstração: usuário <b>administradora</b> · senha <b>demo</b>.</div>
+    </div>
+  </div>
+
+  <div id="app-cond" style="display:none">
+    <div class="hero" style="padding:20px">
+      <h1 style="font-size:20px">Administradora Litoral 🏢</h1>
+      <p style="margin-top:5px">9 unidades ativas · próxima entrega programada em <b style="color:#fff">3 dias</b></p>
+    </div>
+
+    <div class="kpis" style="margin-top:14px">
+      <div class="kpi"><small>Gasto no mês</small><b>R$ 14.380,60</b><div class="var dn">▼ 6,2% vs. julho</div></div>
+      <div class="kpi"><small>Unidades atendidas</small><b>9</b><div class="var">5 condomínios · 4 escolas</div></div>
+      <div class="kpi"><small>Entregas no mês</small><b>18</b><div class="var up">100% no prazo</div></div>
+    </div>
+
+    <h2 class="tit">📍 Minhas unidades</h2>
+    <p class="sub">Cada endereço com o volume da piscina, o consumo médio e a próxima entrega. Um pedido só, várias entregas.</p>
+    <div class="box" id="unidades"></div>
+
+    <h2 class="tit">🔄 Fornecimento programado</h2>
+    <p class="sub">O condomínio nunca fica sem cloro e a Fortaleza Química ganha previsibilidade de faturamento.</p>
+    <div class="box">
+      <div class="linha"><div class="ic">📆</div><div class="txt"><b>Todo dia 5 · Cloro granulado 10 kg</b><small>9 unidades · próxima: 05/09/2026</small></div><div class="vl"><span class="tag v">Ativo</span></div></div>
+      <div class="linha"><div class="ic">📆</div><div class="txt"><b>Todo dia 20 · Algicida 5 L + Clarificante 5 L</b><small>5 unidades · próxima: 20/08/2026</small></div><div class="vl"><span class="tag v">Ativo</span></div></div>
+      <div class="linha"><div class="ic">📆</div><div class="txt"><b>Quinzenal · Kit teste cloro e pH</b><small>4 escolas · próxima: 24/08/2026</small></div><div class="vl"><span class="tag a">Pausado</span></div></div>
+      <button class="btn o" style="margin-top:13px" onclick="toast('Em produção, abre o formulário de nova programação.')">➕ Nova programação</button>
+    </div>
+
+    <h2 class="tit">📝 Orçamentos e aprovação</h2>
+    <p class="sub">O zelador solicita, o síndico aprova pelo celular. Fica registrado quem aprovou e quando — é o que a prestação de contas exige.</p>
+    <div class="box" id="orcamentos"></div>
+
+    <h2 class="tit">🧾 Notas fiscais e documentos</h2>
+    <div class="box">
+      <div class="linha"><div class="ic">📄</div><div class="txt"><b>NF-e 18.442 — Agosto/2026</b><small>R$ 6.240,00 · emitida em 12/08/2026</small></div><div class="vl">⬇️</div></div>
+      <div class="linha"><div class="ic">📄</div><div class="txt"><b>NF-e 18.301 — Julho/2026</b><small>R$ 5.980,40 · emitida em 14/07/2026</small></div><div class="vl">⬇️</div></div>
+      <div class="linha"><div class="ic">🧪</div><div class="txt"><b>Laudo de potabilidade e FISPQ</b><small>Exigido em vistoria de escola e condomínio</small></div><div class="vl">⬇️</div></div>
+      <div class="linha"><div class="ic">📊</div><div class="txt"><b>Relatório de consumo por unidade</b><small>Planilha · últimos 12 meses</small></div><div class="vl">⬇️</div></div>
+    </div>
+
+    <h2 class="tit">🏫 Módulo escola</h2>
+    <p class="sub">Escola tem exigência que condomínio não tem. Isso vira diferencial em licitação municipal.</p>
+    <div class="box">
+      <div class="linha"><div class="ic">✅</div><div class="txt"><b>Registro diário de cloro residual e pH</b><small>Preenchido no celular pelo responsável, com foto</small></div></div>
+      <div class="linha"><div class="ic">🔔</div><div class="txt"><b>Alerta de vistoria sanitária</b><small>Avisa 15 dias antes do vencimento do laudo</small></div></div>
+      <div class="linha"><div class="ic">👷</div><div class="txt"><b>Controle de EPI e armazenagem</b><small>Checklist de segurança para produto químico em escola</small></div></div>
+      <div class="linha"><div class="ic">📑</div><div class="txt"><b>Exportação para prestação de contas</b><small>Empenho, nota e comprovante de entrega no mesmo arquivo</small></div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ================= PAINEL ================= -->
+<section class="view" id="v-painel">
+<div class="wrap">
+  <div id="login-adm">
+    <div class="login">
+      <div class="ic">📊</div>
+      <h2 style="font-size:22px;font-weight:800;letter-spacing:-.5px">Painel da Fortaleza Química</h2>
+      <p class="sub" style="margin-top:6px">O que o canal digital entrega para dentro da empresa — e como cada pedido chega no CDS já pronto.</p>
+      <label class="f">Usuário</label><input class="f" id="u_adm" value="fortaleza">
+      <label class="f">Senha</label><input class="f" type="password" id="s_adm" value="demo">
+      <button class="btn p" style="margin-top:16px" onclick="entrar('adm')">Entrar</button>
+      <div class="aviso">🔐 Demonstração: usuário <b>fortaleza</b> · senha <b>demo</b>.</div>
+    </div>
+  </div>
+
+  <div id="app-adm" style="display:none">
+    <h2 class="tit">📈 Canal digital — agosto/2026</h2>
+    <p class="sub">Números ilustrativos para mostrar o formato do painel.</p>
+    <div class="kpis">
+      <div class="kpi"><small>Pedidos digitais</small><b>187</b><div class="var up">▲ 24% vs. julho</div></div>
+      <div class="kpi"><small>Faturamento do canal</small><b>R$ 68.420</b><div class="var up">▲ 18%</div></div>
+      <div class="kpi"><small>Ticket médio</small><b>R$ 365,88</b><div class="var up">▲ R$ 21,40</div></div>
+      <div class="kpi"><small>Tempo de lançamento</small><b>0 min</b><div class="var up">▼ era ~8 min por pedido</div></div>
+    </div>
+
+    <div class="box">
+      <h3>⏱️ A economia que o canal gera</h3>
+      <div class="desc">Pedido que entra pelo canal já nasce dentro do sistema. Ninguém digita.</div>
+      <div class="linha"><div class="ic">📝</div><div class="txt"><b>187 pedidos digitais</b><small>× 8 min de digitação evitados</small></div><div class="vl">24,9 h</div></div>
+      <div class="linha"><div class="ic">❌</div><div class="txt"><b>Erros de digitação</b><small>produto trocado, quantidade errada</small></div><div class="vl">0</div></div>
+      <div class="linha"><div class="ic">💬</div><div class="txt"><b>"Quanto é o cloro?"</b><small>respondido pelo site, não pelo vendedor</small></div><div class="vl">-312 msgs</div></div>
+    </div>
+
+    <h2 class="tit">🏆 Ranking de clientes do canal</h2>
+    <div class="box" id="rank-cli"></div>
+
+    <h2 class="tit">📦 Produtos mais pedidos</h2>
+    <div class="box" id="rank-prod"></div>
+
+    <h2 class="tit">🔗 Pedidos indo para o CDS</h2>
+    <p class="sub">Cada pedido carrega a origem. É isso que permite saber o que veio do canal digital.</p>
+    <div class="box">
+      <div class="rolar">
+        <table class="tab">
+          <thead><tr><th>Pedido</th><th>Cliente</th><th>Valor</th><th>Origem</th><th>CDS</th></tr></thead>
+          <tbody id="tab-cds"></tbody>
+        </table>
+      </div>
+      <div class="aviso" style="background:var(--agua);color:var(--azul)">
+        ℹ️ Esta tela depende da liberação de integração pela <b>CDS Sistemas</b>. Sem API, o pedido chega por WhatsApp já formatado e a digitação cai de 8 para cerca de 1 minuto.
+      </div>
+    </div>
+
+    <h2 class="tit">📊 Origem do faturamento</h2>
+    <div class="box" id="origem"></div>
+  </div>
+</div>
+</section>
+
+<!-- ================= SOBRE ================= -->
+<section class="view" id="v-sobre">
+<div class="wrap">
+  <div class="hero">
+    <h1>Como isso conversa com o que a Fortaleza Química já tem</h1>
+    <p>O ERP continua sendo o cérebro. O canal digital é a porta de entrada para dentro dele.</p>
+  </div>
+
+  <h2 class="tit">🔄 O caminho do pedido</h2>
+  <div class="box">
+    <div class="linha"><div class="ic">1️⃣</div><div class="txt"><b>Cliente escolhe no celular</b><small>Catálogo com preço da tabela dele — consumidor, piscineiro, condomínio ou órgão público</small></div></div>
+    <div class="linha"><div class="ic">2️⃣</div><div class="txt"><b>Sistema confere o estoque</b><small>Puxado do ERP, não digitado à mão</small></div></div>
+    <div class="linha"><div class="ic">3️⃣</div><div class="txt"><b>Pedido entra no sistema</b><small>Com origem marcada, sem ninguém redigitar</small></div></div>
+    <div class="linha"><div class="ic">4️⃣</div><div class="txt"><b>Equipe fatura e emite a nota</b><small>Exatamente como já faz hoje — nada muda aqui</small></div></div>
+    <div class="linha"><div class="ic">5️⃣</div><div class="txt"><b>Cliente acompanha a entrega</b><small>Sem ligar para perguntar "já saiu?"</small></div></div>
+  </div>
+
+  <h2 class="tit">🧱 O que muda e o que não muda</h2>
+  <div class="box">
+    <div class="linha"><div class="ic">✅</div><div class="txt"><b>Não muda</b><small>ERP, emissão de nota, faturamento, equipe, entrega, licitação</small></div></div>
+    <div class="linha"><div class="ic">🆕</div><div class="txt"><b>Muda</b><small>Como o pedido chega, quem responde preço, e quanto tempo isso custa</small></div></div>
+  </div>
+
+  <h2 class="tit">📦 Produtos usados neste protótipo</h2>
+  <p class="sub">Levantados do próprio site da empresa e de documentos públicos de licitação — inclusive as marcas que ela já fornece.</p>
+  <div class="box">
+    <div class="linha"><div class="ic">🏊</div><div class="txt"><b>Linha piscina</b><small>Cloro granulado, pastilha e líquido · algicida · clarificante · barrilha leve · bicarbonato · sulfato de alumínio · metabissulfito · metassilicato</small></div></div>
+    <div class="linha"><div class="ic">🏭</div><div class="txt"><b>Linha tratamento de água</b><small>Policloreto de alumínio (Propac) · sulfato de alumínio ferroso (Industrfloc) · polímero catiônico (SNF) · ácido fluossilícico (Q-Fluor) · hipoclorito de cálcio 65% (Hypocal)</small></div></div>
+    <div class="linha"><div class="ic">📡</div><div class="txt"><b>Instagram</b><small>O perfil <a href="https://www.instagram.com/fortalezaquimica/" target="_blank" rel="noopener">@fortalezaquimica</a> existe, mas não é usado como canal de venda — e o site atual não linka para ele. Aqui, cada tela leva para o WhatsApp e para o Instagram.</small></div></div>
+  </div>
+
+  <h2 class="tit">🔐 Privacidade e LGPD</h2>
+  <div class="box">
+    <div class="linha"><div class="ic">📜</div><div class="txt"><b>Política de privacidade</b><small>Acessível de qualquer página, com finalidade declarada</small></div></div>
+    <div class="linha"><div class="ic">🍪</div><div class="txt"><b>Aviso de cookies</b><small>Consentimento antes de qualquer rastreamento</small></div></div>
+    <div class="linha"><div class="ic">🔒</div><div class="txt"><b>HTTPS e dado mínimo</b><small>Só o necessário para entregar e emitir nota</small></div></div>
+    <div class="linha"><div class="ic">✉️</div><div class="txt"><b>Canal do titular</b><small>Para pedir acesso, correção ou exclusão dos dados</small></div></div>
+  </div>
+</div>
+</section>
+
+<!-- ================= CARRINHO ================= -->
+<div class="sheet" id="sheet-cart">
+  <div class="fundo" onclick="fechar('sheet-cart')"></div>
+  <div class="painel">
+    <div class="cab"><h3>🛒 Seu pedido</h3><button class="fechar" onclick="fechar('sheet-cart')">✕</button></div>
+    <div class="corpo" id="cart-corpo"></div>
+    <div class="pe">
+      <div class="total"><span>Total</span><b id="cart-total">R$ 0,00</b></div>
+      <button class="btn z" onclick="enviarZap()">💬 Enviar pedido pelo WhatsApp</button>
+      <p style="font-size:11.5px;color:var(--txt2);margin-top:9px;text-align:center">A mensagem vai pronta, com produto, quantidade e valor. Ninguém redigita.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ================= MODAL PRODUTO ================= -->
+<div class="sheet" id="sheet-prod">
+  <div class="fundo" onclick="fechar('sheet-prod')"></div>
+  <div class="painel">
+    <div class="cab"><h3 id="pd-tit">Produto</h3><button class="fechar" onclick="fechar('sheet-prod')">✕</button></div>
+    <div class="corpo" id="pd-corpo"></div>
+    <div class="pe"><button class="btn p" id="pd-btn">Adicionar ao pedido</button></div>
+  </div>
+</div>
+
+<!-- ================= PRIVACIDADE ================= -->
+<div class="sheet" id="sheet-priv">
+  <div class="fundo" onclick="fechar('sheet-priv')"></div>
+  <div class="painel">
+    <div class="cab"><h3>🔐 Política de Privacidade</h3><button class="fechar" onclick="fechar('sheet-priv')">✕</button></div>
+    <div class="corpo" style="font-size:14px;line-height:1.65">
+      <p style="background:var(--amar-bg);color:var(--amar);padding:11px;border-radius:10px;font-size:12.5px;font-weight:600;margin-bottom:14px">
+        Texto de exemplo para o protótipo. A versão final deve ser revisada por advogado e publicada no CNPJ da empresa.</p>
+      <p><b>1. Quem trata seus dados.</b> Fortaleza Química Comércio Ltda, CNPJ 35.566.588/0001-20, Av. Radialista João Ramos, 2706, Planalto Ayrton Senna, Fortaleza/CE.</p>
+      <p style="margin-top:11px"><b>2. Que dados coletamos.</b> Nome, telefone, e-mail, CNPJ ou CPF e endereço de entrega — apenas o necessário para atender o pedido e emitir a nota fiscal.</p>
+      <p style="margin-top:11px"><b>3. Para quê.</b> Execução do contrato de compra e venda, cumprimento de obrigação legal (nota fiscal) e, mediante consentimento, envio de novidades e promoções.</p>
+      <p style="margin-top:11px"><b>4. Com quem compartilhamos.</b> Transportadora, contabilidade e órgãos públicos quando a lei exigir. Não vendemos dados.</p>
+      <p style="margin-top:11px"><b>5. Por quanto tempo.</b> Dados fiscais por 5 anos, conforme a legislação. Dados de contato até você pedir a exclusão.</p>
+      <p style="margin-top:11px"><b>6. Seus direitos.</b> Acesso, correção, portabilidade, revogação do consentimento e exclusão, conforme a Lei 13.709/2018 (LGPD).</p>
+      <p style="margin-top:11px"><b>7. Como exercer.</b> Fale com o encarregado pelo e-mail de contato ou pelo telefone (85) 3224-1458.</p>
+      <p style="margin-top:11px"><b>8. Cookies.</b> Usamos cookies essenciais para o funcionamento e, com sua autorização, cookies de medição para entender quais produtos são mais procurados.</p>
+    </div>
+    <div class="pe"><button class="btn o" onclick="fechar('sheet-priv')">Fechar</button></div>
+  </div>
+</div>
+
+<!-- ================= CALCULADORA ================= -->
+<div class="sheet" id="sheet-calc">
+  <div class="fundo" onclick="fechar('sheet-calc')"></div>
+  <div class="painel">
+    <div class="cab"><h3>🧮 Calculadora da piscina</h3><button class="fechar" onclick="fechar('sheet-calc')">✕</button></div>
+    <div class="corpo">
+      <p class="sub">Informe o tamanho e veja quanto usar de cada produto.</p>
+      <div class="dupla">
+        <div><label class="f">Comprimento (m)</label><input class="f" type="number" id="m_comp" value="8" oninput="calcModal()"></div>
+        <div><label class="f">Largura (m)</label><input class="f" type="number" id="m_larg" value="4" oninput="calcModal()"></div>
+      </div>
+      <div class="dupla">
+        <div><label class="f">Profundidade (m)</label><input class="f" type="number" id="m_prof" value="1.4" step="0.1" oninput="calcModal()"></div>
+        <div><label class="f">Situação</label><select class="f" id="m_sit" onchange="calcModal()">
+          <option value="manutencao">Manutenção semanal</option><option value="verde">Água verde</option><option value="turva">Água turva</option>
+        </select></div>
+      </div>
+      <div class="calc-res" id="m_res"></div>
+    </div>
+    <div class="pe"><button class="btn c" onclick="addKitModal()">➕ Adicionar kit ao pedido</button></div>
+  </div>
+</div>
+
+<div class="fixo" id="fixo">
+  <div class="resumo"><small id="fixo-itens">0 itens</small><b id="fixo-total">R$ 0,00</b></div>
+  <button class="btn p" onclick="abrirCarrinho()">Ver pedido 🛒</button>
+</div>
+
+<div class="cookie" id="cookie">
+  <b>🍪 Este site usa cookies</b>
+  Usamos cookies essenciais para funcionar e, com sua autorização, cookies de medição para saber quais produtos são mais procurados.
+  <a href="#" onclick="event.preventDefault();abrir('sheet-priv')" style="color:#7FD8EE">Ver política de privacidade</a>
+  <div class="bts"><button class="re" onclick="cookieSet(0)">Só os essenciais</button><button class="ac" onclick="cookieSet(1)">Aceitar todos</button></div>
+</div>
+
+<a class="zap-float" id="zap-float" href="#" target="_blank" rel="noopener" title="Falar no WhatsApp">💬</a>
+
+<div class="toast" id="toast"></div>
+
+<footer>
+  <div class="fw">
+    <div class="fgrid">
+      <div>
+        <b>Fortaleza Química</b>
+        Produtos químicos para piscinas e tratamento de águas em geral.<br>
+        Av. Radialista João Ramos, 2706<br>Planalto Ayrton Senna — Fortaleza/CE<br>CEP 60.766-710
+      </div>
+      <div>
+        <b>Contato</b>
+        <a href="tel:+558532241458">(85) 3224-1458</a><br>
+        <a href="tel:+558534019181">(85) 3401-9181</a><br>
+        <a href="https://api.whatsapp.com/send?phone=558532241458" target="_blank" rel="noopener">💬 WhatsApp</a>
+        <a href="https://www.instagram.com/fortalezaquimica/" target="_blank" rel="noopener">📸 @fortalezaquimica</a><br>
+        <a href="https://maps.google.com/maps?q=AV.+RADIALISTA+JO%C3%83O+RAMOS,+2706+Fortaleza+CE" target="_blank" rel="noopener">📍 Ver no mapa</a>
+      </div>
+      <div>
+        <b>Atendemos</b>
+        Consumidor final<br>Piscineiros e prestadores<br>Condomínios e escolas<br>SAAE, autarquias e ETAs
+      </div>
+      <div>
+        <b>Institucional</b>
+        <a href="#" onclick="event.preventDefault();abrir('sheet-priv')">Política de Privacidade</a><br>
+        <a href="#" onclick="event.preventDefault();toast('Abriria os Termos de Uso.')">Termos de Uso</a><br>
+        <a href="#" onclick="event.preventDefault();ir('sobre',document.querySelectorAll('#abas button')[4])">Como funciona</a>
+      </div>
+    </div>
+    <div class="fbase">
+      PROTÓTIPO DEMONSTRATIVO — desenvolvido por Cezar Moreira · SoftwareHouse Fortaleza · 17/08/2026.<br>
+      Produtos e marcas levantados do site público da empresa e de documentos públicos de licitação. Preços, estoques, clientes e números são fictícios e servem apenas para demonstrar as telas.
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ================= DADOS ================= */
+const CAT = [
+  {id:'todos', nome:'Todos', ic:'🧪'},
+  {id:'cloro', nome:'Cloros', ic:'💧'},
+  {id:'trat', nome:'Tratamento', ic:'🌀'},
+  {id:'ph', nome:'pH e alcalinidade', ic:'⚖️'},
+  {id:'eta', nome:'ETA / Saneamento', ic:'🏭'},
+  {id:'acess', nome:'Acessórios', ic:'🧰'}
+];
+
+/* preco: [consumidor, piscineiro, condominio, eta] */
+const PROD = [
+  {id:1, n:'Cloro Granulado Dicloro 56%', m:'Hidroall', c:'cloro', e:'Balde 10 kg', ic:'🪣', p:[259.90,219.90,229.90,214.90], est:'ok', d:'Cloro de dissolução rápida, não altera o pH. O mais usado na manutenção semanal.', app:'Piscinas residenciais e de condomínio'},
+  {id:2, n:'Cloro em Pastilha Tricloro 200 g', m:'Hidroall', c:'cloro', e:'Balde 10 kg', ic:'⚪', p:[389.90,329.90,344.90,319.90], est:'ok', d:'Dissolução lenta em flutuador ou dosador. Ideal para piscina de escola e condomínio que não tem tratamento diário.', app:'Escolas, condomínios, hotéis'},
+  {id:3, n:'Cloro Líquido — Hipoclorito de Sódio 12%', m:'Fortaleza Química', c:'cloro', e:'Bombona 20 L', ic:'🧴', p:[129.90,109.90,114.90,99.90], est:'ok', d:'Alta concentração, entrega a granel disponível. É o produto mais vendido da casa.', app:'Piscinas grandes, ETAs, reservatórios'},
+  {id:4, n:'Hipoclorito de Cálcio 65% — Pastilha', m:'Hypocal', c:'eta', e:'Balde 45 kg', ic:'🥁', p:[0,0,0,2939.85], est:'ok', d:'Pastilha de até 60 mm conforme NBR 11887. Fornecido em licitações para SAAE.', app:'Estações de tratamento de água', so:'eta'},
+  {id:5, n:'Algicida de Manutenção', m:'Genco', c:'trat', e:'Galão 5 L', ic:'🟢', p:[89.90,74.90,79.90,72.90], est:'ok', d:'Previne o aparecimento de algas. Uso semanal junto com o cloro.', app:'Toda piscina tratada'},
+  {id:6, n:'Algicida de Choque', m:'Genco', c:'trat', e:'Galão 5 L', ic:'🟩', p:[109.90,92.90,97.90,89.90], est:'baixo', d:'Para água já esverdeada. Aplicar com a bomba ligada e filtrar por 24 h.', app:'Recuperação de água verde'},
+  {id:7, n:'Clarificante / Decantador', m:'Genco', c:'trat', e:'Galão 5 L', ic:'💠', p:[79.90,66.90,70.90,64.90], est:'ok', d:'Junta a sujeira fina para o filtro conseguir reter. Resolve água turva.', app:'Água turva e leitosa'},
+  {id:8, n:'Barrilha Leve — Elevador de pH', m:'Fortaleza Química', c:'ph', e:'Saco 25 kg', ic:'📦', p:[179.90,152.90,159.90,144.90], est:'ok', d:'Carbonato de sódio. Sobe o pH da água quando fica ácido demais.', app:'Correção de pH baixo'},
+  {id:9, n:'Redutor de pH — Ácido Muriático', m:'Fortaleza Química', c:'ph', e:'Bombona 20 L', ic:'🧯', p:[119.90,99.90,104.90,94.90], est:'ok', d:'Abaixa o pH. Manuseio com EPI obrigatório — FISPQ disponível no portal.', app:'Correção de pH alto'},
+  {id:10, n:'Bicarbonato de Sódio', m:'Fortaleza Química', c:'ph', e:'Saco 25 kg', ic:'📦', p:[229.90,194.90,204.90,184.90], est:'ok', d:'Eleva a alcalinidade sem mexer muito no pH. Estabiliza a água.', app:'Alcalinidade baixa'},
+  {id:11, n:'Sulfato de Alumínio', m:'Fortaleza Química', c:'trat', e:'Saco 25 kg', ic:'📦', p:[149.90,127.90,133.90,119.90], est:'ok', d:'Floculante clássico. Decanta a sujeira no fundo para aspirar.', app:'Água muito suja, floculação'},
+  {id:12, n:'Metabissulfito de Sódio', m:'Fortaleza Química', c:'trat', e:'Saco 25 kg', ic:'📦', p:[259.90,219.90,229.90,209.90], est:'baixo', d:'Neutraliza cloro em excesso e trata água de reúso.', app:'Neutralização de cloro'},
+  {id:13, n:'Metassilicato de Sódio', m:'Fortaleza Química', c:'trat', e:'Saco 25 kg', ic:'📦', p:[239.90,203.90,212.90,194.90], est:'ok', d:'Usado em limpeza industrial e tratamento de efluentes.', app:'Limpeza industrial, efluentes'},
+  {id:14, n:'Policloreto de Alumínio (PAC) 18%', m:'Propac', c:'eta', e:'Bombona 25 kg', ic:'🛢️', p:[0,0,269.90,212.90], est:'ok', d:'Coagulante catiônico líquido de baixo peso molecular. Fornecido em ata de registro de preços.', app:'ETA, ETE, indústria', so:'b2b'},
+  {id:15, n:'Sulfato de Alumínio Ferroso Líquido', m:'Industrfloc', c:'eta', e:'Bombona 25 kg', ic:'🛢️', p:[0,0,169.90,135.90], est:'ok', d:'Baixo teor de ferro, conforme normas técnicas para água potável.', app:'Estações de tratamento', so:'b2b'},
+  {id:16, n:'Polímero Catiônico Floculante', m:'SNF', c:'eta', e:'Saco 25 kg', ic:'🧬', p:[0,0,0,1149.90], est:'ok', d:'Base poliacrilamida em pó, destinado a água potável.', app:'ETA de autarquia municipal', so:'eta'},
+  {id:17, n:'Ácido Fluossilícico 20%', m:'Q-Fluor', c:'eta', e:'Bombona 25 kg', ic:'🧪', p:[0,0,0,239.90], est:'ok', d:'H₂SiF₆, teor mínimo 20%, líquido incolor. Fluoretação da água de abastecimento.', app:'Fluoretação — SAAE e CAGECE', so:'eta'},
+  {id:18, n:'Kit Teste Cloro e pH', m:'Genco', c:'acess', e:'Kit completo', ic:'🧫', p:[49.90,42.90,44.90,39.90], est:'ok', d:'Reagente para medir cloro livre e pH. Item obrigatório em piscina de escola.', app:'Controle diário'},
+  {id:19, n:'Dosador Flutuante para Pastilha', m:'Genco', c:'acess', e:'Unidade', ic:'🛟', p:[64.90,54.90,57.90,52.90], est:'ok', d:'Libera a pastilha aos poucos. Reduz o consumo de cloro.', app:'Uso com pastilha tricloro'},
+  {id:20, n:'Kit EPI para Produto Químico', m:'Fortaleza Química', c:'acess', e:'Kit', ic:'🥽', p:[139.90,118.90,124.90,112.90], est:'sem', d:'Luva, óculos, máscara e avental. Exigido em vistoria de escola e condomínio.', app:'Segurança do manipulador'}
+];
+
+const PERFIS = {
+  consumidor:{i:0, nome:'Consumidor', aviso:''},
+  piscineiro:{i:1, nome:'Piscineiro', aviso:'🧑‍🔧 <b>Tabela profissional ativa.</b> Preços de piscineiro parceiro, com condição de 30 e 60 dias.'},
+  condominio:{i:2, nome:'Condomínio / Escola', aviso:'🏢 <b>Tabela institucional ativa.</b> Faturamento por unidade, entrega programada e nota fiscal no portal.'},
+  eta:{i:3, nome:'SAAE / ETA', aviso:'🏭 <b>Tabela de saneamento ativa.</b> Produtos de ETA, laudo técnico e atendimento a ata de registro de preços.'}
+};
+
+let perfil='consumidor', catAtiva='todos', cart=[];
+
+/* contatos reais da empresa */
+const WPP='https://api.whatsapp.com/send', WPP_NUM='558532241458';
+const INSTA='https://www.instagram.com/fortalezaquimica/';
+const MAPA='https://maps.google.com/maps?q=AV.+RADIALISTA+JO%C3%83O+RAMOS,+2706+Fortaleza+CE';
+
+/* ================= UTIL ================= */
+const R$ = v => 'R$ ' + v.toFixed(2).replace('.',',').replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),2600)}
+function abrir(id){document.getElementById(id).classList.add('on')}
+function fechar(id){document.getElementById(id).classList.remove('on')}
+
+/* ================= NAV ================= */
+function ir(v,btn){
+  document.querySelectorAll('.view').forEach(e=>e.classList.remove('on'));
+  document.getElementById('v-'+v).classList.add('on');
+  document.querySelectorAll('#abas button').forEach(b=>b.classList.remove('on'));
+  if(btn) btn.classList.add('on');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function setPerfil(p){
+  perfil=p;
+  document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',c.dataset.p===p));
+  render();
+}
+
+/* ================= CATALOGO ================= */
+function render(){
+  document.getElementById('cats').innerHTML = CAT.map(c=>
+    `<button class="cat ${c.id===catAtiva?'on':''}" onclick="catAtiva='${c.id}';render()">${c.ic} ${c.nome}</button>`).join('');
+
+  const pf = PERFIS[perfil];
+  document.getElementById('aviso-perfil').innerHTML = pf.aviso
+    ? `<div class="aviso" style="background:var(--agua);color:var(--azul);margin-top:12px">${pf.aviso}</div>` : '';
+  document.getElementById('sub-preco').textContent =
+    perfil==='consumidor' ? 'Preço de consumidor final. Troque o perfil no topo para ver a tabela profissional.'
+    : 'Tabela ' + pf.nome + '. O preço muda conforme quem está logado — igual acontece hoje no balcão.';
+
+  const q = document.getElementById('busca').value.toLowerCase().trim();
+  const lista = PROD.filter(p=>{
+    if(catAtiva!=='todos' && p.c!==catAtiva) return false;
+    if(q && !(p.n+' '+p.m+' '+p.app).toLowerCase().includes(q)) return false;
+    if(p.so==='eta' && perfil!=='eta') return false;
+    if(p.so==='b2b' && (perfil==='consumidor'||perfil==='piscineiro')) return false;
+    return true;
+  });
+
+  document.getElementById('cont-prod').textContent = lista.length + ' itens';
+  document.getElementById('grade').innerHTML = lista.map(p=>{
+    const pr = p.p[pf.i], base = p.p[0];
+    const eco = base>0 && pr>0 && pr<base ? base-pr : 0;
+    const est = p.est==='ok'?'<span class="estoque ok"><i class="pt"></i>Em estoque</span>'
+      : p.est==='baixo'?'<span class="estoque baixo"><i class="pt"></i>Últimas unidades</span>'
+      : '<span class="estoque sem"><i class="pt"></i>Sob encomenda</span>';
+    const selo = p.so ? `<span class="selo pro">${p.so==='eta'?'Saneamento':'B2B'}</span>` : (eco?'<span class="selo eco">Seu preço</span>':'');
+    return `<article class="card">
+      <div class="foto" onclick="verProd(${p.id})">${p.ic}${selo}</div>
+      <div class="corpo">
+        <div class="marca">${p.m}</div>
+        <h3 onclick="verProd(${p.id})">${p.n}</h3>
+        <div class="emb">${p.e}</div>
+        ${est}
+        <div class="preco">
+          ${eco?`<div class="de">${R$(base)}</div>`:''}
+          <div class="por">${R$(pr)}</div>
+          <div class="un">à vista ou 30/60 dias</div>
+          ${eco?`<span class="eco-tag">Economia de ${R$(eco)}</span>`:''}
+        </div>
+        <button class="btn-add ${p.est==='sem'?'no':''}" onclick="${p.est==='sem'?`toast('Produto sob encomenda — fale com o vendedor.')`:`add(${p.id})`}">
+          ${p.est==='sem'?'Sob encomenda':'➕ Adicionar'}
+        </button>
+      </div>
+    </article>`;
+  }).join('') || '<p class="sub">Nenhum produto encontrado para esta busca.</p>';
+}
+
+function verProd(id){
+  const p = PROD.find(x=>x.id===id), pf=PERFIS[perfil], pr=p.p[pf.i];
+  document.getElementById('pd-tit').textContent = p.n;
+  document.getElementById('pd-corpo').innerHTML = `
+    <div style="height:150px;border-radius:14px;background:linear-gradient(150deg,var(--agua),var(--agua2));display:grid;place-items:center;font-size:64px;margin-bottom:14px">${p.ic}</div>
+    <div class="marca" style="font-size:11.5px;font-weight:800;color:var(--azul);letter-spacing:.6px">${p.m.toUpperCase()}</div>
+    <h3 style="font-size:19px;font-weight:800;letter-spacing:-.4px;margin:4px 0 3px">${p.n}</h3>
+    <div style="font-size:13.5px;color:var(--txt2)">${p.e}</div>
+    <div style="font-size:27px;font-weight:800;letter-spacing:-.9px;margin:13px 0 3px;color:var(--navy)">${R$(pr)}</div>
+    <div style="font-size:12.5px;color:var(--txt2)">Tabela ${pf.nome} · 30 e 60 dias sem juros</div>
+    <div class="tags" style="margin-top:11px">
+      <span class="tag ${p.est==='ok'?'v':p.est==='baixo'?'a':'r'}">${p.est==='ok'?'Em estoque':p.est==='baixo'?'Últimas unidades':'Sob encomenda'}</span>
+      <span class="tag">🚚 Entrega em Fortaleza</span>
+      <span class="tag">📄 FISPQ disponível</span>
+    </div>
+    <p style="margin-top:15px;font-size:14.5px;line-height:1.6">${p.d}</p>
+    <div class="box" style="margin-top:14px;box-shadow:none;background:var(--agua);border:none">
+      <div style="font-size:12px;font-weight:800;color:var(--azul);text-transform:uppercase;letter-spacing:.4px">Indicado para</div>
+      <div style="font-size:14px;margin-top:3px">${p.app}</div>
+    </div>`;
+  const b=document.getElementById('pd-btn');
+  b.textContent = p.est==='sem' ? 'Falar com o vendedor' : '➕ Adicionar ao pedido';
+  b.onclick = ()=>{ if(p.est==='sem'){toast('Abriria o WhatsApp do vendedor.')} else {add(p.id)} fechar('sheet-prod') };
+  abrir('sheet-prod');
+}
+
+/* ================= CARRINHO ================= */
+function add(id,q){
+  const p=PROD.find(x=>x.id===id), pf=PERFIS[perfil];
+  const ex=cart.find(i=>i.id===id);
+  if(ex) ex.q += (q||1); else cart.push({id,q:q||1,preco:p.p[pf.i],nome:p.n,emb:p.e,ic:p.ic});
+  atualizar(); toast('✅ ' + p.n + ' adicionado');
+}
+function mudar(id,d){
+  const i=cart.find(x=>x.id===id); if(!i)return;
+  i.q+=d; if(i.q<=0) cart=cart.filter(x=>x.id!==id);
+  atualizar(); desenharCart();
+}
+function totalCart(){ return cart.reduce((s,i)=>s+i.preco*i.q,0) }
+function qtdCart(){ return cart.reduce((s,i)=>s+i.q,0) }
+function atualizar(){
+  const n=qtdCart(), t=totalCart();
+  const b=document.getElementById('badge');
+  b.style.display = n?'grid':'none'; b.textContent=n;
+  const f=document.getElementById('fixo');
+  f.classList.toggle('on', n>0);
+  document.getElementById('fixo-itens').textContent = n + (n===1?' item':' itens');
+  document.getElementById('fixo-total').textContent = R$(t);
+}
+function desenharCart(){
+  const c=document.getElementById('cart-corpo');
+  if(!cart.length){ c.innerHTML='<p class="sub" style="text-align:center;padding:26px 0">Seu pedido está vazio.<br>Escolha os produtos no catálogo.</p>'; }
+  else{
+    c.innerHTML = cart.map(i=>`<div class="item">
+      <div class="mini">${i.ic}</div>
+      <div class="info">
+        <b>${i.nome}</b><small>${i.emb} · ${R$(i.preco)} cada</small>
+        <div class="qtd"><button onclick="mudar(${i.id},-1)">−</button><span>${i.q}</span><button onclick="mudar(${i.id},1)">+</button></div>
+      </div>
+      <div style="font-weight:800;font-size:14px;white-space:nowrap">${R$(i.preco*i.q)}</div>
+    </div>`).join('') +
+    `<div class="aviso" style="background:var(--agua);color:var(--azul);margin-top:14px">
+      💬 Ao enviar, a mensagem vai <b>pronta</b> no WhatsApp com produto, quantidade e valor — e o pedido entra no sistema com a origem marcada.</div>`;
+  }
+  document.getElementById('cart-total').textContent = R$(totalCart());
+}
+function abrirCarrinho(){ desenharCart(); abrir('sheet-cart') }
+function enviarZap(){
+  if(!cart.length){ toast('Adicione produtos antes de enviar.'); return }
+  const cod = '#' + Math.random().toString(36).slice(2,6).toUpperCase();
+  let m = 'Olá! Quero pedir:\n';
+  cart.forEach(i=> m += `${i.q}x ${i.nome} (${i.emb}) — ${R$(i.preco)} cada\n`);
+  m += `Total: ${R$(totalCart())}\nPerfil: ${PERFIS[perfil].nome}\nCódigo do pedido: ${cod}`;
+  const url = WPP + '?phone=' + WPP_NUM + '&text=' + encodeURIComponent(m);
+  document.getElementById('cart-corpo').innerHTML =
+    `<div style="text-align:center;padding:10px 0 14px"><div style="font-size:46px">💬</div>
+     <b style="font-size:17px;display:block;margin-top:6px">Mensagem pronta para enviar</b>
+     <p class="sub" style="margin-top:4px">O botão abaixo abre o WhatsApp da Fortaleza Química já preenchido. Nada é enviado até alguém tocar em enviar dentro do WhatsApp.</p></div>
+     <pre style="background:#F0F5F8;border-radius:12px;padding:14px;font-size:13px;white-space:pre-wrap;font-family:ui-monospace,Menlo,Consolas,monospace;line-height:1.6">${m}</pre>
+     <a class="btn z" style="margin-top:14px;text-decoration:none" href="${url}" target="_blank" rel="noopener">💬 Abrir no WhatsApp (85) 3224-1458</a>
+     <p style="font-size:11.5px;color:var(--txt2);margin-top:9px;text-align:center">Protótipo — não faça um pedido de verdade por aqui.</p>`;
+  toast('Pedido ' + cod + ' gerado');
+}
+
+/* ================= CALCULADORA ================= */
+function dose(vol,sit){
+  const v = vol;
+  if(sit==='verde') return [
+    ['Cloro granulado (choque)', (v*0.010).toFixed(1)+' kg'],
+    ['Algicida de choque', (v*0.006).toFixed(1)+' L'],
+    ['Clarificante', (v*0.003).toFixed(1)+' L'],
+    ['Filtrar por', '24 a 48 horas']
+  ];
+  if(sit==='turva') return [
+    ['Clarificante', (v*0.004).toFixed(1)+' L'],
+    ['Sulfato de alumínio', (v*0.008).toFixed(1)+' kg'],
+    ['Cloro granulado', (v*0.004).toFixed(1)+' kg'],
+    ['Aspirar o fundo', 'após 12 h de decantação']
+  ];
+  return [
+    ['Cloro granulado (semanal)', (v*0.003).toFixed(1)+' kg'],
+    ['Algicida de manutenção', (v*0.001).toFixed(2)+' L'],
+    ['Clarificante', (v*0.0015).toFixed(2)+' L'],
+    ['Verificar pH', 'entre 7,2 e 7,6']
+  ];
+}
+function volumeDe(a,b,c){ return Math.max(0, a*b*c*1000) }
+function pintarCalc(alvo, vol, sit){
+  const l = dose(vol,sit);
+  document.getElementById(alvo).innerHTML =
+    `<div class="l"><span>Volume da piscina</span><b>${vol.toLocaleString('pt-BR',{maximumFractionDigits:0})} litros</b></div>` +
+    l.map(([k,v])=>`<div class="l"><span>${k}</span><b>${v}</b></div>`).join('');
+}
+function calcular(){
+  const v = volumeDe(+c_comp.value||0, +c_larg.value||0, +c_prof.value||0);
+  pintarCalc('calc-res', v, c_sit.value);
+}
+function calcModal(){
+  const v = volumeDe(+m_comp.value||0, +m_larg.value||0, +m_prof.value||0);
+  pintarCalc('m_res', v, m_sit.value);
+}
+function abrirCalc(){ calcModal(); abrir('sheet-calc') }
+function kitDe(sit){ return sit==='verde'?[1,6,7]: sit==='turva'?[7,11,1] : [1,5,7] }
+function addKitCalc(){ kitDe(c_sit.value).forEach(id=>add(id)); ir('catalogo',document.querySelectorAll('#abas button')[0]); abrirCarrinho() }
+function addKitModal(){ kitDe(m_sit.value).forEach(id=>add(id)); fechar('sheet-calc'); abrirCarrinho() }
+
+/* ================= LOGIN ================= */
+function entrar(qual){
+  const map={pisc:['u_pisc','s_pisc','piscineiro','login-pisc','app-pisc',montarPisc],
+             cond:['u_cond','s_cond','administradora','login-cond','app-cond',montarCond],
+             adm:['u_adm','s_adm','fortaleza','login-adm','app-adm',montarAdm]};
+  const [u,s,esp,lg,ap,fn]=map[qual];
+  if(document.getElementById(u).value.trim().toLowerCase()!==esp || document.getElementById(s).value!=='demo'){
+    toast('Use os dados de demonstração indicados abaixo.'); return;
+  }
+  document.getElementById(lg).style.display='none';
+  document.getElementById(ap).style.display='block';
+  fn(); toast('Bem-vindo à área demonstrativa');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ================= PISCINEIRO ================= */
+function montarPisc(){
+  const rec=[[1,4],[5,2],[7,2],[18,1]];
+  document.getElementById('recompra').innerHTML = rec.map(([id,q])=>{
+    const p=PROD.find(x=>x.id===id);
+    return `<div class="linha"><div class="ic">${p.ic}</div>
+      <div class="txt"><b>${p.n}</b><small>${p.e} · última compra: ${q} un · ${R$(p.p[1])} cada</small></div>
+      <button class="btn c" style="width:auto;padding:9px 13px;font-size:12.5px" onclick="setPerfil('piscineiro');add(${id},${q})">+${q}</button></div>`;
+  }).join('') + `<button class="btn p" style="margin-top:13px" onclick="setPerfil('piscineiro');[[1,4],[5,2],[7,2],[18,1]].forEach(a=>add(a[0],a[1]));abrirCarrinho()">🔁 Repetir o último pedido inteiro</button>`;
+
+  const pis=[
+    ['Cond. Villa das Águas','96.000 L','Manutenção semanal','19/08','ok'],
+    ['Escola Municipal Aracati','128.000 L','Registro diário obrigatório','19/08','ok'],
+    ['Casa — Sr. Adilson (Eusébio)','44.800 L','pH alto, corrigir','20/08','alerta'],
+    ['Pousada Maré Alta','210.000 L','Água turva — clarificar','21/08','urgente']
+  ];
+  document.getElementById('piscinas').innerHTML = pis.map(([n,v,o,d,st])=>
+    `<div class="linha"><div class="ic">🏊</div>
+      <div class="txt"><b>${n}</b><small>${v} · ${o}</small>
+        <div class="tags"><span class="tag ${st==='ok'?'v':st==='alerta'?'a':'r'}">${st==='ok'?'Em dia':st==='alerta'?'Atenção':'Urgente'}</span><span class="tag">Visita ${d}</span></div>
+      </div></div>`).join('') +
+    `<button class="btn o" style="margin-top:13px" onclick="toast('Abriria o cadastro de nova piscina.')">➕ Cadastrar piscina</button>`;
+
+  document.getElementById('agenda').innerHTML = [
+    ['Seg 18/08','Folga','—','#F0F5F8'],
+    ['Ter 19/08','Villa das Águas + Escola Aracati','2 visitas','var(--agua)'],
+    ['Qua 20/08','Sr. Adilson — corrigir pH','1 visita','var(--amar-bg)'],
+    ['Qui 21/08','Pousada Maré Alta — clarificar','1 visita','var(--verm-bg)'],
+    ['Sex 22/08','Rota livre para encaixe','—','#F0F5F8']
+  ].map(([d,t,q,bg])=>`<div class="linha"><div class="ic" style="background:${bg}">📅</div>
+    <div class="txt"><b>${d}</b><small>${t}</small></div><div class="vl" style="font-size:12px;color:var(--txt2)">${q}</div></div>`).join('');
+
+  document.getElementById('hist-pisc').innerHTML = [
+    ['#8842','12/08/2026','6 itens','R$ 1.284,60','<span class="tag v">Entregue</span>'],
+    ['#8790','05/08/2026','4 itens','R$ 848,20','<span class="tag v">Entregue</span>'],
+    ['#8721','29/07/2026','7 itens','R$ 1.502,90','<span class="tag v">Entregue</span>'],
+    ['#8688','22/07/2026','3 itens','R$ 492,70','<span class="tag v">Entregue</span>']
+  ].map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('');
+}
+
+/* ================= CONDOMINIO ================= */
+function montarCond(){
+  const un=[
+    ['Cond. Villa das Águas','Aldeota','96.000 L','R$ 2.140/mês','05/09'],
+    ['Cond. Parque do Cocó','Cocó','142.000 L','R$ 2.980/mês','05/09'],
+    ['Cond. Mirante Dunas','Praia do Futuro','88.000 L','R$ 1.860/mês','05/09'],
+    ['Escola Mun. Jardim das Oliveiras','Messejana','128.000 L','R$ 2.460/mês','05/09'],
+    ['Escola Mun. Bom Jardim','Bom Jardim','110.000 L','R$ 2.180/mês','05/09'],
+    ['CEI Vila União','Vila União','52.000 L','R$ 1.120/mês','20/08']
+  ];
+  document.getElementById('unidades').innerHTML = un.map(([n,b,v,g,d])=>
+    `<div class="linha"><div class="ic">${n.startsWith('Cond')?'🏢':'🏫'}</div>
+      <div class="txt"><b>${n}</b><small>${b} · ${v}</small>
+        <div class="tags"><span class="tag">${g}</span><span class="tag v">Entrega ${d}</span></div></div></div>`).join('') +
+    `<button class="btn o" style="margin-top:13px" onclick="toast('Abriria o cadastro de nova unidade.')">➕ Adicionar unidade</button>`;
+
+  document.getElementById('orcamentos').innerHTML = [
+    ['#ORC-2291','Escola Bom Jardim','R$ 3.480,00','Aguardando aprovação do síndico','a'],
+    ['#ORC-2287','Villa das Águas','R$ 2.140,00','Aprovado por Ricardo M. em 14/08','v'],
+    ['#ORC-2280','Mirante Dunas','R$ 1.860,00','Aprovado por Fabiana L. em 11/08','v'],
+    ['#ORC-2274','CEI Vila União','R$ 1.120,00','Recusado — fora do orçamento do mês','r']
+  ].map(([c,u,vl,st,t])=>
+    `<div class="linha"><div class="ic">📝</div>
+      <div class="txt"><b>${c} · ${u}</b><small>${st}</small></div>
+      <div class="vl">${vl}<div class="tags" style="justify-content:flex-end;margin-top:4px"><span class="tag ${t}">${t==='v'?'Aprovado':t==='a'?'Pendente':'Recusado'}</span></div></div></div>`).join('');
+}
+
+/* ================= PAINEL ================= */
+function montarAdm(){
+  const cli=[['SAAE Quixeramobim',170159.74,100],['CAGECE',79172.80,47],['SAAE Boa Viagem',53519.20,31],['Adm. Litoral (9 unidades)',14380.60,9],['Piscineiros parceiros (38)',11240.90,7]];
+  const max=cli[0][1];
+  document.getElementById('rank-cli').innerHTML = cli.map(([n,v,p])=>
+    `<div class="barra"><div class="top"><b>${n}</b><span>${R$(v)}</span></div>
+     <div class="trilho"><div class="fill" style="width:${Math.round(v/max*100)}%"></div></div></div>`).join('');
+
+  const pr=[['Hipoclorito de sódio 12%',70302,100],['Cloro granulado dicloro 56%',18420,26],['Pastilha tricloro 200 g',12640,18],['Algicida de manutenção',8210,12],['Barrilha leve',6980,10]];
+  document.getElementById('rank-prod').innerHTML = pr.map(([n,q,p])=>
+    `<div class="barra"><div class="top"><b>${n}</b><span>${q.toLocaleString('pt-BR')} un</span></div>
+     <div class="trilho"><div class="fill" style="width:${p}%"></div></div></div>`).join('');
+
+  document.getElementById('tab-cds').innerHTML = [
+    ['#8901','Cond. Parque do Cocó','R$ 2.980,00','CANAL_DIGITAL','<span class="tag v">Integrado</span>'],
+    ['#8900','Marcos — piscineiro','R$ 1.284,60','APP_PISCINEIRO','<span class="tag v">Integrado</span>'],
+    ['#8899','Escola Bom Jardim','R$ 3.480,00','PORTAL_ESCOLA','<span class="tag a">Aguardando</span>'],
+    ['#8898','Consumidor — Eusébio','R$ 419,70','CANAL_DIGITAL','<span class="tag v">Integrado</span>'],
+    ['#8897','Adm. Litoral','R$ 6.240,00','PROGRAMADO','<span class="tag v">Integrado</span>']
+  ].map(r=>`<tr>${r.map((c,i)=>`<td>${i===3?`<code style="font-size:11.5px;background:var(--agua);color:var(--azul);padding:2px 6px;border-radius:5px">${c}</code>`:c}</td>`).join('')}</tr>`).join('');
+
+  document.getElementById('origem').innerHTML = [
+    ['Licitação e contrato público',62,'var(--navy)'],
+    ['Balcão e WhatsApp',24,'var(--azul)'],
+    ['Canal digital novo',11,'var(--ciano)'],
+    ['Indicação de piscineiro',3,'#7DD3E8']
+  ].map(([n,p,c])=>`<div class="barra"><div class="top"><b>${n}</b><span>${p}%</span></div>
+    <div class="trilho"><div class="fill" style="width:${p}%;background:${c}"></div></div></div>`).join('') +
+    `<p class="sub" style="margin-top:11px;margin-bottom:0">O canal digital não tira nada da licitação. Ele cresce em cima do que hoje é atendido um WhatsApp por vez.</p>`;
+}
+
+/* ================= COOKIES ================= */
+function cookieSet(){ document.getElementById('cookie').classList.remove('on'); toast('Preferência registrada.') }
+
+/* ================= INIT ================= */
+const zapUrl = WPP + '?phone=' + WPP_NUM + '&text=' +
+  encodeURIComponent('Olá! Estou vendo o catálogo e gostaria de tirar uma dúvida sobre os produtos.');
+document.getElementById('zap-topo').href = zapUrl;
+document.getElementById('zap-float').href = zapUrl;
+render(); calcular(); atualizar();
+setTimeout(()=>document.getElementById('cookie').classList.add('on'), 1400);
+</script>
+</body>
+</html>
