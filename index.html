@@ -49,9 +49,10 @@ header{
   display:grid;place-items:center;font-size:18px
 }
 .logo small{display:block;font-size:10.5px;font-weight:600;color:#9FD4E6;letter-spacing:.8px}
-.head-acoes{margin-left:auto;display:flex;align-items:center;gap:8px}
+.head-acoes{margin-left:auto;display:flex;align-items:center;gap:6px}
+@media(max-width:430px){.logo{font-size:15px}.logo .drop{width:30px;height:30px;flex:0 0 30px;font-size:16px}.icone-btn{width:36px;height:36px;font-size:16px}.head-top{gap:8px;padding:10px 13px}}
 .icone-btn{
-  width:42px;height:42px;border-radius:11px;background:rgba(255,255,255,.11);
+  width:40px;height:40px;border-radius:11px;background:rgba(255,255,255,.11);
   display:grid;place-items:center;font-size:18px;position:relative;color:#fff
 }
 .icone-btn:active{background:rgba(255,255,255,.2)}
@@ -290,6 +291,117 @@ footer a{color:#9FD4E6;text-decoration:none;display:inline-block;margin:3px 14px
 .cookie .ac{background:var(--ciano);color:var(--navy)}
 .cookie .re{background:rgba(255,255,255,.13);color:#fff}
 
+/* ---------- CALCULADORA ---------- */
+.kabas{display:flex;gap:8px;margin:14px 0}
+.kabas button{flex:1;background:#fff;border:1.5px solid var(--linha);border-radius:12px;
+  padding:12px 10px;font-size:14px;font-weight:700;color:var(--txt2);line-height:1.25}
+.kabas button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.kabas button small{display:block;font-size:11px;font-weight:600;opacity:.75;margin-top:2px}
+.tripla{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}
+.volbox{background:var(--agua);border-radius:12px;padding:13px 15px;margin-top:14px;
+  display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.volbox span{font-size:12.5px;font-weight:800;color:var(--azul);letter-spacing:.4px}
+.volbox b{font-size:22px;font-weight:800;letter-spacing:-.6px;color:var(--navy)}
+.kmed{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;
+  padding:12px 0;border-bottom:1px solid #F0F5F8}
+.kmed:last-of-type{border-bottom:none}
+.kmed .l b{display:block;font-size:14.5px;font-weight:700}
+.kmed .l small{font-size:12px;color:var(--txt2)}
+.kmed input{width:104px;text-align:center;font-weight:700}
+.passo{background:#fff;border:1px solid #EAF1F5;border-left:4px solid var(--ciano);
+  border-radius:0 12px 12px 0;padding:14px 16px;margin-bottom:11px;box-shadow:var(--sombra)}
+.passo.ok{border-left-color:var(--verde)}
+.passo.at{border-left-color:#D99B00}
+.passo.ur{border-left-color:var(--verm)}
+.passo .pn{font-size:11px;font-weight:800;letter-spacing:1.2px;color:var(--azul);text-transform:uppercase}
+.passo h3{font-size:16px;font-weight:800;margin:4px 0 2px;letter-spacing:-.3px}
+.passo .pq{font-size:26px;font-weight:800;letter-spacing:-.9px;color:var(--navy);margin:6px 0 2px}
+.passo .pe2{font-size:13.5px;color:var(--txt2)}
+.passo .pp{font-size:12.5px;font-weight:700;color:var(--azul);margin-top:6px}
+.passo .po{font-size:13px;color:var(--txt2);margin-top:8px;line-height:1.5}
+.kfx{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:10px}
+.kf{background:var(--agua);border-radius:11px;padding:11px 13px}
+.kf small{font-size:11px;font-weight:800;color:var(--azul);text-transform:uppercase;letter-spacing:.4px}
+.kf b{display:block;font-size:17px;font-weight:800;letter-spacing:-.4px;margin:2px 0 5px}
+details.fonte{background:#fff;border:1px solid #EAF1F5;border-radius:12px;margin-top:12px;overflow:hidden}
+details.fonte summary{padding:14px 16px;font-size:14px;font-weight:700;cursor:pointer;list-style:none}
+details.fonte summary::-webkit-details-marker{display:none}
+details.fonte summary::after{content:"▾";float:right;color:var(--txt2)}
+details.fonte[open] summary::after{content:"▴"}
+details.fonte .in{padding:0 16px 16px;font-size:13.5px;color:var(--txt2);line-height:1.6}
+details.fonte table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
+details.fonte th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.4px;
+  color:var(--txt2);padding:7px 6px;border-bottom:1.5px solid var(--linha)}
+details.fonte td{padding:7px 6px;border-bottom:1px solid #F0F5F8;color:var(--txt)}
+
+/* ---------- CAPA ---------- */
+#capa{
+  position:fixed;inset:0;z-index:400;overflow-y:auto;
+  background:
+    radial-gradient(120% 80% at 78% 12%, rgba(18,181,206,.30), transparent 62%),
+    radial-gradient(90% 70% at 8% 92%, rgba(14,127,168,.34), transparent 60%),
+    linear-gradient(165deg,#041A29 0%,#06263B 46%,#0A3E5C 100%);
+  color:#fff;display:flex;align-items:center;justify-content:center;padding:34px 20px
+}
+#capa.off{display:none}
+#capa .onda{
+  position:absolute;left:0;right:0;bottom:0;height:210px;pointer-events:none;
+  background:radial-gradient(70% 100% at 50% 130%, rgba(18,181,206,.32), transparent 70%)
+}
+.capa-in{max-width:760px;width:100%;position:relative;z-index:1;text-align:center;animation:capaSobe .6s cubic-bezier(.2,.9,.3,1)}
+@keyframes capaSobe{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.capa-logo{
+  width:78px;height:78px;border-radius:23px;margin:0 auto 20px;display:grid;place-items:center;font-size:38px;
+  background:linear-gradient(150deg,var(--ciano),#0A6E93);box-shadow:0 12px 40px rgba(18,181,206,.42)
+}
+.capa-et{
+  font-size:11.5px;font-weight:800;letter-spacing:3px;color:#7FD0E8;text-transform:uppercase;margin-bottom:11px
+}
+.capa-in h1{
+  font-size:38px;line-height:1.08;letter-spacing:-1.4px;font-weight:800;margin-bottom:6px
+}
+.capa-in h1 span{
+  background:linear-gradient(100deg,#8FE3F5,#12B5CE 60%,#5BC9E4);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent
+}
+.capa-sub{font-size:17px;color:#B8DCEA;max-width:520px;margin:0 auto;line-height:1.5}
+.capa-nota{
+  display:inline-block;margin-top:17px;background:rgba(255,255,255,.09);border:1px solid rgba(143,227,245,.28);
+  border-radius:999px;padding:8px 17px;font-size:13px;color:#CFE9F3;font-weight:600
+}
+.capa-cards{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:11px;margin:28px 0 24px;text-align:left
+}
+.capa-card{
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.11);border-radius:15px;padding:15px 15px 16px;
+  backdrop-filter:blur(4px)
+}
+.capa-card .n{font-size:11px;font-weight:800;color:var(--ciano);letter-spacing:1.4px}
+.capa-card .e{font-size:25px;display:block;margin:7px 0 6px}
+.capa-card b{display:block;font-size:14.5px;font-weight:700;line-height:1.28;margin-bottom:4px}
+.capa-card small{font-size:12.5px;color:#9EC8D9;line-height:1.45;display:block}
+.capa-frase{
+  font-size:14.5px;color:#9EC8D9;font-style:italic;border-left:3px solid var(--ciano);
+  padding-left:14px;text-align:left;max-width:470px;margin:0 auto 24px;line-height:1.5
+}
+.capa-btn{
+  background:linear-gradient(100deg,var(--ciano),#0FA0C4);color:#04222F;border-radius:14px;
+  padding:17px 34px;font-size:16.5px;font-weight:800;letter-spacing:-.2px;
+  box-shadow:0 10px 30px rgba(18,181,206,.4);display:inline-flex;align-items:center;gap:9px
+}
+.capa-btn:active{transform:scale(.97)}
+.capa-pe{margin-top:26px;font-size:12.5px;color:#7BA6BA;line-height:1.7}
+.capa-pe b{color:#CFE9F3;font-weight:700}
+@media(max-width:520px){
+  #capa{padding:26px 16px;align-items:flex-start}
+  .capa-in h1{font-size:29px;letter-spacing:-1px}
+  .capa-sub{font-size:15.5px}
+  .capa-cards{grid-template-columns:1fr 1fr;gap:9px}
+  .capa-card{padding:12px}
+  .capa-card b{font-size:13px}
+  .capa-card small{font-size:11.5px}
+}
+
 /* whatsapp flutuante */
 .zap-float{
   position:fixed;right:16px;bottom:112px;z-index:95;width:56px;height:56px;border-radius:50%;
@@ -317,6 +429,33 @@ footer a{color:#9FD4E6;text-decoration:none;display:inline-block;margin:3px 14px
 </head>
 <body>
 
+<div id="capa">
+  <div class="onda"></div>
+  <div class="capa-in">
+    <div class="capa-logo">💧</div>
+    <div class="capa-et">Fortaleza Química · Fortaleza/CE</div>
+    <h1>Canal digital<br><span>de vendas</span></h1>
+    <p class="capa-sub">Ideias para o que a Fortaleza Química já vende todo dia — com preço na tela e pedido entrando sozinho no sistema.</p>
+    <div class="capa-nota">🧪 São telas de demonstração, não um sistema pronto</div>
+
+    <div class="capa-cards">
+      <div class="capa-card"><div class="n">01</div><span class="e">🛍️</span><b>Catálogo com preço</b><small>Quatro tabelas na mesma tela: consumidor, piscineiro, condomínio e órgão público</small></div>
+      <div class="capa-card"><div class="n">02</div><span class="e">🧑‍🔧</span><b>App do piscineiro</b><small>Recompra em um toque, as piscinas que ele atende e a agenda da semana</small></div>
+      <div class="capa-card"><div class="n">03</div><span class="e">🏢</span><b>Condomínio e escola</b><small>Várias unidades, fornecimento programado e prestação de contas</small></div>
+      <div class="capa-card"><div class="n">04</div><span class="e">📊</span><b>Painel da empresa</b><small>Pedido chegando com a origem marcada, pronto para faturar</small></div>
+    </div>
+
+    <p class="capa-frase">O sistema de gestão continua sendo o cérebro da operação. Isso aqui é só a porta de entrada digital para dentro dele.</p>
+
+    <button class="capa-btn" onclick="entrarProto()">Ver as telas →</button>
+
+    <div class="capa-pe">
+      <b>Cezar Moreira</b> · SoftwareHouse Fortaleza<br>
+      Agosto de 2026 · material preparado para conversa, sem compromisso comercial
+    </div>
+  </div>
+</div>
+
 <div class="topo">
 <div class="demo-bar">🧪 <b>PROTÓTIPO DEMONSTRATIVO</b> — dados e preços fictícios · SoftwareHouse Fortaleza</div>
 
@@ -329,7 +468,7 @@ footer a{color:#9FD4E6;text-decoration:none;display:inline-block;margin:3px 14px
     <div class="head-acoes">
       <a class="icone-btn" href="https://www.instagram.com/fortalezaquimica/" target="_blank" rel="noopener" title="Instagram" style="text-decoration:none">📸</a>
       <a class="icone-btn" id="zap-topo" href="#" target="_blank" rel="noopener" title="WhatsApp" style="text-decoration:none">💬</a>
-      <button class="icone-btn" onclick="abrirCalc()" title="Calculadora">🧮</button>
+      <button class="icone-btn" onclick="irCalc()" title="Calculadora">🧮</button>
       <button class="icone-btn" onclick="abrirCarrinho()" title="Carrinho">🛒<span class="badge" id="badge" style="display:none">0</span></button>
     </div>
   </div>
@@ -349,6 +488,7 @@ footer a{color:#9FD4E6;text-decoration:none;display:inline-block;margin:3px 14px
   <button class="on" onclick="ir('catalogo',this)">🛍️ Catálogo</button>
   <button onclick="ir('piscineiro',this)">🧑‍🔧 App do Piscineiro</button>
   <button onclick="ir('condominio',this)">🏢 Condomínio &amp; Escola</button>
+  <button onclick="ir('calc',this)">🧮 Calculadora</button>
   <button onclick="ir('painel',this)">📊 Painel Fortaleza</button>
   <button onclick="ir('sobre',this)">ℹ️ Como funciona</button>
 </nav>
@@ -376,26 +516,6 @@ footer a{color:#9FD4E6;text-decoration:none;display:inline-block;margin:3px 14px
 
   <div class="grade" id="grade"></div>
 
-  <h2 class="tit">🧮 Calculadora da piscina</h2>
-  <p class="sub">O cliente informa o tamanho e o sistema já diz quanto usar de cada produto — e monta o carrinho.</p>
-  <div class="box">
-    <div class="dupla">
-      <div><label class="f">Comprimento (m)</label><input class="f" type="number" id="c_comp" value="8" oninput="calcular()"></div>
-      <div><label class="f">Largura (m)</label><input class="f" type="number" id="c_larg" value="4" oninput="calcular()"></div>
-    </div>
-    <div class="dupla">
-      <div><label class="f">Profundidade média (m)</label><input class="f" type="number" id="c_prof" value="1.4" step="0.1" oninput="calcular()"></div>
-      <div><label class="f">Situação da água</label>
-        <select class="f" id="c_sit" onchange="calcular()">
-          <option value="manutencao">Manutenção semanal</option>
-          <option value="verde">Água verde (choque)</option>
-          <option value="turva">Água turva</option>
-        </select>
-      </div>
-    </div>
-    <div class="calc-res" id="calc-res"></div>
-    <button class="btn c" style="margin-top:13px" onclick="addKitCalc()">➕ Adicionar o kit sugerido ao pedido</button>
-  </div>
 </div>
 </section>
 
@@ -522,6 +642,98 @@ footer a{color:#9FD4E6;text-decoration:none;display:inline-block;margin:3px 14px
 </div>
 </section>
 
+<!-- ================= CALCULADORA ================= -->
+<section class="view" id="v-calc">
+<div class="wrap">
+  <div class="hero">
+    <h1>Quanto usar na sua piscina</h1>
+    <p>A dose muda conforme o produto. Escolha o cloro que você usa e a calculadora acerta a quantidade.</p>
+  </div>
+
+  <div class="kabas">
+    <button class="on" id="kb-m" onclick="modoCalc('m')">🔄 Manutenção<small>rotina semanal</small></button>
+    <button id="kb-c" onclick="modoCalc('c')">🧪 Corrigir água<small>com medição</small></button>
+  </div>
+
+  <div class="box">
+    <h3>📐 Volume da piscina</h3>
+    <div class="desc">Se já souber o volume, informe direto embaixo.</div>
+    <div class="tripla">
+      <div><label class="f">Comprimento (m)</label><input class="f" type="number" id="k_comp" value="8" step="0.1" oninput="calcVol()"></div>
+      <div><label class="f">Largura (m)</label><input class="f" type="number" id="k_larg" value="4" step="0.1" oninput="calcVol()"></div>
+      <div><label class="f">Prof. média (m)</label><input class="f" type="number" id="k_prof" value="1.4" step="0.1" oninput="calcVol()"></div>
+    </div>
+    <p style="font-size:12px;color:var(--txt2);margin-top:5px">Profundidade média = (parte rasa + parte funda) ÷ 2</p>
+    <label class="f">Ou informe o volume direto (litros)</label>
+    <input class="f" type="number" id="k_volman" placeholder="ex.: 45000" oninput="volManual()">
+    <div class="volbox"><span>VOLUME DE ÁGUA</span><b id="k_vol">—</b></div>
+  </div>
+
+  <div class="box">
+    <h3>🪣 Qual cloro você usa?</h3>
+    <div class="desc">Produtos diferentes têm concentrações diferentes — por isso a dose muda.</div>
+    <select class="f" id="k_prod" onchange="trocouCloro()"></select>
+    <div class="dupla" style="margin-top:12px">
+      <div><label class="f">Cloro ativo (%)</label><input class="f" type="number" id="k_pct" oninput="calcK()"></div>
+      <div><label class="f">Embalagem</label><input class="f" type="text" id="k_emb" readonly style="background:#F5F9FB"></div>
+    </div>
+    <p style="font-size:12px;color:var(--txt2);margin-top:6px" id="k_dica"></p>
+  </div>
+
+  <div class="box" id="k-med">
+    <h3>🔬 O que o teste mostrou</h3>
+    <div class="desc">Meça com o kit de teste antes de aplicar qualquer coisa.</div>
+    <div class="kmed"><div class="l"><b>Cloro livre</b><small>ideal: 1 a 3 ppm</small></div>
+      <input class="f" type="number" id="k_cl" value="0.5" step="0.1" oninput="calcK()"></div>
+    <div class="kmed"><div class="l"><b>pH</b><small>ideal: 7,2 a 7,6</small></div>
+      <input class="f" type="number" id="k_ph" value="7.8" step="0.1" oninput="calcK()"></div>
+    <div class="kmed"><div class="l"><b>Alcalinidade total</b><small>ideal: 80 a 120 ppm</small></div>
+      <input class="f" type="number" id="k_alc" value="60" step="5" oninput="calcK()"></div>
+    <label class="f">A água está…</label>
+    <select class="f" id="k_asp" onchange="calcK()">
+      <option value="ok">Limpa e transparente</option>
+      <option value="turva">Turva ou leitosa</option>
+      <option value="verde">Esverdeada</option>
+      <option value="muitoverde">Muito verde / fundo não aparece</option>
+    </select>
+  </div>
+
+  <h2 class="tit" id="k-tit">📋 Rotina da semana</h2>
+  <p class="sub" id="k-sub">Dose de manutenção, com a bomba ligada.</p>
+  <div id="k-res"></div>
+
+  <div class="box" id="k-faixas">
+    <h3>🎯 Como está sua água</h3>
+    <div class="desc">Comparado com a faixa recomendada.</div>
+    <div class="kfx" id="kfx"></div>
+  </div>
+
+  <button class="btn c" onclick="addReceita()">🛒 Adicionar esses produtos ao pedido</button>
+
+  <div class="aviso" style="background:var(--amar-bg);color:var(--amar)">
+    ⚠️ <b>Sempre confira o rótulo.</b> As dosagens seguem as recomendações dos fabricantes, mas cada lote pode ter concentração diferente. Em piscina de escola, condomínio ou clube, o responsável técnico tem a palavra final.
+  </div>
+
+  <details class="fonte">
+    <summary>📚 De onde vêm essas contas</summary>
+    <div class="in">
+      <p><b>Cloração — HTH:</b> manutenção semanal de 4 g por 1.000 litros; supercloração de 14 g por 1.000 litros no Cloro Concentrado Tradicional 65% e 18 g por 1.000 litros no Cloro Aditivado Mineral Brilliance.</p>
+      <p style="margin-top:9px"><b>Ajuste por concentração:</b> quando o produto tem percentual diferente de 65%, a dose é recalculada por proporção. Esse ajuste é cálculo nosso, não recomendação do fabricante.</p>
+      <p style="margin-top:9px"><b>Algicida e clarificante — HTH:</b> algicida de manutenção 5 ml/1.000 L por semana; algicida de choque 7 ml/1.000 L; Clarifica Maxfloc 1,5 ml/1.000 L por semana; água turva 20 ml/1.000 L.</p>
+      <p style="margin-top:9px"><b>pH e alcalinidade:</b></p>
+      <table>
+        <tr><th>Correção</th><th>Produto</th><th>Por 1.000 L</th></tr>
+        <tr><td>pH +0,2</td><td>Barrilha leve</td><td>7,5 g</td></tr>
+        <tr><td>pH −0,2</td><td>Ácido muriático</td><td>2,5 ml</td></tr>
+        <tr><td>Alcalinidade +10 ppm</td><td>Bicarbonato de sódio</td><td>15 g</td></tr>
+        <tr><td>Alcalinidade −10 ppm</td><td>Ácido muriático</td><td>10 ml</td></tr>
+      </table>
+      <p style="margin-top:9px"><b>Regra de ouro:</b> corrija a alcalinidade antes do pH. Ao contrário, o pH volta a oscilar.</p>
+    </div>
+  </details>
+</div>
+</section>
+
 <!-- ================= PAINEL ================= -->
 <section class="view" id="v-painel">
 <div class="wrap">
@@ -539,7 +751,7 @@ footer a{color:#9FD4E6;text-decoration:none;display:inline-block;margin:3px 14px
 
   <div id="app-adm" style="display:none">
     <h2 class="tit">📈 Canal digital — agosto/2026</h2>
-    <p class="sub">Números ilustrativos para mostrar o formato do painel.</p>
+    <p class="sub">⚠️ Todos os números desta aba são <b>inventados</b>, só para mostrar o formato do painel. Nenhum dado real da Fortaleza Química foi usado.</p>
     <div class="kpis">
       <div class="kpi"><small>Pedidos digitais</small><b>187</b><div class="var up">▲ 24% vs. julho</div></div>
       <div class="kpi"><small>Faturamento do canal</small><b>R$ 68.420</b><div class="var up">▲ 18%</div></div>
@@ -607,7 +819,7 @@ footer a{color:#9FD4E6;text-decoration:none;display:inline-block;margin:3px 14px
   <h2 class="tit">📦 Produtos usados neste protótipo</h2>
   <p class="sub">Levantados do próprio site da empresa e de documentos públicos de licitação — inclusive as marcas que ela já fornece.</p>
   <div class="box">
-    <div class="linha"><div class="ic">🏊</div><div class="txt"><b>Linha piscina</b><small>Cloro granulado, pastilha e líquido · algicida · clarificante · barrilha leve · bicarbonato · sulfato de alumínio · metabissulfito · metassilicato</small></div></div>
+    <div class="linha"><div class="ic">🏊</div><div class="txt"><b>Linha piscina</b><small>Marcas reais da lista fornecida pela empresa: <b>HTH, Hidroazul, Q Clor/Quimil, Sisecam, Sodramar, Indusfloc, Neoclor, Solvay, BASF, Hypocal</b>. A planilha tem 212 itens — 94 químicos, além de bombas, filtros, iluminação e acessórios.</small></div></div>
     <div class="linha"><div class="ic">🏭</div><div class="txt"><b>Linha tratamento de água</b><small>Policloreto de alumínio (Propac) · sulfato de alumínio ferroso (Industrfloc) · polímero catiônico (SNF) · ácido fluossilícico (Q-Fluor) · hipoclorito de cálcio 65% (Hypocal)</small></div></div>
     <div class="linha"><div class="ic">📡</div><div class="txt"><b>Instagram</b><small>O perfil <a href="https://www.instagram.com/fortalezaquimica/" target="_blank" rel="noopener">@fortalezaquimica</a> existe, mas não é usado como canal de venda — e o site atual não linka para ele. Aqui, cada tela leva para o WhatsApp e para o Instagram.</small></div></div>
   </div>
@@ -667,29 +879,6 @@ footer a{color:#9FD4E6;text-decoration:none;display:inline-block;margin:3px 14px
   </div>
 </div>
 
-<!-- ================= CALCULADORA ================= -->
-<div class="sheet" id="sheet-calc">
-  <div class="fundo" onclick="fechar('sheet-calc')"></div>
-  <div class="painel">
-    <div class="cab"><h3>🧮 Calculadora da piscina</h3><button class="fechar" onclick="fechar('sheet-calc')">✕</button></div>
-    <div class="corpo">
-      <p class="sub">Informe o tamanho e veja quanto usar de cada produto.</p>
-      <div class="dupla">
-        <div><label class="f">Comprimento (m)</label><input class="f" type="number" id="m_comp" value="8" oninput="calcModal()"></div>
-        <div><label class="f">Largura (m)</label><input class="f" type="number" id="m_larg" value="4" oninput="calcModal()"></div>
-      </div>
-      <div class="dupla">
-        <div><label class="f">Profundidade (m)</label><input class="f" type="number" id="m_prof" value="1.4" step="0.1" oninput="calcModal()"></div>
-        <div><label class="f">Situação</label><select class="f" id="m_sit" onchange="calcModal()">
-          <option value="manutencao">Manutenção semanal</option><option value="verde">Água verde</option><option value="turva">Água turva</option>
-        </select></div>
-      </div>
-      <div class="calc-res" id="m_res"></div>
-    </div>
-    <div class="pe"><button class="btn c" onclick="addKitModal()">➕ Adicionar kit ao pedido</button></div>
-  </div>
-</div>
-
 <div class="fixo" id="fixo">
   <div class="resumo"><small id="fixo-itens">0 itens</small><b id="fixo-total">R$ 0,00</b></div>
   <button class="btn p" onclick="abrirCarrinho()">Ver pedido 🛒</button>
@@ -730,7 +919,8 @@ footer a{color:#9FD4E6;text-decoration:none;display:inline-block;margin:3px 14px
         <b>Institucional</b>
         <a href="#" onclick="event.preventDefault();abrir('sheet-priv')">Política de Privacidade</a><br>
         <a href="#" onclick="event.preventDefault();toast('Abriria os Termos de Uso.')">Termos de Uso</a><br>
-        <a href="#" onclick="event.preventDefault();ir('sobre',document.querySelectorAll('#abas button')[4])">Como funciona</a>
+        <a href="#" onclick="event.preventDefault();ir('sobre',document.querySelectorAll('#abas button')[4])">Como funciona</a><br>
+        <a href="#" onclick="event.preventDefault();voltarCapa()">↩ Voltar para a capa</a>
       </div>
     </div>
     <div class="fbase">
@@ -748,31 +938,55 @@ const CAT = [
   {id:'trat', nome:'Tratamento', ic:'🌀'},
   {id:'ph', nome:'pH e alcalinidade', ic:'⚖️'},
   {id:'eta', nome:'ETA / Saneamento', ic:'🏭'},
+  {id:'equip', nome:'Equipamentos', ic:'⚙️'},
   {id:'acess', nome:'Acessórios', ic:'🧰'}
 ];
 
 /* preco: [consumidor, piscineiro, condominio, eta] */
 const PROD = [
-  {id:1, n:'Cloro Granulado Dicloro 56%', m:'Hidroall', c:'cloro', e:'Balde 10 kg', ic:'🪣', p:[259.90,219.90,229.90,214.90], est:'ok', d:'Cloro de dissolução rápida, não altera o pH. O mais usado na manutenção semanal.', app:'Piscinas residenciais e de condomínio'},
-  {id:2, n:'Cloro em Pastilha Tricloro 200 g', m:'Hidroall', c:'cloro', e:'Balde 10 kg', ic:'⚪', p:[389.90,329.90,344.90,319.90], est:'ok', d:'Dissolução lenta em flutuador ou dosador. Ideal para piscina de escola e condomínio que não tem tratamento diário.', app:'Escolas, condomínios, hotéis'},
-  {id:3, n:'Cloro Líquido — Hipoclorito de Sódio 12%', m:'Fortaleza Química', c:'cloro', e:'Bombona 20 L', ic:'🧴', p:[129.90,109.90,114.90,99.90], est:'ok', d:'Alta concentração, entrega a granel disponível. É o produto mais vendido da casa.', app:'Piscinas grandes, ETAs, reservatórios'},
-  {id:4, n:'Hipoclorito de Cálcio 65% — Pastilha', m:'Hypocal', c:'eta', e:'Balde 45 kg', ic:'🥁', p:[0,0,0,2939.85], est:'ok', d:'Pastilha de até 60 mm conforme NBR 11887. Fornecido em licitações para SAAE.', app:'Estações de tratamento de água', so:'eta'},
-  {id:5, n:'Algicida de Manutenção', m:'Genco', c:'trat', e:'Galão 5 L', ic:'🟢', p:[89.90,74.90,79.90,72.90], est:'ok', d:'Previne o aparecimento de algas. Uso semanal junto com o cloro.', app:'Toda piscina tratada'},
-  {id:6, n:'Algicida de Choque', m:'Genco', c:'trat', e:'Galão 5 L', ic:'🟩', p:[109.90,92.90,97.90,89.90], est:'baixo', d:'Para água já esverdeada. Aplicar com a bomba ligada e filtrar por 24 h.', app:'Recuperação de água verde'},
-  {id:7, n:'Clarificante / Decantador', m:'Genco', c:'trat', e:'Galão 5 L', ic:'💠', p:[79.90,66.90,70.90,64.90], est:'ok', d:'Junta a sujeira fina para o filtro conseguir reter. Resolve água turva.', app:'Água turva e leitosa'},
-  {id:8, n:'Barrilha Leve — Elevador de pH', m:'Fortaleza Química', c:'ph', e:'Saco 25 kg', ic:'📦', p:[179.90,152.90,159.90,144.90], est:'ok', d:'Carbonato de sódio. Sobe o pH da água quando fica ácido demais.', app:'Correção de pH baixo'},
-  {id:9, n:'Redutor de pH — Ácido Muriático', m:'Fortaleza Química', c:'ph', e:'Bombona 20 L', ic:'🧯', p:[119.90,99.90,104.90,94.90], est:'ok', d:'Abaixa o pH. Manuseio com EPI obrigatório — FISPQ disponível no portal.', app:'Correção de pH alto'},
-  {id:10, n:'Bicarbonato de Sódio', m:'Fortaleza Química', c:'ph', e:'Saco 25 kg', ic:'📦', p:[229.90,194.90,204.90,184.90], est:'ok', d:'Eleva a alcalinidade sem mexer muito no pH. Estabiliza a água.', app:'Alcalinidade baixa'},
-  {id:11, n:'Sulfato de Alumínio', m:'Fortaleza Química', c:'trat', e:'Saco 25 kg', ic:'📦', p:[149.90,127.90,133.90,119.90], est:'ok', d:'Floculante clássico. Decanta a sujeira no fundo para aspirar.', app:'Água muito suja, floculação'},
-  {id:12, n:'Metabissulfito de Sódio', m:'Fortaleza Química', c:'trat', e:'Saco 25 kg', ic:'📦', p:[259.90,219.90,229.90,209.90], est:'baixo', d:'Neutraliza cloro em excesso e trata água de reúso.', app:'Neutralização de cloro'},
-  {id:13, n:'Metassilicato de Sódio', m:'Fortaleza Química', c:'trat', e:'Saco 25 kg', ic:'📦', p:[239.90,203.90,212.90,194.90], est:'ok', d:'Usado em limpeza industrial e tratamento de efluentes.', app:'Limpeza industrial, efluentes'},
-  {id:14, n:'Policloreto de Alumínio (PAC) 18%', m:'Propac', c:'eta', e:'Bombona 25 kg', ic:'🛢️', p:[0,0,269.90,212.90], est:'ok', d:'Coagulante catiônico líquido de baixo peso molecular. Fornecido em ata de registro de preços.', app:'ETA, ETE, indústria', so:'b2b'},
-  {id:15, n:'Sulfato de Alumínio Ferroso Líquido', m:'Industrfloc', c:'eta', e:'Bombona 25 kg', ic:'🛢️', p:[0,0,169.90,135.90], est:'ok', d:'Baixo teor de ferro, conforme normas técnicas para água potável.', app:'Estações de tratamento', so:'b2b'},
-  {id:16, n:'Polímero Catiônico Floculante', m:'SNF', c:'eta', e:'Saco 25 kg', ic:'🧬', p:[0,0,0,1149.90], est:'ok', d:'Base poliacrilamida em pó, destinado a água potável.', app:'ETA de autarquia municipal', so:'eta'},
-  {id:17, n:'Ácido Fluossilícico 20%', m:'Q-Fluor', c:'eta', e:'Bombona 25 kg', ic:'🧪', p:[0,0,0,239.90], est:'ok', d:'H₂SiF₆, teor mínimo 20%, líquido incolor. Fluoretação da água de abastecimento.', app:'Fluoretação — SAAE e CAGECE', so:'eta'},
-  {id:18, n:'Kit Teste Cloro e pH', m:'Genco', c:'acess', e:'Kit completo', ic:'🧫', p:[49.90,42.90,44.90,39.90], est:'ok', d:'Reagente para medir cloro livre e pH. Item obrigatório em piscina de escola.', app:'Controle diário'},
-  {id:19, n:'Dosador Flutuante para Pastilha', m:'Genco', c:'acess', e:'Unidade', ic:'🛟', p:[64.90,54.90,57.90,52.90], est:'ok', d:'Libera a pastilha aos poucos. Reduz o consumo de cloro.', app:'Uso com pastilha tricloro'},
-  {id:20, n:'Kit EPI para Produto Químico', m:'Fortaleza Química', c:'acess', e:'Kit', ic:'🥽', p:[139.90,118.90,124.90,112.90], est:'sem', d:'Luva, óculos, máscara e avental. Exigido em vistoria de escola e condomínio.', app:'Segurança do manipulador'}
+  /* ---- CLOROS ---- */
+  {id:1,  n:'Cloro Concentrado Tradicional 65%', m:'HTH', c:'cloro', e:'Balde 10 kg', ic:'🪣', p:[389.90,331.90,347.90,319.90], est:'ok', pct:65, conf:true, kg:10, d:'Cloro granulado de 65% de cloro ativo. O mais usado na manutenção semanal.', app:'Piscinas residenciais, condomínios e escolas'},
+  {id:2,  n:'Cloro MB 10 em 1', m:'HTH', c:'cloro', e:'Balde 10 kg', ic:'🪣', p:[449.90,382.90,401.90,369.90], est:'ok', pct:65, conf:false, kg:10, choque:18, d:'Cloro aditivado multiação: clarifica, previne algas e estabiliza em uma aplicação só.', app:'Quem quer simplificar a rotina'},
+  {id:3,  n:'Cloro Premium 65%', m:'Hidroazul', c:'cloro', e:'Balde 10 kg', ic:'🪣', p:[359.90,305.90,320.90,294.90], est:'ok', pct:65, conf:true, kg:10, d:'Granulado de dissolução rápida, 65% de cloro ativo.', app:'Manutenção semanal'},
+  {id:4,  n:'Cloro Super Premium 45%', m:'Hidroazul', c:'cloro', e:'Balde 10 kg', ic:'🪣', p:[289.90,246.90,258.90,238.90], est:'ok', pct:45, conf:true, kg:10, d:'Concentração de 45% — exige dose maior que os de 65%. A calculadora já ajusta.', app:'Alternativa de custo'},
+  {id:5,  n:'Dicloro Orgânico', m:'Hidroazul', c:'cloro', e:'Balde 10 kg', ic:'🪣', p:[339.90,288.90,303.90,278.90], est:'ok', pct:56, conf:false, kg:10, d:'Dicloro estabilizado, não altera o pH da água.', app:'Piscinas expostas ao sol'},
+  {id:6,  n:'Q-Past Tricloro 200 g', m:'Q Clor', c:'cloro', e:'Pastilha 200 g', ic:'⚪', p:[16.90,14.40,15.10,13.90], est:'ok', pct:90, conf:false, past:0.2, d:'Pastilha de dissolução lenta para flutuador ou dosador.', app:'Escolas, condomínios e hotéis'},
+  {id:7,  n:'Pastilhas Hypocal', m:'Hypocal', c:'eta', e:'Balde 14 kg', ic:'🥁', p:[0,0,0,1049.90], est:'ok', pct:65, conf:false, kg:14, d:'Hipoclorito de cálcio em pastilha, conforme NBR 11887. Fornecido em licitação.', app:'Estações de tratamento de água', so:'eta'},
+  {id:8,  n:'Hipoclorito de Sódio 12%', m:'Fortaleza Química', c:'cloro', e:'Bombona 20 L', ic:'🧴', p:[149.90,127.90,133.90,114.90], est:'ok', pct:12, conf:true, liq:true, d:'Cloro líquido de alta concentração. O produto de maior saída da casa.', app:'Piscinas grandes, ETAs e reservatórios'},
+
+  /* ---- ALGICIDAS ---- */
+  {id:9,  n:'Algicida de Manutenção 1 L', m:'HTH', c:'trat', e:'Frasco 1 L', ic:'🟢', p:[59.90,50.90,53.90,49.90], est:'ok', d:'Previne o aparecimento de algas. Uso semanal junto com o cloro.', app:'Toda piscina tratada'},
+  {id:10, n:'Algicida de Choque 1 L', m:'HTH', c:'trat', e:'Frasco 1 L', ic:'🟩', p:[74.90,63.90,66.90,61.90], est:'baixo', d:'Para água já esverdeada. Aplicar com a bomba ligada e filtrar por 24 h.', app:'Recuperação de água verde'},
+  {id:11, n:'Algicida de Choque 5 L', m:'Hidroazul', c:'trat', e:'Galão 5 L', ic:'🟩', p:[289.90,246.90,258.90,238.90], est:'ok', d:'Versão econômica para piscinas grandes e uso profissional.', app:'Piscineiros e condomínios'},
+  {id:12, n:'Algicida de Manutenção 1 L', m:'Q Clor', c:'trat', e:'Frasco 1 L', ic:'🟢', p:[49.90,42.40,44.90,41.40], est:'ok', d:'Algicida de manutenção semanal.', app:'Uso residencial'},
+
+  /* ---- CLARIFICANTES E FLOCULANTES ---- */
+  {id:13, n:'Clarifica Maxfloc Refil 900 ml', m:'HTH', c:'trat', e:'Refil 900 ml', ic:'💠', p:[64.90,55.40,57.90,53.40], est:'ok', d:'Junta a sujeira fina para o filtro conseguir reter. Resolve água turva.', app:'Água turva e leitosa'},
+  {id:14, n:'Clarificante 5 L', m:'Q Clor', c:'trat', e:'Galão 5 L', ic:'💠', p:[229.90,195.90,205.90,189.90], est:'ok', d:'Clarificante concentrado para uso profissional.', app:'Piscineiros e piscinas grandes'},
+  {id:15, n:'Sulfato de Alumínio 17% em Pó', m:'Indusfloc', c:'trat', e:'Saco 25 kg', ic:'📦', p:[169.90,144.90,151.90,139.90], est:'ok', d:'Floculante clássico. Decanta a sujeira no fundo para aspirar.', app:'Floculação e água muito suja'},
+
+  /* ---- pH E ALCALINIDADE ---- */
+  {id:16, n:'Barrilha Leve', m:'Sisecam', c:'ph', e:'Saco 25 kg', ic:'📦', p:[189.90,161.90,169.90,155.90], est:'ok', d:'Carbonato de sódio. Eleva o pH quando a água fica ácida demais.', app:'Correção de pH baixo'},
+  {id:17, n:'Bicarbonato de Sódio', m:'Sisecam', c:'ph', e:'Saco 25 kg', ic:'📦', p:[239.90,203.90,214.90,197.90], est:'ok', d:'Eleva a alcalinidade sem mexer muito no pH. Estabiliza a água.', app:'Alcalinidade baixa'},
+  {id:18, n:'Ácido Clorídrico Solução 32%', m:'Fortaleza Química', c:'ph', e:'Bombona 20 L', ic:'🧯', p:[139.90,118.90,124.90,114.90], est:'ok', d:'Abaixa pH e alcalinidade. Manuseio com EPI obrigatório — FISPQ disponível.', app:'Correção de pH e alcalinidade altos'},
+  {id:19, n:'Elevador de pH 1 L', m:'Q Clor', c:'ph', e:'Frasco 1 L', ic:'⬆️', p:[42.90,36.40,38.40,35.40], est:'ok', d:'Elevador de pH pronto para uso, dose facilitada.', app:'Piscinas residenciais'},
+  {id:20, n:'Redutor de Alcalinidade 1 L', m:'HTH', c:'ph', e:'Frasco 1 L', ic:'⬇️', p:[54.90,46.90,49.40,45.40], est:'ok', d:'Reduz a alcalinidade total sem derrubar o pH bruscamente.', app:'Alcalinidade alta'},
+
+  /* ---- SANEAMENTO / ETA ---- */
+  {id:21, n:'Policloreto de Alumínio (PAC) 18%', m:'Propac', c:'eta', e:'Bombona 25 kg', ic:'🛢️', p:[0,0,269.90,212.90], est:'ok', d:'Coagulante catiônico líquido de baixo peso molecular.', app:'ETA, ETE e indústria', so:'b2b'},
+  {id:22, n:'Ácido Fluorsilícico 20%', m:'Q-Fluor', c:'eta', e:'Bombona 25 kg', ic:'🧪', p:[0,0,0,239.90], est:'ok', d:'H₂SiF₆, teor mínimo 20%. Fluoretação da água de abastecimento.', app:'Fluoretação — SAAE e CAGECE', so:'eta'},
+  {id:23, n:'Polímero Catiônico Floculante', m:'SNF', c:'eta', e:'Saco 25 kg', ic:'🧬', p:[0,0,0,1149.90], est:'ok', d:'Base poliacrilamida em pó, destinado a água potável.', app:'ETA de autarquia municipal', so:'eta'},
+  {id:24, n:'Metabissulfito de Sódio', m:'BASF', c:'trat', e:'Saco 25 kg', ic:'📦', p:[289.90,246.90,258.90,238.90], est:'baixo', d:'Neutraliza cloro em excesso e trata água de reúso.', app:'Neutralização de cloro'},
+
+  /* ---- EQUIPAMENTOS ---- */
+  {id:25, n:'Bomba BMC-25 1/4 CV Mono 60 Hz', m:'Sodramar', c:'equip', e:'Unidade', ic:'⚙️', p:[849.90,722.90,757.90,699.90], est:'ok', d:'Bomba de recirculação para piscinas residenciais.', app:'Piscinas de até 40 mil litros'},
+  {id:26, n:'Gerador de Cloro GS 12', m:'Sodramar', c:'equip', e:'Unidade', ic:'⚡', p:[3290.00,2796.50,2932.00,2699.00], est:'ok', d:'Gera cloro a partir do sal. Reduz o consumo de cloro granulado.', app:'Quem quer diminuir manuseio de químico'},
+  {id:27, n:'Aspirador 8 Rodas', m:'Sodramar', c:'acess', e:'Unidade', ic:'🧹', p:[189.90,161.90,169.90,155.90], est:'ok', d:'Aspirador de fundo com 8 rodas, para limpeza manual.', app:'Manutenção semanal'},
+
+  /* ---- ACESSÓRIOS ---- */
+  {id:28, n:'Solução Teste de Cloro 23 ml', m:'Hidroazul', c:'acess', e:'Frasco 23 ml', ic:'🧫', p:[24.90,21.40,22.40,20.40], est:'ok', d:'Reagente para medir cloro livre. Item obrigatório em piscina de escola.', app:'Controle diário'},
+  {id:29, n:'Solução Teste de pH 23 ml', m:'Hidroazul', c:'acess', e:'Frasco 23 ml', ic:'🧫', p:[24.90,21.40,22.40,20.40], est:'ok', d:'Reagente para medir pH da água.', app:'Controle diário'},
+  {id:30, n:'Kit EPI para Produto Químico', m:'Fortaleza Química', c:'acess', e:'Kit', ic:'🥽', p:[149.90,127.90,133.90,124.90], est:'sem', d:'Luva, óculos, máscara e avental. Exigido em vistoria de escola e condomínio.', app:'Segurança do manipulador'}
 ];
 
 const PERFIS = {
@@ -944,46 +1158,162 @@ function enviarZap(){
 }
 
 /* ================= CALCULADORA ================= */
-function dose(vol,sit){
-  const v = vol;
-  if(sit==='verde') return [
-    ['Cloro granulado (choque)', (v*0.010).toFixed(1)+' kg'],
-    ['Algicida de choque', (v*0.006).toFixed(1)+' L'],
-    ['Clarificante', (v*0.003).toFixed(1)+' L'],
-    ['Filtrar por', '24 a 48 horas']
-  ];
-  if(sit==='turva') return [
-    ['Clarificante', (v*0.004).toFixed(1)+' L'],
-    ['Sulfato de alumínio', (v*0.008).toFixed(1)+' kg'],
-    ['Cloro granulado', (v*0.004).toFixed(1)+' kg'],
-    ['Aspirar o fundo', 'após 12 h de decantação']
-  ];
-  return [
-    ['Cloro granulado (semanal)', (v*0.003).toFixed(1)+' kg'],
-    ['Algicida de manutenção', (v*0.001).toFixed(2)+' L'],
-    ['Clarificante', (v*0.0015).toFixed(2)+' L'],
-    ['Verificar pH', 'entre 7,2 e 7,6']
-  ];
+const BASE_MANUT = 4, BASE_CHOQUE = 14, BASE_PCT = 65;
+let volCalc = 0, receita = [];
+
+const cloros = () => PROD.filter(p => p.pct);
+const nBR = (v,d=0)=>v.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});
+function qtdTexto(g, liq){
+  if(liq) return g>=1000 ? nBR(g/1000,1)+' litros' : nBR(g,0)+' ml';
+  return g>=1000 ? nBR(g/1000,2)+' kg' : nBR(g,0)+' g';
 }
-function volumeDe(a,b,c){ return Math.max(0, a*b*c*1000) }
-function pintarCalc(alvo, vol, sit){
-  const l = dose(vol,sit);
-  document.getElementById(alvo).innerHTML =
-    `<div class="l"><span>Volume da piscina</span><b>${vol.toLocaleString('pt-BR',{maximumFractionDigits:0})} litros</b></div>` +
-    l.map(([k,v])=>`<div class="l"><span>${k}</span><b>${v}</b></div>`).join('');
+function irCalc(){ ir('calc', document.querySelectorAll('#abas button')[4]) }
+
+function initCalc(){
+  document.getElementById('k_prod').innerHTML =
+    cloros().map(c=>`<option value="${c.id}">${c.m} — ${c.n}</option>`).join('');
+  trocouCloro(); calcVol(); modoCalc('m');
 }
-function calcular(){
-  const v = volumeDe(+c_comp.value||0, +c_larg.value||0, +c_prof.value||0);
-  pintarCalc('calc-res', v, c_sit.value);
+function cloroSel(){ return PROD.find(p=>p.id===+document.getElementById('k_prod').value) }
+function trocouCloro(){
+  const c = cloroSel();
+  k_pct.value = c.pct; k_emb.value = c.e;
+  document.getElementById('k_dica').innerHTML = c.conf
+    ? '✅ Percentual confirmado no nome do produto.'
+    : '⚠️ Percentual estimado — <b>confira no rótulo</b> e ajuste ao lado se necessário.';
+  calcK();
 }
-function calcModal(){
-  const v = volumeDe(+m_comp.value||0, +m_larg.value||0, +m_prof.value||0);
-  pintarCalc('m_res', v, m_sit.value);
+function modoCalc(m){
+  window._modoK = m;
+  document.getElementById('kb-m').classList.toggle('on', m==='m');
+  document.getElementById('kb-c').classList.toggle('on', m==='c');
+  document.getElementById('k-med').style.display = m==='c' ? '' : 'none';
+  document.getElementById('k-faixas').style.display = m==='c' ? '' : 'none';
+  document.getElementById('k-tit').textContent = m==='m' ? '📋 Rotina da semana' : '📋 O que aplicar, nesta ordem';
+  document.getElementById('k-sub').textContent = m==='m'
+    ? 'Dose de manutenção, com a bomba ligada.'
+    : 'Um passo por vez. Alcalinidade sempre antes do pH.';
+  calcK();
 }
-function abrirCalc(){ calcModal(); abrir('sheet-calc') }
-function kitDe(sit){ return sit==='verde'?[1,6,7]: sit==='turva'?[7,11,1] : [1,5,7] }
-function addKitCalc(){ kitDe(c_sit.value).forEach(id=>add(id)); ir('catalogo',document.querySelectorAll('#abas button')[0]); abrirCarrinho() }
-function addKitModal(){ kitDe(m_sit.value).forEach(id=>add(id)); fechar('sheet-calc'); abrirCarrinho() }
+function calcVol(){
+  k_volman.value='';
+  volCalc = Math.max(0,(+k_comp.value||0)*(+k_larg.value||0)*(+k_prof.value||0)*1000);
+  pintaVol();
+}
+function volManual(){
+  const v=+k_volman.value||0;
+  if(v>0){ volCalc=v; pintaVol(); } else calcVol();
+}
+function pintaVol(){
+  document.getElementById('k_vol').textContent = volCalc>0 ? nBR(volCalc)+' litros' : '—';
+  calcK();
+}
+
+function calcK(){
+  const box = document.getElementById('k-res');
+  if(!volCalc){ box.innerHTML=''; return }
+  const mil = volCalc/1000, c = cloroSel();
+  const pct = Math.max(1, +k_pct.value || c.pct), fator = BASE_PCT/pct;
+  receita = []; let html='', n=0;
+  const passo = (cls,tit,qtd,eq,obs,prod,ids)=>{
+    n++;
+    html += `<div class="passo ${cls}"><div class="pn">Passo ${n}</div><h3>${tit}</h3>
+      <div class="pq">${qtd}</div>${eq?`<div class="pe2">${eq}</div>`:''}
+      ${prod?`<div class="pp">${prod}</div>`:''}${obs?`<div class="po">${obs}</div>`:''}</div>`;
+    if(ids) receita.push({ids, nome:prod||tit, qtd});
+  };
+
+  if(window._modoK==='m'){
+    const g = BASE_MANUT*mil*fator;
+    passo('ok','Cloro de manutenção', qtdTexto(g,c.liq),
+      c.kg?`≈ ${nBR(g/1000/c.kg*100,1)}% de um balde de ${c.kg} kg`:'',
+      'Aplicar 1× por semana, no fim do dia, com a bomba ligada.', `${c.m} — ${c.n}`, [c.id]);
+    passo('ok','Algicida de manutenção', qtdTexto(5*mil,true), '',
+      'Aplicar 1× por semana, junto com o cloro.', 'HTH ou Q Clor — Algicida de Manutenção', [9]);
+    passo('ok','Clarificante', qtdTexto(1.5*mil,true), '',
+      'Aplicar 1× por semana. Junta a sujeira fina para o filtro reter.', 'HTH Clarifica Maxfloc', [13]);
+    html += `<div class="aviso" style="background:var(--agua);color:var(--azul)">🔬 <b>Meça toda semana</b> antes de aplicar: cloro 1 a 3 ppm, pH 7,2 a 7,6 e alcalinidade 80 a 120 ppm. Fora disso, use a aba <b>Corrigir água</b>.</div>`;
+  } else {
+    const cl=+k_cl.value, ph=+k_ph.value, alc=+k_alc.value, asp=k_asp.value;
+
+    if(alc<80){
+      const g=((80-alc)/10)*15*mil;
+      passo('at','Corrigir a alcalinidade — antes de tudo', qtdTexto(g),
+        `Para subir ${nBR(80-alc)} ppm (de ${nBR(alc)} para 80)`,
+        'Dilua num balde antes de jogar. Espere 6 h com a bomba ligada e meça de novo. <b>Só depois mexa no pH.</b>',
+        'Bicarbonato de Sódio — Sisecam', [17]);
+    } else if(alc>120){
+      const ml=((alc-120)/10)*10*mil;
+      passo('at','Baixar a alcalinidade — antes de tudo', qtdTexto(ml,true),
+        `Para reduzir ${nBR(alc-120)} ppm (de ${nBR(alc)} para 120)`,
+        'Aplique aos poucos, em pontos diferentes, com a bomba ligada. Meça após 6 h.',
+        'Ácido Clorídrico 32%', [18]);
+    } else {
+      passo('ok','Alcalinidade está boa', nBR(alc)+' ppm','Dentro de 80 a 120 ppm','Pode seguir para o pH.','');
+    }
+
+    if(ph<7.2){
+      const g=((7.4-ph)/0.2)*7.5*mil;
+      passo('at','Subir o pH', qtdTexto(g), `De ${nBR(ph,1)} até 7,4`,
+        'Dilua em água antes de aplicar. Espere 4 h e meça de novo.',
+        'Barrilha Leve — Sisecam', [16]);
+    } else if(ph>7.6){
+      const ml=((ph-7.4)/0.2)*2.5*mil;
+      passo('at','Baixar o pH', qtdTexto(ml,true), `De ${nBR(ph,1)} até 7,4`,
+        '⚠️ Nunca misture ácido com cloro. Aplique separado e aguarde 4 h antes de clorar.',
+        'Ácido Clorídrico 32%', [18]);
+    } else {
+      passo('ok','pH está bom', nBR(ph,1),'Dentro de 7,2 a 7,6','Nenhuma correção necessária.','');
+    }
+
+    const chBase = c.choque || BASE_CHOQUE;
+    if(asp==='verde'||asp==='muitoverde'){
+      const mult = asp==='muitoverde'?3:2;
+      const g = chBase*mil*fator*mult;
+      passo('ur','Supercloração (choque)', qtdTexto(g,c.liq),
+        c.kg?`≈ ${nBR(g/1000/c.kg,2)} baldes de ${c.kg} kg`:'',
+        'Aplicar ao entardecer, bomba ligada. Filtrar 24 a 48 h sem ninguém na água. Depois aspire o fundo.',
+        `${c.m} — ${c.n}`, [c.id]);
+      passo('ur','Algicida de choque', qtdTexto(7*mil,true),'',
+        'Aplicar junto com a supercloração.','HTH Algicida de Choque',[10]);
+    } else if(cl<1){
+      const g=((2-cl)/2)*BASE_CHOQUE*mil*fator;
+      passo('at','Repor o cloro', qtdTexto(g,c.liq),
+        `Cloro em ${nBR(cl,1)} ppm — subir para cerca de 2 ppm`,
+        'Aplicar no fim do dia, com a bomba ligada. Meça no dia seguinte.',
+        `${c.m} — ${c.n}`, [c.id]);
+    } else if(cl>3){
+      passo('at','Cloro acima do ideal', nBR(cl,1)+' ppm','Faixa: 1 a 3 ppm',
+        'Não aplique mais cloro. Deixe baixar com a filtração e o sol.','');
+    } else {
+      passo('ok','Cloro está bom', nBR(cl,1)+' ppm','Dentro de 1 a 3 ppm','Mantenha a dose semanal.','');
+    }
+
+    if(asp==='turva'){
+      passo('at','Clarificar a água turva', qtdTexto(20*mil,true),'',
+        'Bomba ligada, filtrar 12 h e aspirar o fundo devagar, sem revolver o depósito.',
+        'HTH Clarifica Maxfloc',[13]);
+    }
+    pintaFaixas(cl,ph,alc);
+  }
+  box.innerHTML = html;
+}
+
+function pintaFaixas(cl,ph,alc){
+  const f=(rot,val,un,min,max,dec=1)=>{
+    const ok=val>=min&&val<=max, cls=ok?'v':(val<min?'a':'r'), txt=ok?'Ideal':(val<min?'Baixo':'Alto');
+    return `<div class="kf"><small>${rot}</small><b>${nBR(val,dec)} ${un}</b><span class="tag ${cls}">${txt}</span></div>`;
+  };
+  document.getElementById('kfx').innerHTML =
+    f('Cloro livre',cl,'ppm',1,3)+f('pH',ph,'',7.2,7.6)+f('Alcalinidade',alc,'ppm',80,120,0);
+}
+
+function addReceita(){
+  if(!receita.length){ toast('Informe o volume da piscina primeiro.'); return }
+  let addc=0;
+  receita.forEach(r=>{ if(r.ids) r.ids.forEach(id=>{ if(PROD.find(p=>p.id===id)){ add(id);addc++ } }) });
+  if(addc) abrirCarrinho(); else toast('Nenhum produto correspondente no catálogo.');
+}
 
 /* ================= LOGIN ================= */
 function entrar(qual){
@@ -1012,7 +1342,7 @@ function montarPisc(){
 
   const pis=[
     ['Cond. Villa das Águas','96.000 L','Manutenção semanal','19/08','ok'],
-    ['Escola Municipal Aracati','128.000 L','Registro diário obrigatório','19/08','ok'],
+    ['Escola Municipal — Unidade 1','128.000 L','Registro diário obrigatório','19/08','ok'],
     ['Casa — Sr. Adilson (Eusébio)','44.800 L','pH alto, corrigir','20/08','alerta'],
     ['Pousada Maré Alta','210.000 L','Água turva — clarificar','21/08','urgente']
   ];
@@ -1046,9 +1376,9 @@ function montarCond(){
     ['Cond. Villa das Águas','Aldeota','96.000 L','R$ 2.140/mês','05/09'],
     ['Cond. Parque do Cocó','Cocó','142.000 L','R$ 2.980/mês','05/09'],
     ['Cond. Mirante Dunas','Praia do Futuro','88.000 L','R$ 1.860/mês','05/09'],
-    ['Escola Mun. Jardim das Oliveiras','Messejana','128.000 L','R$ 2.460/mês','05/09'],
-    ['Escola Mun. Bom Jardim','Bom Jardim','110.000 L','R$ 2.180/mês','05/09'],
-    ['CEI Vila União','Vila União','52.000 L','R$ 1.120/mês','20/08']
+    ['Escola Municipal — Unidade 1','Zona sul','128.000 L','R$ 2.460/mês','05/09'],
+    ['Escola Municipal — Unidade 2','Zona oeste','110.000 L','R$ 2.180/mês','05/09'],
+    ['Creche Municipal — Unidade 3','Zona central','52.000 L','R$ 1.120/mês','20/08']
   ];
   document.getElementById('unidades').innerHTML = un.map(([n,b,v,g,d])=>
     `<div class="linha"><div class="ic">${n.startsWith('Cond')?'🏢':'🏫'}</div>
@@ -1057,10 +1387,10 @@ function montarCond(){
     `<button class="btn o" style="margin-top:13px" onclick="toast('Abriria o cadastro de nova unidade.')">➕ Adicionar unidade</button>`;
 
   document.getElementById('orcamentos').innerHTML = [
-    ['#ORC-2291','Escola Bom Jardim','R$ 3.480,00','Aguardando aprovação do síndico','a'],
+    ['#ORC-2291','Escola Municipal — Un. 2','R$ 3.480,00','Aguardando aprovação do síndico','a'],
     ['#ORC-2287','Villa das Águas','R$ 2.140,00','Aprovado por Ricardo M. em 14/08','v'],
     ['#ORC-2280','Mirante Dunas','R$ 1.860,00','Aprovado por Fabiana L. em 11/08','v'],
-    ['#ORC-2274','CEI Vila União','R$ 1.120,00','Recusado — fora do orçamento do mês','r']
+    ['#ORC-2274','Creche Municipal — Un. 3','R$ 1.120,00','Recusado — fora do orçamento do mês','r']
   ].map(([c,u,vl,st,t])=>
     `<div class="linha"><div class="ic">📝</div>
       <div class="txt"><b>${c} · ${u}</b><small>${st}</small></div>
@@ -1069,23 +1399,23 @@ function montarCond(){
 
 /* ================= PAINEL ================= */
 function montarAdm(){
-  const cli=[['SAAE Quixeramobim',170159.74,100],['CAGECE',79172.80,47],['SAAE Boa Viagem',53519.20,31],['Adm. Litoral (9 unidades)',14380.60,9],['Piscineiros parceiros (38)',11240.90,7]];
+  const cli=[['Autarquia municipal de saneamento',48900.00,100],['Rede de condomínios (12 unidades)',31450.00,64],['Escolas municipais (6 unidades)',22180.00,45],['Piscineiros parceiros (38)',11240.90,23],['Consumidor final',6380.00,13]];
   const max=cli[0][1];
   document.getElementById('rank-cli').innerHTML = cli.map(([n,v,p])=>
     `<div class="barra"><div class="top"><b>${n}</b><span>${R$(v)}</span></div>
      <div class="trilho"><div class="fill" style="width:${Math.round(v/max*100)}%"></div></div></div>`).join('');
 
-  const pr=[['Hipoclorito de sódio 12%',70302,100],['Cloro granulado dicloro 56%',18420,26],['Pastilha tricloro 200 g',12640,18],['Algicida de manutenção',8210,12],['Barrilha leve',6980,10]];
+  const pr=[['Cloro líquido — hipoclorito de sódio 12%',4820,100],['Cloro granulado dicloro 56%',1940,40],['Pastilha tricloro 200 g',1260,26],['Algicida de manutenção',820,17],['Barrilha leve',690,14]];
   document.getElementById('rank-prod').innerHTML = pr.map(([n,q,p])=>
     `<div class="barra"><div class="top"><b>${n}</b><span>${q.toLocaleString('pt-BR')} un</span></div>
      <div class="trilho"><div class="fill" style="width:${p}%"></div></div></div>`).join('');
 
   document.getElementById('tab-cds').innerHTML = [
-    ['#8901','Cond. Parque do Cocó','R$ 2.980,00','CANAL_DIGITAL','<span class="tag v">Integrado</span>'],
-    ['#8900','Marcos — piscineiro','R$ 1.284,60','APP_PISCINEIRO','<span class="tag v">Integrado</span>'],
-    ['#8899','Escola Bom Jardim','R$ 3.480,00','PORTAL_ESCOLA','<span class="tag a">Aguardando</span>'],
-    ['#8898','Consumidor — Eusébio','R$ 419,70','CANAL_DIGITAL','<span class="tag v">Integrado</span>'],
-    ['#8897','Adm. Litoral','R$ 6.240,00','PROGRAMADO','<span class="tag v">Integrado</span>']
+    ['#8901','Condomínio — cliente 1','R$ 2.980,00','CANAL_DIGITAL','<span class="tag v">Integrado</span>'],
+    ['#8900','Piscineiro parceiro','R$ 1.284,60','APP_PISCINEIRO','<span class="tag v">Integrado</span>'],
+    ['#8899','Escola municipal','R$ 3.480,00','PORTAL_ESCOLA','<span class="tag a">Aguardando</span>'],
+    ['#8898','Consumidor final','R$ 419,70','CANAL_DIGITAL','<span class="tag v">Integrado</span>'],
+    ['#8897','Administradora','R$ 6.240,00','PROGRAMADO','<span class="tag v">Integrado</span>']
   ].map(r=>`<tr>${r.map((c,i)=>`<td>${i===3?`<code style="font-size:11.5px;background:var(--agua);color:var(--azul);padding:2px 6px;border-radius:5px">${c}</code>`:c}</td>`).join('')}</tr>`).join('');
 
   document.getElementById('origem').innerHTML = [
@@ -1106,8 +1436,19 @@ const zapUrl = WPP + '?phone=' + WPP_NUM + '&text=' +
   encodeURIComponent('Olá! Estou vendo o catálogo e gostaria de tirar uma dúvida sobre os produtos.');
 document.getElementById('zap-topo').href = zapUrl;
 document.getElementById('zap-float').href = zapUrl;
-render(); calcular(); atualizar();
-setTimeout(()=>document.getElementById('cookie').classList.add('on'), 1400);
+let capaJaVista=false;
+function entrarProto(){
+  document.getElementById('capa').classList.add('off');
+  document.body.style.overflow='';
+  if(!capaJaVista){ capaJaVista=true; setTimeout(()=>document.getElementById('cookie').classList.add('on'), 900) }
+}
+function voltarCapa(){
+  document.getElementById('capa').classList.remove('off');
+  document.body.style.overflow='hidden';
+  window.scrollTo({top:0});
+}
+document.body.style.overflow='hidden';
+render(); initCalc(); atualizar();
 </script>
 </body>
 </html>
