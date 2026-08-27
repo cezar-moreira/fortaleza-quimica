@@ -719,7 +719,18 @@ details.fonte td{padding:7px 6px;border-bottom:1px solid #F0F5F8;color:var(--txt
     <label class="f">Para subir a alcalinidade</label><select class="f" id="k_alcup" onchange="calcK()"></select>
     <label class="f">Para baixar a alcalinidade</label><select class="f" id="k_alcdn" onchange="calcK()"></select>
     <label class="f">Algicida de choque</label><select class="f" id="k_algch" onchange="calcK()"></select>
-    <label class="f">Floculante / decantador</label><select class="f" id="k_floc" onchange="calcK()"></select>
+    <label class="f">Decantador (usado depois do algicida de choque)</label><select class="f" id="k_floc" onchange="calcK()"></select>
+  </div>
+
+  <div class="box" id="k-extra">
+    <h3>➕ Problemas específicos</h3>
+    <div class="desc">Marque só o que a piscina realmente tem. Cada um tem produto e dose próprios.</div>
+    <label style="display:flex;gap:9px;align-items:flex-start;margin-bottom:9px;font-size:14px;line-height:1.45">
+      <input type="checkbox" id="k_oleo" onchange="calcK()" style="margin-top:3px;width:17px;height:17px;flex:0 0 17px">
+      <span><b>Camada oleosa ou borda engordurada</b><br><small style="color:var(--txt2)">Protetor solar, óleo de bronzear, película na superfície.</small></span></label>
+    <label style="display:flex;gap:9px;align-items:flex-start;font-size:14px;line-height:1.45">
+      <input type="checkbox" id="k_met" onchange="calcK()" style="margin-top:3px;width:17px;height:17px;flex:0 0 17px">
+      <span><b>Manchas de ferro ou manganês no revestimento</b><br><small style="color:var(--txt2)">Água de poço, mancha marrom ou preta no piso e nas paredes.</small></span></label>
   </div>
 
   <h2 class="tit" id="k-tit">📋 Rotina da semana</h2>
@@ -741,23 +752,43 @@ details.fonte td{padding:7px 6px;border-bottom:1px solid #F0F5F8;color:var(--txt
   <details class="fonte">
     <summary>📚 Tabela de dosagens usada</summary>
     <div class="in">
-      <p><b>Cloro — HTH:</b> manutenção 4 g por 1.000 L; supercloração 14 g por 1.000 L no Cloro Concentrado Tradicional 65%, e 18 g por 1.000 L no Cloro Aditivado Mineral Brilliance.</p>
-      <p style="margin-top:9px"><b>Ajuste por concentração:</b> produtos com percentual diferente de 65% têm a dose recalculada por proporção. Esse ajuste é cálculo nosso, não recomendação do fabricante.</p>
+      <p><b>Ajuste por concentração:</b> quando o fabricante não publica a dose do produto, a calculadora parte da referência de 65% de cloro ativo e recalcula por proporção. Esse ajuste é cálculo nosso, não recomendação do fabricante — por isso aparece marcado com ⚠️. Onde o rótulo traz a dose pronta (Dicloro Orgânico, pastilhas), o percentual não entra na conta.</p>
+      <p style="margin-top:9px"><b>✅ Lido no rótulo — Q Clor</b></p>
       <table>
-        <tr><th>Função</th><th>Dose por 1.000 L</th><th>Fonte</th></tr>
-        <tr><td>Algicida de manutenção</td><td>5 ml · semanal</td><td>HTH</td></tr>
-        <tr><td>Algicida de choque</td><td>7 ml</td><td>HTH</td></tr>
-        <tr><td>Clarificante</td><td>1,5 ml · semanal</td><td>HTH</td></tr>
-        <tr><td>Clarificante — água turva</td><td>20 ml</td><td>HTH</td></tr>
-        <tr><td>Clarificante especial (Ultraclear)</td><td>10 ml · semanal</td><td>HTH</td></tr>
-        <tr><td>Elimina oleosidade</td><td>7 ml</td><td>HTH</td></tr>
-        <tr><td>Elevador de pH (barrilha)</td><td>7,5 g → +0,2 de pH</td><td>referência</td></tr>
-        <tr><td>Redutor de pH (ácido)</td><td>2,5 ml → −0,2 de pH</td><td>referência</td></tr>
-        <tr><td>Elevador de alcalinidade</td><td>15 g → +10 ppm</td><td>referência</td></tr>
-        <tr><td>Redutor de alcalinidade</td><td>10 ml → −10 ppm</td><td>referência</td></tr>
-        <tr><td>Sal para gerador de cloro</td><td>≈ 4 kg por m³</td><td>referência</td></tr>
+        <tr><th>Produto</th><th>Dose por 1.000 L</th></tr>
+        <tr><td>Algicida de Manutenção · quaternário 6%</td><td>4 ml · semanal</td></tr>
+        <tr><td>Algicida de Choque · quaternário 12%</td><td>6 ml</td></tr>
+        <tr><td>Clarificante · policloreto de alumínio 18%</td><td>1,5 ml semanal · 3 a 6 ml se turva</td></tr>
+        <tr><td>Elevador de pH · hidróxido de sódio</td><td>10 / 15 / 20 ml conforme o pH medido</td></tr>
+        <tr><td>Redutor de pH · cloreto de hidrogênio 10%</td><td>13 ml (pH 7,6–8,0) · 12 ml a cada 10 ppm de alcalinidade</td></tr>
+        <tr><td>Pastilha de Tricloro 200 g</td><td>1 pastilha / 30.000 L · até 15 dias</td></tr>
       </table>
-      <p style="margin-top:11px"><b>Sem dosagem publicada</b> — pedir ficha técnica ao fabricante: elevador de pH líquido, redutor de pH granulado, floculantes (sulfato de alumínio, Floc Gel), controlador de metais, cloreto de cálcio e metabissulfito.</p>
+
+      <p style="margin-top:11px"><b>✅ Lido no rótulo — Hidroazul (Bauminas)</b></p>
+      <table>
+        <tr><th>Produto</th><th>Dose por 1.000 L</th></tr>
+        <tr><td>Dicloro Orgânico 56%</td><td>2 g manutenção · 10 g choque (repouso 12 h)</td></tr>
+        <tr><td>Algicida de Manutenção · sulfato de cobre 5%</td><td>5 ml semanal · <b>8 h sem cloro</b></td></tr>
+        <tr><td>Algicida de Choque · sulfato de cobre 19,5%</td><td>7 ml · <b>12 h sem cloro</b></td></tr>
+        <tr><td>Algicida Multiação</td><td>3 ml preventivo · 7 ml choque</td></tr>
+        <tr><td>Elevador de pH · aluminato de sódio</td><td>10 / 15 / 20 ml conforme o pH medido</td></tr>
+        <tr><td>Diminuidor de pH e Alcalinidade · ácido clorídrico 20%</td><td>3 / 5 / 7,5 ml por pH · tabela de 20 a 160 ml por alcalinidade</td></tr>
+        <tr><td>Eliminador de Oleosidade</td><td>6 ml prevenir · 12 ml eliminar</td></tr>
+        <tr><td>Controlador de Metais</td><td>15 ml prevenir · 30 ml água turva · 50 ml mancha</td></tr>
+        <tr><td>Floc Gel 90 g</td><td>1 cubo / 30.000 L · dura 7 dias</td></tr>
+      </table>
+
+      <p style="margin-top:11px"><b>✅ Guia do fabricante — HTH</b></p>
+      <table>
+        <tr><th>Produto</th><th>Dose por 1.000 L</th></tr>
+        <tr><td>Cloro Concentrado Tradicional 65%</td><td>4 g manutenção · 14 g supercloração</td></tr>
+        <tr><td>Cloro Aditivado Mineral Brilliance</td><td>4 g manutenção · 18 g supercloração</td></tr>
+        <tr><td>Clarifica Maxfloc</td><td>1,5 ml semanal · 6 ml se a água estiver suja</td></tr>
+        <tr><td>Ultra-Clear</td><td>10 ml semanal · 10 min depois do cloro</td></tr>
+      </table>
+
+      <p style="margin-top:11px"><b>⚠️ Ainda por referência de setor</b> — barrilha (7,5 g → +0,2 de pH), bicarbonato (15 g → +10 ppm), ácido clorídrico 32% (2,5 ml → −0,2 de pH), sal para gerador (≈ 4 kg por m³) e os algicidas HTH, cujas fotos de rótulo não ficaram legíveis.</p>
+      <p style="margin-top:9px"><b>Sem dosagem publicada</b> — pedir ficha técnica ao fabricante: sulfato de alumínio, cloreto de cálcio, metabissulfito e os elevadores/redutores de pH Neoclor.</p>
       <p style="margin-top:9px"><b>Regra de ouro:</b> corrija a alcalinidade antes do pH. Ao contrário, o pH volta a oscilar.</p>
     </div>
   </details>
@@ -1199,7 +1230,8 @@ const CLORO = [
  {c:201,n:'Cloro Super Premium 45%',m:'Hidroazul',e:'Balde 10 kg',pct:45,ok:1,kg:10,f:'prop'},
  {c:196,n:'Cloro Multiação',m:'Hidroazul',e:'Balde 10 kg',pct:60,ok:0,kg:10,f:'prop'},
  {c:194,n:'Cloro FAZ-30',m:'Hidroazul',e:'Balde 10 kg',pct:30,ok:0,kg:10,f:'prop'},
- {c:209,n:'Dicloro Orgânico',m:'Hidroazul',e:'Balde 10 kg',pct:56,ok:0,kg:10,f:'prop'},
+ {c:209,n:'Dicloro Orgânico 56%',m:'Hidroazul',e:'Balde 10 kg',pct:56,ok:1,kg:10,manut:2,choque:10,dir:1,f:'rotulo',
+  obs:'Rótulo: nas 4 primeiras semanas, 2 g por 1.000 L todo dia. Depois, 2 g por 1.000 L em dias alternados. Choque: 10 g por 1.000 L, com 12 h de repouso.'},
  {c:284,n:'Hiper Ação',m:'Q Clor',e:'Balde 10 kg',pct:65,ok:0,kg:10,f:'prop'},
  {c:287,n:'Super Ação',m:'Q Clor',e:'Balde 10 kg',pct:65,ok:0,kg:10,f:'prop'},
  {c:291,n:'Ultra Clean',m:'Q Clor',e:'Balde 10 kg',pct:60,ok:0,kg:10,f:'prop'},
@@ -1216,8 +1248,12 @@ const ALG_M = [
  {c:806,n:'Algicida de Manutenção 5 L',m:'Q Clor',e:'Galão 5 L',d:4,ok:1,f:'rotulo',ativo:'Quaternário de amônio 6%'},
  {c:164,n:'Algicida de Manutenção 1 L',m:'HTH',e:'Frasco 1 L',d:5,ok:1,f:'HTH'},
  {c:244,n:'Algicida de Manutenção Refil',m:'HTH',e:'Refil 900 ml',d:5,ok:1,f:'HTH'},
- {c:165,n:'Algicida Manutenção 1 L',m:'Hidroazul',e:'Frasco 1 L',d:5,ok:0,f:'ref'},
- {c:813,n:'Algicida Manutenção 5 L',m:'Hidroazul',e:'Galão 5 L',d:5,ok:0,f:'ref'},
+ {c:165,n:'Algicida Manutenção 1 L',m:'Hidroazul',e:'Frasco 1 L',d:5,ok:1,f:'rotulo',ativo:'Sulfato de cobre 5%',
+  alerta:'⚠️ O rótulo proíbe usar junto com cloro — intervalo mínimo de 8 horas.'},
+ {c:813,n:'Algicida Manutenção 5 L',m:'Hidroazul',e:'Galão 5 L',d:5,ok:1,f:'rotulo',ativo:'Sulfato de cobre 5%',
+  alerta:'⚠️ O rótulo proíbe usar junto com cloro — intervalo mínimo de 8 horas.'},
+ {c:166,n:'Algicida Multiação — uso preventivo',m:'Hidroazul',e:'Frasco 1 L',d:3,ok:1,f:'rotulo',
+  obs:'Uso algistático: 1 a 2 vezes por semana, filtrando 6 h depois da aplicação.'},
 ];
 
 const ALG_C = [
@@ -1228,8 +1264,29 @@ const ALG_C = [
   alerta:'⚠️ O rótulo proíbe usar junto com cloro — intervalo mínimo de 12 horas.'},
  {c:812,n:'Algicida Choque 5 L',m:'Hidroazul',e:'Galão 5 L',d:7,ok:1,f:'rotulo',ativo:'Sulfato de cobre 19,5%',
   alerta:'⚠️ O rótulo proíbe usar junto com cloro — intervalo mínimo de 12 horas.'},
+ {c:166,n:'Algicida Multiação — dose de choque',m:'Hidroazul',e:'Frasco 1 L',d:7,ok:1,f:'rotulo',
+  obs:'Recircular 1 h, aplicar o decantador, deixar 12 h em repouso e aspirar drenando.'},
  {c:241,n:'Algicida Choque 1 L',m:'HTH',e:'Frasco 1 L',d:7,ok:0,f:'HTH'},
  {c:242,n:'Algicida Choque Refil',m:'HTH',e:'Refil 900 ml',d:7,ok:0,f:'HTH'},
+];
+
+/* decantadores usados depois do algicida de choque */
+const FLOC = [
+ {c:229,n:'Floc Gel 90 g',m:'Hidroazul',e:'Cubo 90 g',ok:1,f:'rotulo',cubo:1,porLitros:30000,dias:7,
+  obs:'Coloque o cubo na cesta do skimmer ou do filtro. Filtre no mínimo 6 h. Cada cubo dura 7 dias.'},
+ {c:282,n:'Clarificante 1 L',m:'Q Clor',e:'Frasco 1 L',d:6,ok:1,f:'rotulo',ativo:'Policloreto de alumínio 18%'},
+ {c:230,n:'Floc Plus 2 em 1 · 1 L',m:'Hidroazul',e:'Frasco 1 L',d:6,ok:0,f:'ref'},
+ {c:334,n:'Floc Plus 2 em 1 · 5 L',m:'Hidroazul',e:'Galão 5 L',d:6,ok:0,f:'ref'},
+];
+
+/* problemas específicos — doses lidas no rótulo Hidroazul */
+const OLEO = [
+ {c:815,n:'Eliminador de Oleosidade 1 L',m:'Hidroazul',e:'Frasco 1 L',ok:1,f:'rotulo',dPrev:6,dElim:12,
+  alerta:'⚠️ O rótulo proíbe adicionar cloro durante o uso. O cloro só volta 12 h depois, e o cloro livre precisa estar em 1 ppm ou menos na hora de aplicar.'},
+];
+const METAL = [
+ {c:814,n:'Controlador de Metais 1 L',m:'Hidroazul',e:'Frasco 1 L',ok:1,f:'rotulo',dPrev:15,dTurva:30,dMancha:50,
+  alerta:'⚠️ Aplicar só com o cloro livre em 1 ppm ou menos. Depois da dose de mancha, o rótulo pede 7 dias antes de qualquer supercloração.'},
 ];
 
 const CLARIF = [
@@ -1249,7 +1306,9 @@ const CLARIF = [
 const PH_UP = [
  {c:283,n:'Elevador de pH 1 L',m:'Q Clor',e:'Frasco 1 L',ok:1,f:'rotulo',ativo:'Hidróxido de sódio',un:'ml',
   faixas:[[7.0,7.2,10],[6.8,7.0,15],[0,6.8,20]]},
- {c:214,n:'Elevador de pH 1 L',m:'Hidroazul',e:'Frasco 1 L',ok:0,f:'?',un:'ml'},
+ {c:214,n:'Elevador de pH 1 L',m:'Hidroazul',e:'Frasco 1 L',ok:1,f:'rotulo',ativo:'Aluminato de sódio',un:'ml',
+  faixas:[[7.0,7.2,10],[6.8,7.0,15],[0,6.8,20]],
+  obs:'O rótulo só permite repetir a aplicação depois de 12 h.'},
  {c:267,n:'NeoPH Elevador de pH',m:'Neoclor',e:'Frasco',ok:0,f:'?',un:'ml'},
  {c:189,n:'Barrilha Leve',m:'Sisecam',e:'Saco 25 kg',ok:0,f:'ref',un:'g',porPasso:7.5,passo:0.2,kg:25},
  {c:811,n:'Barrilha Leve',m:'Solvay',e:'Saco 25 kg',ok:0,f:'ref',un:'g',porPasso:7.5,passo:0.2,kg:25},
@@ -1261,8 +1320,13 @@ const PH_DN = [
   faixas:[[7.6,8.0,13],[8.0,99,120]], alcPorPasso:12, alcPasso:10,
   alerta:'⚠️ O rótulo salta de 13 ml para 120 ml acima de pH 8,0. Salto de quase 10× — provável erro de impressão. Confirmar com o fabricante antes de aplicar.'},
  {c:159,n:'Ácido Clorídrico 32%',m:'—',e:'Bombona',ok:0,f:'ref',un:'ml',porPasso:2.5,passo:0.2,alcPorPasso:10,alcPasso:10},
- {c:210,n:'Diminuidor de pH e Alcalinidade',m:'Hidroazul',e:'Frasco 1 L',ok:0,f:'?',un:'ml'},
+ {c:210,n:'Diminuidor de pH e Alcalinidade',m:'Hidroazul',e:'Frasco 1 L',ok:1,f:'rotulo',ativo:'Ácido clorídrico 20%',un:'ml',
+  faixas:[[7.6,8.0,3],[8.0,8.4,5],[8.4,99,7.5]],
+  alcTabela:[[130,20],[140,40],[150,60],[160,80],[170,100],[180,120],[190,140],[200,160]]},
  {c:268,n:'NeoPH Redutor de pH',m:'Neoclor',e:'Frasco',ok:0,f:'?',un:'ml'},
+ {c:251,n:'Redutor de Alcalinidade 1 L',m:'HTH',e:'Frasco 1 L',ok:0,f:'?',un:'ml'},
+ {c:252,n:'Redutor de Alcalinidade Refil',m:'HTH',e:'Refil 900 ml',ok:0,f:'?',un:'ml'},
+ {c:325,n:'Redutor de pH Granulado',m:'Aquapool',e:'Balde',ok:0,f:'?',un:'g'},
 ];
 
 const ALC_UP = [
@@ -1292,7 +1356,7 @@ function opts(lista,sel){
     +`</optgroup>`).join('');
 }
 const acha=(l,c)=>l.find(p=>p.c==c);
-function irCalc(){ ir('calc', document.querySelectorAll('#abas button')[4]) }
+function irCalc(){ ir('calc', document.querySelectorAll('#abas button')[3]) }
 
 function initCalc(){
   k_cloro.innerHTML=opts(CLORO,248);
@@ -1300,12 +1364,16 @@ function initCalc(){
   k_algch.innerHTML=opts(ALG_C,280);
   k_phup.innerHTML=opts(PH_UP,283); k_phdn.innerHTML=opts(PH_DN,286);
   k_alcup.innerHTML=opts(ALC_UP,169); k_alcdn.innerHTML=opts(PH_DN,286);
+  k_floc.innerHTML=opts(FLOC,282);
   trocouCloro(); calcVol(); modoCalc('m');
 }
 function trocouCloro(){
   const c=acha(CLORO,k_cloro.value);
   k_pct.value=c.pct; k_emb.value=c.e;
-  k_dica.innerHTML = c.f==='rotulo' ? '✅ Dosagem lida no rótulo do produto.'
+  k_pct.disabled = !!c.dir;
+  k_pct.style.background = c.dir ? '#F5F9FB' : '';
+  k_dica.innerHTML = c.dir ? '✅ Dosagem lida no rótulo deste produto. O percentual não entra na conta — o fabricante já publica a dose pronta.'
+    : c.f==='rotulo' ? '✅ Dosagem lida no rótulo do produto.'
     : c.ok ? '✅ Percentual confirmado no nome do produto — dose calculada por proporção.'
            : '⚠️ Percentual estimado. <b>Confira no rótulo</b> e ajuste ao lado.';
   calcK();
@@ -1315,6 +1383,7 @@ function modoCalc(m){
   kb_m.classList.toggle('on',m==='m'); kb_c.classList.toggle('on',m==='c');
   document.getElementById('k-med').style.display   = m==='c'?'':'none';
   document.getElementById('k-prodc').style.display = m==='c'?'':'none';
+  document.getElementById('k-extra').style.display = m==='c'?'':'none';
   document.getElementById('k-prodm').style.display = m==='m'?'':'none';
   document.getElementById('k-faixas').style.display= m==='c'?'':'none';
   document.getElementById('k-tit').textContent = m==='m'?'📋 Rotina da semana':'📋 O que aplicar, nesta ordem';
@@ -1338,9 +1407,9 @@ function calcK(){
     const ob = p&&p.obs ? `<div class="po">${p.obs}</div>`:'';
     html+=`<div class="passo ${cls}"><div class="pn">Passo ${n}</div><h3>${tit}</h3>
       <div class="pq">${qtd}</div>${eq?`<div class="pe2">${eq}</div>`:''}
-      ${p?`<div class="pp">${p.m} — ${p.n} · ${p.e} ${selo(p)}${p.ativo?`<br><span style="font-weight:400;color:var(--txt2)">${p.ativo}</span>`:''}</div>`:''}
+      ${p?`<div class="pp">${p.m} — ${p.n} · ${p.e} ${selo(p)}${p.ativo?`<br><span style="font-weight:400;color:var(--txt2)">${p.ativo}</span>`:''}${p.semCod?`<br><span style="font-weight:400;color:var(--amar)">código ainda não localizado na lista do sistema</span>`:''}</div>`:''}
       ${obs?`<div class="po">${obs}</div>`:''}${ob}${al}</div>`;
-    if(p) receita.push({cod:p.c,nome:`${p.m} — ${p.n}`,qtd});
+    if(p) receita.push({cod:p.semCod?'a confirmar':p.c,nome:`${p.m} — ${p.n}`,qtd});
   };
   const semDose=(tit,p)=>{
     n++;
@@ -1358,7 +1427,8 @@ function calcK(){
               eq:`1 pastilha para cada ${nBR(c.porLitros)} litros · dura até ${c.dias} dias no clorador flutuante`};
     }
     const base = choque ? (c.choque||BASE_CHOQUE) : (c.manut||BASE_MANUT);
-    const g = base*mil*(BASE_PCT/pct)*(mult||1);
+    /* c.dir = dose lida no rótulo do próprio produto — não recalcular por proporção */
+    const g = base*mil*(c.dir?1:(BASE_PCT/pct))*(mult||1);
     let eq='';
     if(c.kg) eq = g/1000/c.kg>=.1 ? `≈ ${nBR(g/1000/c.kg,2)} embalagem(ns) de ${c.kg} kg`
                                   : `≈ ${nBR(g/1000/c.kg*100,1)}% de uma embalagem de ${c.kg} kg`;
@@ -1379,6 +1449,7 @@ function calcK(){
     html+=`<div class="aviso" style="background:var(--agua);color:var(--azul)">🔬 <b>Meça toda semana:</b> cloro ${IDEAL.clMin} a ${IDEAL.clMax} ppm, pH ${nBR(IDEAL.phMin,1)} a ${nBR(IDEAL.phMax,1)} e alcalinidade ${IDEAL.alcMin} a ${IDEAL.alcMax} ppm. Fora disso, use a aba <b>Corrigir água</b>.</div>`;
   } else {
     const cl=+k_cl.value, ph=+k_ph.value, alc=+k_alc.value, asp=k_asp.value;
+    let baixouAlc=false, esperas=[];
 
     /* 1) ALCALINIDADE */
     if(alc<IDEAL.alcMin){
@@ -1388,11 +1459,27 @@ function calcK(){
         'Dilua num balde antes de jogar. Espere 6 h com a bomba ligada e meça de novo. <b>Só depois mexa no pH.</b>',p);
     } else if(alc>IDEAL.alcMax){
       const p=acha(PH_DN,k_alcdn.value);
-      if(p.alcPorPasso){
+      if(p.alcTabela){
+        /* tabela do rótulo: alcalinidade medida → ml por 1.000 L. Usa a linha
+           mais próxima por baixo, que é sempre a dose menor — mais segura.    */
+        const tab=p.alcTabela, prim=tab[0], ult=tab[tab.length-1];
+        let lin=null;
+        for(const l of tab){ if(alc>=l[0]) lin=l }
+        const acima = alc>ult[0];
+        lin = lin || prim;
+        const v=lin[1]*mil;
+        passo('at','Baixar a alcalinidade — antes de tudo',fmt(v,'ml'),
+          acima ? `Tabela do rótulo vai até ${nBR(ult[0])} ppm — ${nBR(ult[1])} ml por 1.000 L`
+                : `Tabela do rótulo: ${nBR(lin[0])} ppm → ${nBR(lin[1])} ml por 1.000 L`,
+          (acima?'A medição está acima da tabela. Aplique a dose máxima, meça de novo depois de 8 h e repita se precisar. ':'')
+          +'Aplicar puro, espalhado na superfície, e deixar 8 h em repouso antes de medir de novo. <b>Só depois mexa no pH.</b>',p);
+        baixouAlc=true;
+      } else if(p.alcPorPasso){
         const v=((alc-IDEAL.alcMax)/p.alcPasso)*p.alcPorPasso*mil;
         passo('at','Baixar a alcalinidade — antes de tudo',fmt(v,'ml'),
           `${nBR(p.alcPorPasso)} ml por m³ a cada 10 ppm — reduzir ${nBR(alc-IDEAL.alcMax)} ppm`,
           'Dissolva num balde, espalhe na superfície e recircule 1 h. Meça de novo no dia seguinte.',p);
+        baixouAlc=true;
       } else semDose('Baixar a alcalinidade',p);
     } else passo('ok','Alcalinidade está boa',nBR(alc)+' ppm',`Dentro de ${IDEAL.alcMin} a ${IDEAL.alcMax} ppm`,'Pode seguir para o pH.',null);
 
@@ -1409,6 +1496,12 @@ function calcK(){
         passo('at','Subir o pH',fmt(g,p.un),`De ${nBR(ph,1)} até ${nBR(IDEAL.phAlvo,1)}`,
           'Dilua em água antes de aplicar. Espere 4 h e meça de novo.',p);
       } else semDose('Subir o pH',p);
+    } else if(ph>IDEAL.phMax && baixouAlc){
+      n++;
+      html+=`<div class="passo at"><div class="pn">Passo ${n}</div><h3>Meça o pH de novo antes de corrigir</h3>
+        <div class="pq" style="font-size:17px;color:var(--amar)">Aguardar</div>
+        <div class="pe2">O produto que baixa a alcalinidade é ácido — ele já derruba o pH junto. Aplicar redutor de pH agora derrubaria demais.</div>
+        <div class="po">Espere o tempo indicado no passo anterior, meça pH e alcalinidade de novo e volte aqui com os números novos.</div></div>`;
     } else if(ph>IDEAL.phMax){
       const p=acha(PH_DN,k_phdn.value);
       if(p.faixas){
@@ -1432,6 +1525,17 @@ function calcK(){
       const ac=acha(ALG_C,k_algch.value);
       passo('ur','Algicida de choque',fmt(ac.d*mil,'ml'),`${nBR(ac.d)} ml por 1.000 litros`,
         'Escove as paredes e o fundo antes. Dilua num balde com água da piscina.',ac);
+      if(ac.alerta) esperas.push(`<b>${ac.n}</b> — o rótulo pede intervalo sem cloro. Aplique a supercloração e o algicida em dias separados.`);
+      const fl=acha(FLOC,k_floc.value);
+      if(fl.cubo){
+        const cubos=Math.max(1,Math.ceil(volCalc/fl.porLitros));
+        passo('at','Decantar as algas mortas',`${nBR(cubos)} cubo${cubos>1?'s':''}`,
+          `1 cubo para cada ${nBR(fl.porLitros)} litros · dura ${fl.dias} dias`,
+          'Depois do repouso, aspire o fundo drenando, sem revolver o depósito.',fl);
+      } else {
+        passo('at','Decantar as algas mortas',fmt(fl.d*mil,'ml'),`${nBR(fl.d)} ml por 1.000 litros`,
+          'Aplique com a filtração ligada, deixe decantar e aspire o fundo drenando.',fl);
+      }
     } else if(cl<IDEAL.clMin){
       const d=doseCloro(cp,true,(2-cl)/2);
       passo('at','Repor o cloro',d.txt,`Cloro em ${nBR(cl,1)} ppm — subir para cerca de 2 ppm`,
@@ -1455,6 +1559,35 @@ function calcK(){
           'Com a filtração ligada.',c2);
       }
     }
+
+    /* 5) PROBLEMAS ESPECÍFICOS */
+    if(document.getElementById('k_oleo').checked){
+      const o=OLEO[0];
+      passo('at','Eliminar a oleosidade',fmt(o.dElim*mil,'ml'),
+        `${nBR(o.dElim)} ml por 1.000 litros para oleosidade já acumulada · ${nBR(o.dPrev)} ml por 1.000 litros para prevenir`,
+        'Filtrar 6 h depois de aplicar.',o);
+      esperas.push('<b>Eliminador de Oleosidade</b> — nada de cloro durante o tratamento. O cloro só volta 12 h depois.');
+    }
+    if(document.getElementById('k_met').checked){
+      const mt=METAL[0], turva=asp==='turva';
+      const dose = turva ? mt.dTurva : mt.dMancha;
+      passo('at','Tratar o ferro e o manganês',fmt(dose*mil,'ml'),
+        turva ? `${nBR(mt.dTurva)} ml por 1.000 litros — água turva por metais`
+              : `${nBR(mt.dMancha)} ml por 1.000 litros — revestimento manchado`,
+        turva ? 'Filtrar 8 h, repetir por 4 dias e esperar mais 4 dias antes de voltar a clorar.'
+              : 'Aplicar e aguardar 7 dias antes de qualquer supercloração. Para só prevenir, a dose do rótulo é 15 ml por 1.000 litros.',mt);
+      esperas.push(turva
+        ? '<b>Controlador de Metais</b> — repetir por 4 dias e esperar mais 4 dias antes de voltar a clorar.'
+        : '<b>Controlador de Metais</b> — 7 dias entre a aplicação e qualquer supercloração.');
+    }
+
+    if(esperas.length){
+      html+=`<div class="aviso" style="background:var(--verm-bg);color:var(--verm)">
+        ⏱️ <b>Não dá para fazer tudo no mesmo dia.</b> Os rótulos destes produtos exigem intervalo sem cloro:
+        <ul style="margin:7px 0 0 17px;line-height:1.55">${esperas.map(e=>`<li>${e}</li>`).join('')}</ul>
+        <div style="margin-top:7px">Faça um por vez, respeitando o intervalo, e meça a água entre uma etapa e outra.</div></div>`;
+    }
+
     pintaFaixas(cl,ph,alc);
   }
   box.innerHTML=html;
