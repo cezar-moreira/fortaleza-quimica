@@ -322,6 +322,8 @@ footer a{color:#9FD4E6;text-decoration:none;display:inline-block;margin:3px 14px
   font-weight:800;padding:2px 7px;border-radius:5px;margin-left:4px;white-space:nowrap}
 .dose-at{display:inline-block;background:var(--amar-bg);color:var(--amar);font-size:10.5px;
   font-weight:800;padding:2px 7px;border-radius:5px;margin-left:4px;white-space:nowrap}
+.dose-no{display:inline-block;background:var(--verm-bg);color:var(--verm);font-size:10.5px;
+  font-weight:800;padding:2px 7px;border-radius:5px;margin-left:4px;white-space:nowrap}
 .passo .po{font-size:13px;color:var(--txt2);margin-top:8px;line-height:1.5}
 .kfx{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:10px}
 .kf{background:var(--agua);border-radius:11px;padding:11px 13px}
@@ -1186,281 +1188,272 @@ function enviarZap(){
 }
 
 /* ================= CALCULADORA ================= */
-/* ================= DOSAGENS POR FUNÇÃO ================= */
-/* fonte: 'HTH' = publicado pelo fabricante | 'ref' = referência de setor | '?' = confirmar rótulo */
-const FN = {
-  cloro_gran:   {rot:'Cloro granulado',        manut:4,  choque:14, un:'g',  refPct:65, fonte:'HTH'},
-  cloro_past:   {rot:'Cloro em pastilha',      manut:4,  choque:14, un:'g',  refPct:65, fonte:'HTH', past:true},
-  cloro_liq:    {rot:'Cloro líquido',          manut:4,  choque:14, un:'g',  refPct:65, fonte:'HTH', liq:true},
-  alg_manut:    {rot:'Algicida de manutenção', dose:5,   un:'ml', freq:'1× por semana', fonte:'HTH'},
-  alg_choque:   {rot:'Algicida de choque',     dose:7,   un:'ml', freq:'na recuperação', fonte:'HTH'},
-  clarif:       {rot:'Clarificante',           dose:1.5, un:'ml', freq:'1× por semana', fonte:'HTH', choqueDose:20},
-  ultraclear:   {rot:'Clarificante especial',  dose:10,  un:'ml', freq:'1× por semana', fonte:'HTH'},
-  oleosidade:   {rot:'Elimina oleosidade',     dose:7,   un:'ml', freq:'quando houver', fonte:'HTH'},
-  ph_up:        {rot:'Elevador de pH',         porPasso:7.5, passo:0.2, un:'g',  fonte:'ref'},
-  ph_up_liq:    {rot:'Elevador de pH líquido', porPasso:null, passo:0.2, un:'ml', fonte:'?'},
-  ph_down:      {rot:'Redutor de pH',          porPasso:2.5, passo:0.2, un:'ml', fonte:'ref'},
-  ph_down_gran: {rot:'Redutor de pH granulado',porPasso:null, passo:0.2, un:'g', fonte:'?'},
-  alc_up:       {rot:'Elevador de alcalinidade', porPasso:15, passo:10, un:'g',  fonte:'ref'},
-  alc_down:     {rot:'Redutor de alcalinidade',  porPasso:10, passo:10, un:'ml', fonte:'ref'},
-  floc:         {rot:'Floculante',             dose:null, un:'g', fonte:'?'},
-  sal:          {rot:'Sal para gerador',       dose:4000, un:'g', fonte:'ref', obs:'≈ 4 kg por m³ (0,4%)'},
-  neutraliza:   {rot:'Neutralizador de cloro', dose:null, un:'g', fonte:'?'},
-  bordas:       {rot:'Limpa bordas',           direto:true, fonte:'—'},
-  metais:       {rot:'Controlador de metais',  dose:null, un:'ml', fonte:'?'},
-  dureza:       {rot:'Elevador de dureza',     dose:null, un:'g', fonte:'?'},
-};
+/* fonte: 'rotulo' = lido no rótulo do produto | 'HTH' = guia do fabricante
+   'ref' = referência de setor | '?' = sem dose publicada                    */
 
-/* ================= PRODUTOS DOSÁVEIS ================= */
-const PC = [
- /* --- CLORO GRANULADO --- */
- {c:248, n:'Cloro Tradicional 65%',        m:'HTH',       e:'Balde 10 kg', fn:'cloro_gran', pct:65, ok:1, kg:10},
- {c:247, n:'Cloro MB 10 em 1',             m:'HTH',       e:'Balde 10 kg', fn:'cloro_gran', pct:65, ok:0, kg:10, choque:18},
- {c:199, n:'Cloro Premium 65%',            m:'Hidroazul', e:'Balde 10 kg', fn:'cloro_gran', pct:65, ok:1, kg:10},
- {c:200, n:'Cloro Premium 70%',            m:'Hidroazul', e:'Balde 10 kg', fn:'cloro_gran', pct:70, ok:1, kg:10},
- {c:201, n:'Cloro Super Premium 45%',      m:'Hidroazul', e:'Balde 10 kg', fn:'cloro_gran', pct:45, ok:1, kg:10},
- {c:196, n:'Cloro Multiação',              m:'Hidroazul', e:'Balde 10 kg', fn:'cloro_gran', pct:60, ok:0, kg:10},
- {c:194, n:'Cloro FAZ-30',                 m:'Hidroazul', e:'Balde 10 kg', fn:'cloro_gran', pct:30, ok:0, kg:10},
- {c:209, n:'Dicloro Orgânico',             m:'Hidroazul', e:'Balde 10 kg', fn:'cloro_gran', pct:56, ok:0, kg:10},
- {c:284, n:'Hiper Ação',                   m:'Q Clor',    e:'Balde 10 kg', fn:'cloro_gran', pct:65, ok:0, kg:10},
- {c:287, n:'Super Ação',                   m:'Q Clor',    e:'Balde 10 kg', fn:'cloro_gran', pct:65, ok:0, kg:10},
- {c:291, n:'Ultra Clean',                  m:'Q Clor',    e:'Balde 10 kg', fn:'cloro_gran', pct:60, ok:0, kg:10},
- {c:319, n:'Weekend 2,4 kg',               m:'—',         e:'Saco 2,4 kg', fn:'cloro_gran', pct:60, ok:0, kg:2.4},
- {c:320, n:'Weekend 4,0 kg',               m:'—',         e:'Saco 4,0 kg', fn:'cloro_gran', pct:60, ok:0, kg:4},
- /* --- CLORO PASTILHA --- */
- {c:297, n:'Q-Past Tricloro 200 g',        m:'Q Clor',    e:'Pastilha 200 g', fn:'cloro_past', pct:90, ok:0, past:200},
- {c:298, n:'Q-Past Tricloro 20 g',         m:'Quimil',    e:'Balde 10 kg',    fn:'cloro_past', pct:90, ok:0, past:20, kg:10},
- {c:296, n:'Q-Past MIX 200 g (ortopolifosfato)', m:'Q Clor', e:'Pastilha 200 g', fn:'cloro_past', pct:90, ok:0, past:200},
- {c:615, n:'Pastilha Tricloro sem embalagem', m:'—',      e:'Unidade',        fn:'cloro_past', pct:90, ok:0, past:200},
- {c:271, n:'Pastilhas Hypocal 65%',        m:'Hypocal',   e:'Balde 14 kg',    fn:'cloro_past', pct:65, ok:0, kg:14},
- {c:324, n:'Q-Past Hipoclorito de Cálcio', m:'Q Clor',    e:'Balde 25 kg',    fn:'cloro_past', pct:65, ok:0, kg:25},
- {c:238, n:'Q-Hipo 65%',                   m:'Q Clor',    e:'Bombona 45 kg',  fn:'cloro_past', pct:65, ok:1, kg:45},
- /* --- CLORO LÍQUIDO --- */
- {c:240, n:'Hipoclorito de Sódio 12%',     m:'Fortaleza Química', e:'Bombona', fn:'cloro_liq', pct:12, ok:1},
- /* --- ALGICIDA MANUTENÇÃO --- */
- {c:164, n:'Algicida de Manutenção 1 L',   m:'HTH',       e:'Frasco 1 L',  fn:'alg_manut', ok:1},
- {c:244, n:'Algicida de Manutenção Refil', m:'HTH',       e:'Refil 900 ml',fn:'alg_manut', ok:1},
- {c:165, n:'Algicida Manutenção 1 L',      m:'Hidroazul', e:'Frasco 1 L',  fn:'alg_manut', ok:0},
- {c:813, n:'Algicida Manutenção 5 L',      m:'Hidroazul', e:'Galão 5 L',   fn:'alg_manut', ok:0},
- {c:166, n:'Algicida Multiação 1 L',       m:'Hidroazul', e:'Frasco 1 L',  fn:'alg_manut', ok:0},
- {c:281, n:'Algicida de Manutenção 1 L',   m:'Q Clor',    e:'Frasco 1 L',  fn:'alg_manut', ok:0},
- {c:806, n:'Algicida de Manutenção 5 L',   m:'Q Clor',    e:'Galão 5 L',   fn:'alg_manut', ok:0},
- /* --- ALGICIDA CHOQUE --- */
- {c:241, n:'Algicida Choque 1 L',          m:'HTH',       e:'Frasco 1 L',  fn:'alg_choque', ok:1},
- {c:242, n:'Algicida Choque Refil',        m:'HTH',       e:'Refil 900 ml',fn:'alg_choque', ok:1},
- {c:163, n:'Algicida Choque 1 L',          m:'Hidroazul', e:'Frasco 1 L',  fn:'alg_choque', ok:0},
- {c:812, n:'Algicida Choque 5 L',          m:'Hidroazul', e:'Galão 5 L',   fn:'alg_choque', ok:0},
- {c:280, n:'Algicida de Choque 1 L',       m:'Q Clor',    e:'Frasco 1 L',  fn:'alg_choque', ok:0},
- {c:807, n:'Algicida de Choque 5 L',       m:'Q Clor',    e:'Galão 5 L',   fn:'alg_choque', ok:0},
- /* --- CLARIFICANTE --- */
- {c:246, n:'Clarifica Maxfloc Refil',      m:'HTH',       e:'Refil 900 ml',fn:'clarif', ok:1},
- {c:282, n:'Clarificante 1 L',             m:'Q Clor',    e:'Frasco 1 L',  fn:'clarif', ok:0},
- {c:700, n:'Clarificante 5 L',             m:'Q Clor',    e:'Galão 5 L',   fn:'clarif', ok:0},
- {c:230, n:'Floc Plus 2 em 1 · 1 L',       m:'Hidroazul', e:'Frasco 1 L',  fn:'clarif', ok:0},
- {c:334, n:'Floc Plus 2 em 1 · 5 L',       m:'Hidroazul', e:'Galão 5 L',   fn:'clarif', ok:0},
- /* --- CLARIFICANTE ESPECIAL --- */
- {c:253, n:'Ultraclear 1 L',               m:'HTH',       e:'Frasco 1 L',  fn:'ultraclear', ok:1},
- {c:254, n:'Ultraclear Refil',             m:'HTH',       e:'Refil 900 ml',fn:'ultraclear', ok:1},
- {c:336, n:'Ultra Clean',                  m:'Q Clor',    e:'Granel (kg)', fn:'ultraclear', ok:0},
- {c:701, n:'Ultra Clean 1 kg',             m:'Q Clor',    e:'Pouch 1 kg',  fn:'ultraclear', ok:0},
- /* --- OLEOSIDADE --- */
- {c:815, n:'Eliminador de Oleosidade 1 L', m:'Hidroazul', e:'Frasco 1 L',  fn:'oleosidade', ok:0},
- /* --- pH PARA CIMA --- */
- {c:189, n:'Barrilha Leve',                m:'Sisecam',   e:'Saco 25 kg',  fn:'ph_up', ok:1, kg:25},
- {c:811, n:'Barrilha Leve',                m:'Solvay',    e:'Saco 25 kg',  fn:'ph_up', ok:1, kg:25},
- {c:624, n:'Barrilha Leve',                m:'G-Crystal', e:'Saco 25 kg',  fn:'ph_up', ok:1, kg:25},
- {c:863, n:'Barrilha Leve',                m:'CH',        e:'Saco 25 kg',  fn:'ph_up', ok:1, kg:25},
- {c:100, n:'Soda Ash Light (carbonato)',   m:'—',         e:'Saco',        fn:'ph_up', ok:1},
- {c:214, n:'Elevador de pH 1 L',           m:'Hidroazul', e:'Frasco 1 L',  fn:'ph_up_liq', ok:0},
- {c:283, n:'Elevador de pH 1 L',           m:'Q Clor',    e:'Frasco 1 L',  fn:'ph_up_liq', ok:0},
- {c:267, n:'NeoPH Elevador de pH',         m:'Neoclor',   e:'Frasco',      fn:'ph_up_liq', ok:0},
- /* --- pH PARA BAIXO --- */
- {c:159, n:'Ácido Clorídrico 32%',         m:'—',         e:'Bombona',     fn:'ph_down', ok:1},
- {c:286, n:'Redutor de pH 1 L',            m:'Q Clor',    e:'Frasco 1 L',  fn:'ph_down', ok:0},
- {c:268, n:'NeoPH Redutor de pH',          m:'Neoclor',   e:'Frasco',      fn:'ph_down', ok:0},
- {c:210, n:'Diminuidor de pH e Alcalinidade', m:'Hidroazul', e:'Frasco 1 L', fn:'ph_down', ok:0},
- {c:325, n:'Redutor de pH Granulado',      m:'Aquapool',  e:'Granel (kg)', fn:'ph_down_gran', ok:0},
- /* --- ALCALINIDADE --- */
- {c:169, n:'Bicarbonato de Sódio',         m:'Sisecam',   e:'Saco 25 kg',  fn:'alc_up', ok:1, kg:25},
- {c:605, n:'Bicarbonato de Sódio',         m:'Carbonor',  e:'Saco 25 kg',  fn:'alc_up', ok:1, kg:25},
- {c:825, n:'Bicarbonato de Sódio',         m:'CH',        e:'Saco 25 kg',  fn:'alc_up', ok:1, kg:25},
- {c:603, n:'Bicarbonato de Sódio',         m:'Kazam',     e:'Saco 25 kg',  fn:'alc_up', ok:1, kg:25},
- {c:251, n:'Redutor de Alcalinidade 1 L',  m:'HTH',       e:'Frasco 1 L',  fn:'alc_down', ok:1},
- {c:252, n:'Redutor de Alcalinidade Refil',m:'HTH',       e:'Refil 900 ml',fn:'alc_down', ok:1},
- /* --- FLOCULANTE / DECANTAÇÃO --- */
- {c:702, n:'Sulfato de Alumínio 17% em pó',m:'—',         e:'Saco 25 kg',  fn:'floc', ok:0, kg:25},
- {c:310, n:'Sulfato de Alumínio',          m:'Indusfloc', e:'Saco 25 kg',  fn:'floc', ok:0, kg:25},
- {c:229, n:'Floc Gel 90 g',                m:'Hidroazul', e:'Unidade',     fn:'floc', ok:0},
- /* --- OUTROS --- */
- {c:642, n:'Sal Marinho',                  m:'—',         e:'Saco 25 kg',  fn:'sal', ok:0, kg:25},
- {c:265, n:'Metabissulfito de Sódio',      m:'—',         e:'Saco 25 kg',  fn:'neutraliza', ok:0, kg:25},
- {c:191, n:'Cloreto de Cálcio',            m:'River',     e:'Saco 25 kg',  fn:'dureza', ok:0, kg:25},
- {c:814, n:'Controlador de Metais 1 L',    m:'Hidroazul', e:'Frasco 1 L',  fn:'metais', ok:0},
- {c:249, n:'Limpa Bordas 1 L',             m:'HTH',       e:'Frasco 1 L',  fn:'bordas', ok:1},
- {c:256, n:'Limpa Bordas 1 L',             m:'Hidroazul', e:'Frasco 1 L',  fn:'bordas', ok:0},
- {c:285, n:'Limpa Bordas 1 L',             m:'Q Clor',    e:'Frasco 1 L',  fn:'bordas', ok:0},
+const CLORO = [
+ {c:248,n:'Cloro Tradicional 65%',m:'HTH',e:'Balde 10 kg',pct:65,ok:1,kg:10,manut:4,choque:14,f:'HTH'},
+ {c:247,n:'Cloro MB 10 em 1',m:'HTH',e:'Balde 10 kg',pct:65,ok:0,kg:10,manut:4,choque:18,f:'HTH'},
+ {c:199,n:'Cloro Premium 65%',m:'Hidroazul',e:'Balde 10 kg',pct:65,ok:1,kg:10,f:'prop'},
+ {c:200,n:'Cloro Premium 70%',m:'Hidroazul',e:'Balde 10 kg',pct:70,ok:1,kg:10,f:'prop'},
+ {c:201,n:'Cloro Super Premium 45%',m:'Hidroazul',e:'Balde 10 kg',pct:45,ok:1,kg:10,f:'prop'},
+ {c:196,n:'Cloro Multiação',m:'Hidroazul',e:'Balde 10 kg',pct:60,ok:0,kg:10,f:'prop'},
+ {c:194,n:'Cloro FAZ-30',m:'Hidroazul',e:'Balde 10 kg',pct:30,ok:0,kg:10,f:'prop'},
+ {c:209,n:'Dicloro Orgânico',m:'Hidroazul',e:'Balde 10 kg',pct:56,ok:0,kg:10,f:'prop'},
+ {c:284,n:'Hiper Ação',m:'Q Clor',e:'Balde 10 kg',pct:65,ok:0,kg:10,f:'prop'},
+ {c:287,n:'Super Ação',m:'Q Clor',e:'Balde 10 kg',pct:65,ok:0,kg:10,f:'prop'},
+ {c:291,n:'Ultra Clean',m:'Q Clor',e:'Balde 10 kg',pct:60,ok:0,kg:10,f:'prop'},
+ {c:297,n:'Pastilha de Tricloro 200 g',m:'Q Clor',e:'Pastilha',pct:90,ok:1,past:1,porLitros:30000,dias:15,f:'rotulo'},
+ {c:298,n:'Q-Past Tricloro 20 g',m:'Quimil',e:'Balde 10 kg',pct:90,ok:0,kg:10,f:'prop'},
+ {c:271,n:'Pastilhas Hypocal 65%',m:'Hypocal',e:'Balde 14 kg',pct:65,ok:0,kg:14,f:'prop'},
+ {c:324,n:'Q-Past Hipoclorito de Cálcio',m:'Q Clor',e:'Balde 25 kg',pct:65,ok:0,kg:25,f:'prop'},
+ {c:238,n:'Q-Hipo 65%',m:'Q Clor',e:'Bombona 45 kg',pct:65,ok:1,kg:45,f:'prop'},
+ {c:240,n:'Hipoclorito de Sódio 12%',m:'Fortaleza Química',e:'Bombona',pct:12,ok:1,liq:1,f:'prop'},
 ];
 
-let volCalc = 0, receita = [];
+const ALG_M = [
+ {c:281,n:'Algicida de Manutenção',m:'Q Clor',e:'Frasco 1 L',d:4,ok:1,f:'rotulo',ativo:'Quaternário de amônio 6%'},
+ {c:806,n:'Algicida de Manutenção 5 L',m:'Q Clor',e:'Galão 5 L',d:4,ok:1,f:'rotulo',ativo:'Quaternário de amônio 6%'},
+ {c:164,n:'Algicida de Manutenção 1 L',m:'HTH',e:'Frasco 1 L',d:5,ok:1,f:'HTH'},
+ {c:244,n:'Algicida de Manutenção Refil',m:'HTH',e:'Refil 900 ml',d:5,ok:1,f:'HTH'},
+ {c:165,n:'Algicida Manutenção 1 L',m:'Hidroazul',e:'Frasco 1 L',d:5,ok:0,f:'ref'},
+ {c:813,n:'Algicida Manutenção 5 L',m:'Hidroazul',e:'Galão 5 L',d:5,ok:0,f:'ref'},
+];
+
+const ALG_C = [
+ {c:280,n:'Algicida de Choque',m:'Q Clor',e:'Frasco 1 L',d:6,ok:1,f:'rotulo',ativo:'Quaternário de amônio 12%',
+  obs:'Depois da aplicação, decante com clarificante ou sulfato de alumínio e aspire as algas mortas.'},
+ {c:807,n:'Algicida de Choque 5 L',m:'Q Clor',e:'Galão 5 L',d:6,ok:1,f:'rotulo',ativo:'Quaternário de amônio 12%'},
+ {c:163,n:'Algicida Choque 1 L',m:'Hidroazul',e:'Frasco 1 L',d:7,ok:1,f:'rotulo',ativo:'Sulfato de cobre 19,5%',
+  alerta:'⚠️ O rótulo proíbe usar junto com cloro — intervalo mínimo de 12 horas.'},
+ {c:812,n:'Algicida Choque 5 L',m:'Hidroazul',e:'Galão 5 L',d:7,ok:1,f:'rotulo',ativo:'Sulfato de cobre 19,5%',
+  alerta:'⚠️ O rótulo proíbe usar junto com cloro — intervalo mínimo de 12 horas.'},
+ {c:241,n:'Algicida Choque 1 L',m:'HTH',e:'Frasco 1 L',d:7,ok:0,f:'HTH'},
+ {c:242,n:'Algicida Choque Refil',m:'HTH',e:'Refil 900 ml',d:7,ok:0,f:'HTH'},
+];
+
+const CLARIF = [
+ {c:282,n:'Clarificante 1 L',m:'Q Clor',e:'Frasco 1 L',d:1.5,dTurva:[3,6],ok:1,f:'rotulo',ativo:'Policloreto de alumínio 18%',
+  obs:'Turbidez alta: repouso de 8 a 12 h e aspirar o fundo drenando.'},
+ {c:700,n:'Clarificante 5 L',m:'Q Clor',e:'Galão 5 L',d:1.5,dTurva:[3,6],ok:1,f:'rotulo',ativo:'Policloreto de alumínio 18%'},
+ {c:246,n:'Clarifica Maxfloc Refil',m:'HTH',e:'Refil 900 ml',d:1.5,dTurva:[6,6],ok:1,f:'rotulo',
+  obs:'Aplicar 10 min depois do cloro. Água suja: filtrar 6 h, repouso 12 h, aspirar drenando.'},
+ {c:253,n:'Ultra-Clear 1 L',m:'HTH',e:'Frasco 1 L',d:10,ok:1,f:'rotulo',
+  obs:'Aplicar 10 min depois do cloro. A piscina pode ser usada 1 h após.'},
+ {c:254,n:'Ultra-Clear Refil',m:'HTH',e:'Refil 900 ml',d:10,ok:1,f:'rotulo'},
+ {c:230,n:'Floc Plus 2 em 1 · 1 L',m:'Hidroazul',e:'Frasco 1 L',d:1.5,dTurva:[3,6],ok:0,f:'ref'},
+ {c:334,n:'Floc Plus 2 em 1 · 5 L',m:'Hidroazul',e:'Galão 5 L',d:1.5,dTurva:[3,6],ok:0,f:'ref'},
+];
+
+/* faixas: [phMin, phMax, ml/m³] — usa a primeira faixa que casar */
+const PH_UP = [
+ {c:283,n:'Elevador de pH 1 L',m:'Q Clor',e:'Frasco 1 L',ok:1,f:'rotulo',ativo:'Hidróxido de sódio',un:'ml',
+  faixas:[[7.0,7.2,10],[6.8,7.0,15],[0,6.8,20]]},
+ {c:214,n:'Elevador de pH 1 L',m:'Hidroazul',e:'Frasco 1 L',ok:0,f:'?',un:'ml'},
+ {c:267,n:'NeoPH Elevador de pH',m:'Neoclor',e:'Frasco',ok:0,f:'?',un:'ml'},
+ {c:189,n:'Barrilha Leve',m:'Sisecam',e:'Saco 25 kg',ok:0,f:'ref',un:'g',porPasso:7.5,passo:0.2,kg:25},
+ {c:811,n:'Barrilha Leve',m:'Solvay',e:'Saco 25 kg',ok:0,f:'ref',un:'g',porPasso:7.5,passo:0.2,kg:25},
+ {c:863,n:'Barrilha Leve',m:'CH',e:'Saco 25 kg',ok:0,f:'ref',un:'g',porPasso:7.5,passo:0.2,kg:25},
+];
+
+const PH_DN = [
+ {c:286,n:'Redutor de pH 1 L',m:'Q Clor',e:'Frasco 1 L',ok:1,f:'rotulo',ativo:'Cloreto de hidrogênio 10%',un:'ml',
+  faixas:[[7.6,8.0,13],[8.0,99,120]], alcPorPasso:12, alcPasso:10,
+  alerta:'⚠️ O rótulo salta de 13 ml para 120 ml acima de pH 8,0. Salto de quase 10× — provável erro de impressão. Confirmar com o fabricante antes de aplicar.'},
+ {c:159,n:'Ácido Clorídrico 32%',m:'—',e:'Bombona',ok:0,f:'ref',un:'ml',porPasso:2.5,passo:0.2,alcPorPasso:10,alcPasso:10},
+ {c:210,n:'Diminuidor de pH e Alcalinidade',m:'Hidroazul',e:'Frasco 1 L',ok:0,f:'?',un:'ml'},
+ {c:268,n:'NeoPH Redutor de pH',m:'Neoclor',e:'Frasco',ok:0,f:'?',un:'ml'},
+];
+
+const ALC_UP = [
+ {c:169,n:'Bicarbonato de Sódio',m:'Sisecam',e:'Saco 25 kg',ok:0,f:'ref',porPasso:15,passo:10,kg:25},
+ {c:605,n:'Bicarbonato de Sódio',m:'Carbonor',e:'Saco 25 kg',ok:0,f:'ref',porPasso:15,passo:10,kg:25},
+ {c:825,n:'Bicarbonato de Sódio',m:'CH',e:'Saco 25 kg',ok:0,f:'ref',porPasso:15,passo:10,kg:25},
+];
+
+const IDEAL = {clMin:1, clMax:3, phMin:7.2, phMax:7.6, phAlvo:7.4, alcMin:80, alcMax:120};
+const BASE_MANUT=4, BASE_CHOQUE=14, BASE_PCT=65;
+let volCalc=0, receita=[];
+
 const nBR=(v,d=0)=>v.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});
 function fmt(v,un){
-  if(un==='g')  return v>=1000 ? nBR(v/1000,2)+' kg'     : nBR(v,0)+' g';
-  if(un==='ml') return v>=1000 ? nBR(v/1000,2)+' litros' : nBR(v,0)+' ml';
-  return nBR(v,0)+' '+un;
+  if(un==='g')  return v>=1000?nBR(v/1000,2)+' kg':nBR(v,0)+' g';
+  return v>=1000?nBR(v/1000,2)+' litros':nBR(v,0)+' ml';
 }
-const porFn = fn => PC.filter(p=>p.fn===fn);
-function opts(fn, sel){
-  const l = porFn(fn); if(!l.length) return '';
-  const marcas=[...new Set(l.map(p=>p.m))];
+const SELO={rotulo:['dose-ok','✅ dose do rótulo'],HTH:['dose-ok','✅ guia do fabricante'],
+            prop:['dose-at','⚠️ calculada por proporção'],ref:['dose-at','⚠️ referência — confirmar rótulo'],
+            '?':['dose-no','❌ sem dose publicada']};
+function selo(p){ const s=SELO[p.f]||SELO['?']; return `<span class="${s[0]}">${s[1]}</span>` }
+
+function opts(lista,sel){
+  const marcas=[...new Set(lista.map(p=>p.m))];
   return marcas.map(m=>`<optgroup label="${m}">`+
-    l.filter(p=>p.m===m).map(p=>`<option value="${p.c}" ${p.c==sel?'selected':''}>${p.n} — ${p.e}</option>`).join('')
-    +'</optgroup>').join('');
+    lista.filter(p=>p.m===m).map(p=>`<option value="${p.c}" ${p.c==sel?'selected':''}>${p.n} — ${p.e}</option>`).join('')
+    +`</optgroup>`).join('');
 }
-const byCod = c => PC.find(p=>p.c==c);
+const acha=(l,c)=>l.find(p=>p.c==c);
 function irCalc(){ ir('calc', document.querySelectorAll('#abas button')[4]) }
 
 function initCalc(){
-  k_cloro.innerHTML     = opts('cloro_gran',248) + opts('cloro_past') + opts('cloro_liq');
-  k_alg.innerHTML       = opts('alg_manut',164);
-  k_clar.innerHTML      = opts('clarif',246);
-  k_algch.innerHTML     = opts('alg_choque',241);
-  k_phup.innerHTML      = opts('ph_up',189) + opts('ph_up_liq');
-  k_phdn.innerHTML      = opts('ph_down',159) + opts('ph_down_gran');
-  k_alcup.innerHTML     = opts('alc_up',169);
-  k_alcdn.innerHTML     = opts('alc_down',251);
-  k_floc.innerHTML      = opts('floc',702);
+  k_cloro.innerHTML=opts(CLORO,248);
+  k_alg.innerHTML=opts(ALG_M,281); k_clar.innerHTML=opts(CLARIF,282);
+  k_algch.innerHTML=opts(ALG_C,280);
+  k_phup.innerHTML=opts(PH_UP,283); k_phdn.innerHTML=opts(PH_DN,286);
+  k_alcup.innerHTML=opts(ALC_UP,169); k_alcdn.innerHTML=opts(PH_DN,286);
   trocouCloro(); calcVol(); modoCalc('m');
 }
 function trocouCloro(){
-  const c = byCod(k_cloro.value);
-  k_pct.value = c.pct; k_emb.value = c.e;
-  k_dica.innerHTML = c.ok
-    ? '✅ Percentual confirmado pelo fabricante ou no nome do produto.'
-    : '⚠️ Percentual estimado — <b>confira no rótulo</b> e ajuste ao lado.';
+  const c=acha(CLORO,k_cloro.value);
+  k_pct.value=c.pct; k_emb.value=c.e;
+  k_dica.innerHTML = c.f==='rotulo' ? '✅ Dosagem lida no rótulo do produto.'
+    : c.ok ? '✅ Percentual confirmado no nome do produto — dose calculada por proporção.'
+           : '⚠️ Percentual estimado. <b>Confira no rótulo</b> e ajuste ao lado.';
   calcK();
 }
 function modoCalc(m){
-  window._mk = m;
-  kb_m.classList.toggle('on', m==='m'); kb_c.classList.toggle('on', m==='c');
-  document.getElementById('k-med').style.display   = m==='c' ? '' : 'none';
-  document.getElementById('k-prodc').style.display = m==='c' ? '' : 'none';
-  document.getElementById('k-prodm').style.display = m==='m' ? '' : 'none';
-  document.getElementById('k-faixas').style.display= m==='c' ? '' : 'none';
-  document.getElementById('k-tit').textContent = m==='m' ? '📋 Rotina da semana' : '📋 O que aplicar, nesta ordem';
+  window._mk=m;
+  kb_m.classList.toggle('on',m==='m'); kb_c.classList.toggle('on',m==='c');
+  document.getElementById('k-med').style.display   = m==='c'?'':'none';
+  document.getElementById('k-prodc').style.display = m==='c'?'':'none';
+  document.getElementById('k-prodm').style.display = m==='m'?'':'none';
+  document.getElementById('k-faixas').style.display= m==='c'?'':'none';
+  document.getElementById('k-tit').textContent = m==='m'?'📋 Rotina da semana':'📋 O que aplicar, nesta ordem';
   document.getElementById('k-sub').textContent = m==='m'
-    ? 'Dose de manutenção, com a bomba ligada.' : 'Um passo por vez. Alcalinidade sempre antes do pH.';
+    ?'Dose de manutenção, com a bomba ligada.':'Um passo por vez. Alcalinidade sempre antes do pH.';
   calcK();
 }
 function calcVol(){ k_volman.value=''; volCalc=Math.max(0,(+k_comp.value||0)*(+k_larg.value||0)*(+k_prof.value||0)*1000); pintaVol() }
 function volManual(){ const v=+k_volman.value||0; if(v>0){volCalc=v;pintaVol()} else calcVol() }
-function pintaVol(){ k_vol.textContent = volCalc>0 ? nBR(volCalc)+' litros' : '—'; calcK() }
+function pintaVol(){ k_vol.textContent=volCalc>0?nBR(volCalc)+' litros':'—'; calcK() }
 
 function calcK(){
-  const box = document.getElementById('k-res');
+  const box=document.getElementById('k-res');
   if(!volCalc){ box.innerHTML=''; return }
-  const mil = volCalc/1000;
-  receita=[]; let html='', n=0;
+  const mil=volCalc/1000;
+  receita=[]; let html='',n=0;
 
-  const selo = p => p.ok
-    ? '<span class="dose-ok">✅ dose do fabricante</span>'
-    : '<span class="dose-at">⚠️ confirmar no rótulo</span>';
-
-  const passo=(cls,tit,qtd,eq,obs,p,extra)=>{
+  const passo=(cls,tit,qtd,eq,obs,p)=>{
     n++;
+    const al = p&&p.alerta ? `<div class="po" style="color:var(--verm);font-weight:600">${p.alerta}</div>`:'';
+    const ob = p&&p.obs ? `<div class="po">${p.obs}</div>`:'';
     html+=`<div class="passo ${cls}"><div class="pn">Passo ${n}</div><h3>${tit}</h3>
       <div class="pq">${qtd}</div>${eq?`<div class="pe2">${eq}</div>`:''}
-      ${p?`<div class="pp">${p.m} — ${p.n} · ${p.e} ${selo(p)}</div>`:''}
-      ${extra||''}${obs?`<div class="po">${obs}</div>`:''}</div>`;
-    if(p) receita.push({cod:p.c, nome:`${p.m} — ${p.n}`, qtd});
+      ${p?`<div class="pp">${p.m} — ${p.n} · ${p.e} ${selo(p)}${p.ativo?`<br><span style="font-weight:400;color:var(--txt2)">${p.ativo}</span>`:''}</div>`:''}
+      ${obs?`<div class="po">${obs}</div>`:''}${ob}${al}</div>`;
+    if(p) receita.push({cod:p.c,nome:`${p.m} — ${p.n}`,qtd});
   };
-  const semDose = p =>
-    `<div class="pq" style="font-size:17px;color:var(--amar)">Consultar o rótulo</div>
-     <div class="pe2">Este produto não tem dosagem publicada pelo fabricante. Peça a ficha técnica.</div>`;
+  const semDose=(tit,p)=>{
+    n++;
+    html+=`<div class="passo at"><div class="pn">Passo ${n}</div><h3>${tit}</h3>
+      <div class="pq" style="font-size:17px;color:var(--amar)">Consultar o rótulo</div>
+      <div class="pe2">Este produto não tem dosagem publicada. Peça a ficha técnica ao fabricante.</div>
+      <div class="pp">${p.m} — ${p.n} · ${p.e} ${selo(p)}</div></div>`;
+  };
 
-  /* --- dose de cloro conforme o tipo --- */
-  function doseCloro(p, choque, mult){
-    const f = FN[p.fn], pct = Math.max(1, +k_pct.value || p.pct);
-    const base = choque ? (p.choque || f.choque) : f.manut;
-    const g = base * mil * (f.refPct/pct) * (mult||1);
+  function doseCloro(c,choque,mult){
+    const pct=Math.max(1,+k_pct.value||c.pct);
+    if(c.porLitros){
+      const past=Math.max(1,Math.ceil(volCalc/c.porLitros));
+      return {txt:`${nBR(past)} pastilha${past>1?'s':''}`,
+              eq:`1 pastilha para cada ${nBR(c.porLitros)} litros · dura até ${c.dias} dias no clorador flutuante`};
+    }
+    const base = choque ? (c.choque||BASE_CHOQUE) : (c.manut||BASE_MANUT);
+    const g = base*mil*(BASE_PCT/pct)*(mult||1);
     let eq='';
-    if(p.past && !p.kg){ eq = `≈ ${nBR(Math.max(1,Math.ceil(g/p.past)))} pastilha(s) de ${p.past} g`; }
-    else if(p.kg){ eq = g/1000/p.kg >= .1 ? `≈ ${nBR(g/1000/p.kg,2)} embalagem(ns) de ${p.kg} kg`
-                                          : `≈ ${nBR(g/1000/p.kg*100,1)}% de uma embalagem de ${p.kg} kg`; }
-    return {txt: fmt(g, f.liq?'ml':'g'), eq};
+    if(c.kg) eq = g/1000/c.kg>=.1 ? `≈ ${nBR(g/1000/c.kg,2)} embalagem(ns) de ${c.kg} kg`
+                                  : `≈ ${nBR(g/1000/c.kg*100,1)}% de uma embalagem de ${c.kg} kg`;
+    return {txt:fmt(g,c.liq?'ml':'g'),eq};
   }
 
   if(window._mk==='m'){
-    const cl = byCod(k_cloro.value), d = doseCloro(cl,false);
-    passo('ok','Cloro de manutenção', d.txt, d.eq,
-      'Aplicar 1× por semana, no fim do dia, com a bomba ligada.', cl);
-
-    const a = byCod(k_alg.value);
-    passo('ok','Algicida de manutenção', fmt(FN.alg_manut.dose*mil,'ml'),'',
-      'Aplicar 1× por semana, junto com o cloro. Previne o aparecimento de algas.', a);
-
-    const c2 = byCod(k_clar.value);
-    passo('ok','Clarificante', fmt(FN.clarif.dose*mil,'ml'),'',
-      'Aplicar 1× por semana. Junta a sujeira fina para o filtro conseguir reter.', c2);
-
-    html+=`<div class="aviso" style="background:var(--agua);color:var(--azul)">🔬 <b>Meça toda semana:</b> cloro 1 a 3 ppm, pH 7,2 a 7,6, alcalinidade 80 a 120 ppm. Fora disso, use a aba <b>Corrigir água</b>.</div>`;
+    const c=acha(CLORO,k_cloro.value), d=doseCloro(c,false);
+    passo('ok','Cloro de manutenção',d.txt,d.eq,
+      c.porLitros?'Coloque a pastilha no clorador flutuante. Mantenha o cloro residual entre 1 e 3 ppm.'
+                 :'Aplicar 1× por semana, no fim do dia, com a bomba ligada. Sempre diluir antes.',c);
+    const a=acha(ALG_M,k_alg.value);
+    passo('ok','Algicida de manutenção',fmt(a.d*mil,'ml'),`${nBR(a.d)} ml por 1.000 litros`,
+      'Aplicar 1× por semana. Nunca direto na piscina — diluir num balde com bastante água.',a);
+    const cl=acha(CLARIF,k_clar.value);
+    passo('ok','Clarificante',fmt(cl.d*mil,'ml'),`${nBR(cl.d,1)} ml por 1.000 litros`,
+      'Aplicar 1× por semana, com a filtração ligada.',cl);
+    html+=`<div class="aviso" style="background:var(--agua);color:var(--azul)">🔬 <b>Meça toda semana:</b> cloro ${IDEAL.clMin} a ${IDEAL.clMax} ppm, pH ${nBR(IDEAL.phMin,1)} a ${nBR(IDEAL.phMax,1)} e alcalinidade ${IDEAL.alcMin} a ${IDEAL.alcMax} ppm. Fora disso, use a aba <b>Corrigir água</b>.</div>`;
   } else {
     const cl=+k_cl.value, ph=+k_ph.value, alc=+k_alc.value, asp=k_asp.value;
 
-    /* 1. ALCALINIDADE */
-    if(alc<80){
-      const p=byCod(k_alcup.value), f=FN.alc_up;
-      const g=((80-alc)/f.passo)*f.porPasso*mil;
-      passo('at','Corrigir a alcalinidade — antes de tudo', fmt(g,f.un),
-        `Para subir ${nBR(80-alc)} ppm (de ${nBR(alc)} para 80)`,
-        'Dilua num balde antes de jogar. Espere 6 h com a bomba ligada e meça de novo. <b>Só depois mexa no pH.</b>', p);
-    } else if(alc>120){
-      const p=byCod(k_alcdn.value), f=FN.alc_down;
-      const v=((alc-120)/f.passo)*f.porPasso*mil;
-      passo('at','Baixar a alcalinidade — antes de tudo', fmt(v,f.un),
-        `Para reduzir ${nBR(alc-120)} ppm (de ${nBR(alc)} para 120)`,
-        'Aplique aos poucos, em pontos diferentes, com a bomba ligada. Meça após 6 h.', p);
-    } else passo('ok','Alcalinidade está boa', nBR(alc)+' ppm','Dentro de 80 a 120 ppm','Pode seguir para o pH.',null);
+    /* 1) ALCALINIDADE */
+    if(alc<IDEAL.alcMin){
+      const p=acha(ALC_UP,k_alcup.value), g=((IDEAL.alcMin-alc)/p.passo)*p.porPasso*mil;
+      passo('at','Corrigir a alcalinidade — antes de tudo',fmt(g,'g'),
+        `Para subir ${nBR(IDEAL.alcMin-alc)} ppm (de ${nBR(alc)} para ${IDEAL.alcMin})`,
+        'Dilua num balde antes de jogar. Espere 6 h com a bomba ligada e meça de novo. <b>Só depois mexa no pH.</b>',p);
+    } else if(alc>IDEAL.alcMax){
+      const p=acha(PH_DN,k_alcdn.value);
+      if(p.alcPorPasso){
+        const v=((alc-IDEAL.alcMax)/p.alcPasso)*p.alcPorPasso*mil;
+        passo('at','Baixar a alcalinidade — antes de tudo',fmt(v,'ml'),
+          `${nBR(p.alcPorPasso)} ml por m³ a cada 10 ppm — reduzir ${nBR(alc-IDEAL.alcMax)} ppm`,
+          'Dissolva num balde, espalhe na superfície e recircule 1 h. Meça de novo no dia seguinte.',p);
+      } else semDose('Baixar a alcalinidade',p);
+    } else passo('ok','Alcalinidade está boa',nBR(alc)+' ppm',`Dentro de ${IDEAL.alcMin} a ${IDEAL.alcMax} ppm`,'Pode seguir para o pH.',null);
 
-    /* 2. pH */
-    if(ph<7.2){
-      const p=byCod(k_phup.value), f=FN[p.fn];
-      if(f.porPasso){
-        const g=((7.4-ph)/f.passo)*f.porPasso*mil;
-        passo('at','Subir o pH', fmt(g,f.un), `De ${nBR(ph,1)} até 7,4`,
-          'Dilua em água antes de aplicar. Espere 4 h e meça de novo.', p);
-      } else { n++; html+=`<div class="passo at"><div class="pn">Passo ${n}</div><h3>Subir o pH</h3>${semDose(p)}<div class="pp">${p.m} — ${p.n} · ${p.e} ${selo(p)}</div></div>`; receita.push({cod:p.c,nome:`${p.m} — ${p.n}`,qtd:'conforme rótulo'}) }
-    } else if(ph>7.6){
-      const p=byCod(k_phdn.value), f=FN[p.fn];
-      if(f.porPasso){
-        const v=((ph-7.4)/f.passo)*f.porPasso*mil;
-        passo('at','Baixar o pH', fmt(v,f.un), `De ${nBR(ph,1)} até 7,4`,
-          '⚠️ Nunca misture ácido com cloro. Aplique separado e aguarde 4 h antes de clorar.', p);
-      } else { n++; html+=`<div class="passo at"><div class="pn">Passo ${n}</div><h3>Baixar o pH</h3>${semDose(p)}<div class="pp">${p.m} — ${p.n} · ${p.e} ${selo(p)}</div></div>`; receita.push({cod:p.c,nome:`${p.m} — ${p.n}`,qtd:'conforme rótulo'}) }
-    } else passo('ok','pH está bom', nBR(ph,1),'Dentro de 7,2 a 7,6','Nenhuma correção necessária.',null);
+    /* 2) pH */
+    if(ph<IDEAL.phMin){
+      const p=acha(PH_UP,k_phup.value);
+      if(p.faixas){
+        const fx=p.faixas.find(f=>ph>=f[0]&&ph<f[1]) || p.faixas[p.faixas.length-1];
+        passo('at','Subir o pH',fmt(fx[2]*mil,'ml'),
+          `${nBR(fx[2])} ml por m³ — faixa de pH ${nBR(fx[0],1)} a ${nBR(fx[1],1)} no rótulo`,
+          'Dissolva num recipiente com a água da própria piscina, com a filtração ligada. Filtre 2 h e meça no dia seguinte.',p);
+      } else if(p.porPasso){
+        const g=((IDEAL.phAlvo-ph)/p.passo)*p.porPasso*mil;
+        passo('at','Subir o pH',fmt(g,p.un),`De ${nBR(ph,1)} até ${nBR(IDEAL.phAlvo,1)}`,
+          'Dilua em água antes de aplicar. Espere 4 h e meça de novo.',p);
+      } else semDose('Subir o pH',p);
+    } else if(ph>IDEAL.phMax){
+      const p=acha(PH_DN,k_phdn.value);
+      if(p.faixas){
+        const fx=p.faixas.find(f=>ph>=f[0]&&ph<f[1]) || p.faixas[p.faixas.length-1];
+        passo('at','Baixar o pH',fmt(fx[2]*mil,'ml'),
+          `${nBR(fx[2])} ml por m³ — faixa de pH ${nBR(fx[0],1)} a ${fx[1]>90?'acima':nBR(fx[1],1)} no rótulo`,
+          '⚠️ Nunca misture com cloro. Dissolva num balde, espalhe na superfície e recircule 1 h.',p);
+      } else if(p.porPasso){
+        const v=((ph-IDEAL.phAlvo)/p.passo)*p.porPasso*mil;
+        passo('at','Baixar o pH',fmt(v,p.un),`De ${nBR(ph,1)} até ${nBR(IDEAL.phAlvo,1)}`,
+          '⚠️ Nunca misture ácido com cloro. Aplique separado e aguarde 4 h antes de clorar.',p);
+      } else semDose('Baixar o pH',p);
+    } else passo('ok','pH está bom',nBR(ph,1),`Dentro de ${nBR(IDEAL.phMin,1)} a ${nBR(IDEAL.phMax,1)}`,'Nenhuma correção necessária.',null);
 
-    /* 3. CLORO */
-    const cp=byCod(k_cloro.value);
+    /* 3) CLORO */
+    const cp=acha(CLORO,k_cloro.value);
     if(asp==='verde'||asp==='muitoverde'){
       const d=doseCloro(cp,true,asp==='muitoverde'?3:2);
-      passo('ur','Supercloração (choque)', d.txt, d.eq,
-        'Aplicar ao entardecer, bomba ligada. Filtrar 24 a 48 h sem ninguém na água. Depois aspire o fundo.', cp);
-      const ac=byCod(k_algch.value);
-      passo('ur','Algicida de choque', fmt(FN.alg_choque.dose*mil,'ml'),'',
-        'Aplicar junto com a supercloração.', ac);
-    } else if(cl<1){
+      passo('ur','Supercloração (choque)',d.txt,d.eq,
+        'Aplicar ao entardecer, bomba ligada. Filtrar 24 a 48 h sem ninguém na água. Depois aspire o fundo.',cp);
+      const ac=acha(ALG_C,k_algch.value);
+      passo('ur','Algicida de choque',fmt(ac.d*mil,'ml'),`${nBR(ac.d)} ml por 1.000 litros`,
+        'Escove as paredes e o fundo antes. Dilua num balde com água da piscina.',ac);
+    } else if(cl<IDEAL.clMin){
       const d=doseCloro(cp,true,(2-cl)/2);
-      passo('at','Repor o cloro', d.txt, `Cloro em ${nBR(cl,1)} ppm — subir para cerca de 2 ppm`,
-        'Aplicar no fim do dia, com a bomba ligada. Meça no dia seguinte.', cp);
-    } else if(cl>3){
-      passo('at','Cloro acima do ideal', nBR(cl,1)+' ppm','Faixa: 1 a 3 ppm',
+      passo('at','Repor o cloro',d.txt,`Cloro em ${nBR(cl,1)} ppm — subir para cerca de 2 ppm`,
+        'Aplicar no fim do dia, com a bomba ligada. Meça no dia seguinte.',cp);
+    } else if(cl>IDEAL.clMax){
+      passo('at','Cloro acima do ideal',nBR(cl,1)+' ppm',`Faixa: ${IDEAL.clMin} a ${IDEAL.clMax} ppm`,
         'Não aplique mais cloro. Deixe baixar com a filtração e o sol.',null);
-    } else passo('ok','Cloro está bom', nBR(cl,1)+' ppm','Dentro de 1 a 3 ppm','Mantenha a dose semanal.',null);
+    } else passo('ok','Cloro está bom',nBR(cl,1)+' ppm',`Dentro de ${IDEAL.clMin} a ${IDEAL.clMax} ppm`,'Mantenha a dose semanal.',null);
 
-    /* 4. TURVA */
+    /* 4) TURVA */
     if(asp==='turva'){
-      const c2=byCod(k_clar.value);
-      passo('at','Clarificar a água turva', fmt(FN.clarif.choqueDose*mil,'ml'),'',
-        'Bomba ligada, filtrar 12 h e aspirar o fundo devagar, sem revolver o depósito.', c2);
+      const c2=acha(CLARIF,k_clar.value);
+      if(c2.dTurva){
+        const a=c2.dTurva[0]*mil, b=c2.dTurva[1]*mil;
+        const txt = a===b ? fmt(b,'ml') : `${fmt(a,'ml')} a ${fmt(b,'ml')}`;
+        passo('at','Clarificar a água turva',txt,
+          a===b?`${nBR(c2.dTurva[1])} ml por m³ (ação floculante)`:`${nBR(c2.dTurva[0])} a ${nBR(c2.dTurva[1])} ml por m³ (decantação)`,
+          'Com a filtração ligada. Depois deixe em repouso e aspire o fundo drenando, sem revolver o depósito.',c2);
+      } else {
+        passo('at','Clarificar a água turva',fmt(c2.d*mil,'ml'),`${nBR(c2.d,1)} ml por 1.000 litros`,
+          'Com a filtração ligada.',c2);
+      }
     }
     pintaFaixas(cl,ph,alc);
   }
@@ -1472,9 +1465,10 @@ function pintaFaixas(cl,ph,alc){
     const ok=val>=min&&val<=max, cls=ok?'v':(val<min?'a':'r'), txt=ok?'Ideal':(val<min?'Baixo':'Alto');
     return `<div class="kf"><small>${rot}</small><b>${nBR(val,dec)} ${un}</b><span class="tag ${cls}">${txt}</span></div>`;
   };
-  kfx.innerHTML=f('Cloro livre',cl,'ppm',1,3)+f('pH',ph,'',7.2,7.6)+f('Alcalinidade',alc,'ppm',80,120,0);
+  kfx.innerHTML=f('Cloro livre',cl,'ppm',IDEAL.clMin,IDEAL.clMax)
+              +f('pH',ph,'',IDEAL.phMin,IDEAL.phMax)
+              +f('Alcalinidade',alc,'ppm',IDEAL.alcMin,IDEAL.alcMax,0);
 }
-
 function addReceita(){
   if(!receita.length){ toast('Informe o volume da piscina primeiro.'); return }
   toast('No sistema publicado, isso monta o carrinho com estes produtos.');
